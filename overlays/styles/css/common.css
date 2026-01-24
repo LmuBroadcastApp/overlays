@@ -10,23 +10,37 @@ img
     vertical-align: middle;
 }
 
+#gradient-background
+{
+    width: 40%;
+    height: 100%;
+
+    position: absolute;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0));
+}
+
 /** Apply to all elements (padding is taken from the inner bounds) */
 * { box-sizing: border-box; }
 
 /**********************************************************************************************************************/
 
-.penalty-tooltip
-{
-    position: absolute;
-}
-
-.penalty-tooltip .penalty-style
+.penalty-style
 {
     background-color: red;
     color: white;
 
-    padding-right: 2px;
-    padding-left: 2px;
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-left: 2px;
+}
+
+.vehicle-in-pits
+{
+    background-color: orange;
+    color: black;
+
+    padding-right: 3px;
+    padding-left: 3px;
     margin-left: 2px;
 }
 
@@ -42,13 +56,13 @@ img
 
 .color-selected
 {
-    background-color: rgba(250, 129, 18, 1.0);
+    background-color: rgba(250, 129, 18, 1.0) !important;
     text-align: center;
 }
 
 .color-best-lap
 {
-    background-color: rgba(177, 83, 215, 1.0);
+    background-color: rgba(177, 83, 215, 1.0) !important;
     text-align: center;
 }
 

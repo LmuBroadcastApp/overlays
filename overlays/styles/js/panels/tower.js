@@ -10,7 +10,6 @@ class TowerPanel
     clear()
     {
         $(this.element_id).empty();
-        $('.penalty-tooltip').remove();
     }
 
     setControls(controls)
@@ -64,37 +63,48 @@ class TowerPanel
         return bestLap;
     }
 
-    showPenalty(standings)
+    addRaceFlags(vehicle)
     {
-        let elArray = $("*[class*='class-penalty-']");
-        let penaltyElements = "";
+        let flag_txt = "";
 
-        for (var a = 0; a < elArray.length; a++)
+        if (vehicle.in_pits && vehicle.status != "Finished" && vehicle.status != "DNF" && vehicle.status != "DQ")
         {
-            let vehicleId = elArray[a].className.match(/class-penalty-(\d+)/)[1];
-            let bounds = this.getPositionEndOf(elArray[a]);
-
-            for (const [c, v] of standings)
-            {
-                for (const vehicle of v)
-                {
-                    if (vehicle.vehicle_number == vehicleId)
-                    {
-                        let penalty_txt = "";
-
-                        if (vehicle.penalties.drive_through > 0)
-                            penalty_txt = "<span class='penalty-style'>DT</span>";
-                        if (vehicle.penalties.stop_and_go > 0)
-                            penalty_txt += "<span class='penalty-style'>SG</span>";
-                        if (vehicle.penalties.time_penalty > 0)
-                            penalty_txt += "<span class='penalty-style'>+" + vehicle.penalties.time_penalty + "</span>";
-
-                        penaltyElements += `<div class="penalty-tooltip" style="top: ${bounds.bottom}px; left: ${bounds.right}px; height: ${bounds.height}">${penalty_txt}</div>`;
-                    }
-                }
-            }
-            $('body').prepend(penaltyElements);
+            flag_txt += "<span class='vehicle-in-pits'>PIT</span>";
         }
+
+        if (vehicle.status == "Finished")
+        {
+            flag_txt = "<span><img alt='finish-flag' height='23' src='styles/img/others/flag_finish.jpg'/></span>";
+        }
+
+        return flag_txt == "" ? "" : `<td>${flag_txt}</td>`;
+    }
+
+    addPenalty(vehicle)
+    {
+        let penalty_txt = "";
+
+        if (vehicle.status == "DNF" || vehicle.status == "DQ")
+        {
+            return "";
+        }
+
+        if (vehicle.penalties.drive_through > 0)
+        {
+            penalty_txt += "<span class='penalty-style'>DT</span>";
+        }
+
+        if (vehicle.penalties.stop_and_go > 0)
+        {
+            penalty_txt += "<span class='penalty-style'>SG</span>";
+        }
+
+        if (vehicle.penalties.time_penalty > 0)
+        {
+            penalty_txt += "<span class='penalty-style'>+" + vehicle.penalties.time_penalty + "</span>";
+        }
+
+        return penalty_txt == "" ? "" : `<td>${penalty_txt}</td>`;
     }
 
     createRow(vehicle, position, isRace, tableRow, bestLap, rightColumn)
@@ -103,14 +113,9 @@ class TowerPanel
         let gap = VehicleGetGap(vehicle, this.controls);
         let fuel_ve = GetVehicleFuelVe(vehicle);
 
-        let selected_color = "vehicle-position";
+        let selected_color = "";
         let penalty_txt = ""; let has_penalty = "";
         let row_color = tableRow % 2 === 0 ? "colored-row-2" : "colored-row-1";
-
-        if (this.hasPenalty(vehicle))
-        {
-            has_penalty = "class='class-penalty-" + vehicle.vehicle_number + "'";
-        }
 
         if (vehicle.slot_id === bestLap.id)
         {
@@ -122,29 +127,33 @@ class TowerPanel
         }
 
         let right_column_content = "";
-        let tr = `<tr ${has_penalty}>
-                    <td class="${selected_color}">${position}</td>
-                    <td class="vehicle-driver ${row_color}">${name}</td>
+        let tr = `<tr>
+                    <td class="vehicle-position ${selected_color}">${position}</td>
+                    <td class="vehicle-driver ${row_color}"><span class="vehicle-driver-truncate-text">${name}</span></td>
                     <td class="vehicle-logo ${row_color}"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
                     <td class="vehicle-number ${row_color}">#${vehicle.vehicle_number}</td>
                     <td class="vehicle-gap ${row_color}">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->
+                    <!-- {RACE_FLAGS} -->
+                    <!-- {ADD_PENALTIES} -->
                 </tr>`;
 
         if (rightColumn == "energy")
         {
-            right_column_content = `<td class="vehicle-ve ${row_color}" ${fuel_ve.style}>${fuel_ve.text}</td>`;
+            right_column_content = `<td class="vehicle-right-column ${row_color}" ${fuel_ve.style}>${fuel_ve.text}</td>`;
         }
         else if (rightColumn == "time")
         {
-            right_column_content = `<td class="vehicle-time ${row_color}">${LaptimeToString(vehicle.best_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column ${row_color}">${LaptimeToString(vehicle.best_lap)}</td>`;
         }
         else if (rightColumn == "tyres")
         {
-            right_column_content = `<td class="${row_color}">N/A</td>`;
+            right_column_content = `<td class="vehicle-right-column ${row_color}">N/A</td>`;
         }
 
         tr = tr.replace("<!-- {RIGHT_COLUMNS} -->", right_column_content);
+        tr = tr.replace("<!-- {RACE_FLAGS} -->", this.addRaceFlags(vehicle));
+        tr = tr.replace("<!-- {ADD_PENALTIES} -->", this.addPenalty(vehicle));
         return tr;
     }
 
@@ -211,7 +220,7 @@ class TowerPanel
                             <span>${LaptimeToString(bestLap.lap)}</span>
                         </div>
                      </th>
-                    <th class='generic_class'>${tag}</th>
+                    <th class='generic_class vehicle-right-column'>${tag}</th>
                 </tr>
             </thead><tbody>`;
 
@@ -266,8 +275,7 @@ class TowerPanel
         }
 
         $(this.element_id).append(table);
-        this.showPenalty(standings);
     }
 }
 
-var tower_panel = new TowerPanel("#tower-panel-standings");
+var tower_panel = new TowerPanel("#tower-panel");

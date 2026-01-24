@@ -49,4 +49,4 @@ class SessionPanel
     }
 }
 
-var session_panel = new SessionPanel("#tower-panel-session");
+var session_panel = new SessionPanel("#session-panel");

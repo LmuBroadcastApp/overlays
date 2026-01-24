@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="styles/css/tower_panel.css"/>
         <link rel="stylesheet" href="styles/css/driver_panel.css"/>
         <link rel="stylesheet" href="styles/css/weather_panel.css"/>
+        <link rel="stylesheet" href="styles/css/session_panel.css"/>
 
         <script src="styles/js/utils/jquery.js"></script>
         <script src="styles/js/utils/network.js"></script>
@@ -38,25 +39,21 @@
                 weather_panel.update(game_session.get());
             }, 500);
         </script>
+        <div id="gradient-background"/>
+
+        <div id="session-panel">
+            <div class="session-container">
+                <div class="session-time"></div>
+                <div class="session-flag"></div>
+            </div>
+            <hr />
+            <div class="session-container">
+                <div class="session-track"></div>
+                <div class="session-name"></div>
+            </div>
+        </div>
 
         <div id="tower-panel">
-            <div id="tower-panel-session">
-                <div class="session-container">
-                    <div class="session-time"></div>
-                    <div class="session-flag"></div>
-                </div><hr />
-                <div class="session-container">
-                    <div class="session-track"></div>
-                    <div class="session-name"></div>
-                </div>
-            </div>
-
-            <div id="tower-panel-standings">
-
-                <template id="tower-panel-standings-row-template">
-                    <tr><td>{}</td></tr>
-                </template>
-            </div>
         </div>
 
         <div id="driver-panel">
