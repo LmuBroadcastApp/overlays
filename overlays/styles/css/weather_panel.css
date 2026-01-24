@@ -1,0 +1,43 @@
+#weather-panel
+{
+    position: fixed;
+    display: flex;
+    right: 1em;
+    top: 1em;
+}
+
+.weather-item
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 2px;
+    width: 48px;
+}
+
+.weather-time
+{
+    background-color: rgba(248, 249, 250, 0.9);
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.weather-icon
+{
+    background-color: rgba(33, 37, 41, 0.9);
+    height: 50%;
+}
+
+.weather-icon img
+{
+    height: 48px;
+}
+
+.weather-temp
+{
+    background-color: rgba(248, 249, 250, 0.9);
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}

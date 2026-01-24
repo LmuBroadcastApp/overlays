@@ -1,0 +1,156 @@
+function float2int (value)
+{
+    return value | 0;
+}
+
+function LaptimeToString(laptime)
+{
+    if (laptime == null || laptime <= 0.1)
+    {
+        return "--:--:---";
+    }
+
+    let m = 0; let s = 0;
+    let ms = laptime * 1000.0;
+
+    if (ms >= 1000)
+    {
+        s = ms / 1000;  // seconds
+        ms %= 1000;     // remaining milliseconds
+
+        m = s / 60;     // minutes
+        s %= 60;        // remaining seconds
+    }
+
+    m  = float2int(m);
+    s  = float2int(s);
+    ms = float2int(ms);
+
+    const formattedM  =  m.toString().padStart(2, '0');
+    const formattedS  =  s.toString().padStart(2, '0');
+    const formattedMs = ms.toString().padStart(3, '0');
+
+    return `${formattedM}:${formattedS}:${formattedMs}`;
+}
+
+function VehicleGetName(vehicle, controls)
+{
+    if (controls.nameSource.toLowerCase() == "team")
+    {
+        return vehicle.vehicle_name;
+    }
+
+    if (controls.driverName.toLowerCase() == "full") return vehicle.driver;
+    let names = vehicle.driver.split(" ");
+
+    if (names.length > 1)
+    {
+        return names[0].substring(0, 1) + ". " + names[names.length - 1];
+    }
+
+    return vehicle.driver;
+}
+
+function VehicleGetGap(vehicle, controls, isRace)
+{
+    let gap = -1;
+
+    if (controls.gapMode.toLowerCase() == "leader")
+    {
+        if (isRace && vehicle.laps_behind_class_leader > 0)
+        {
+            gap = vehicle.laps_behind_class_leader + "L";
+        }
+        else
+        {
+            gap = vehicle.delta_to_class_leader.toFixed(1);
+        }
+    }
+    else
+    {
+        if (isRace && vehicle.laps_behind_next > 0)
+        {
+            gap = vehicle.laps_behind_next + "L";
+        }
+        else
+        {
+            gap = vehicle.delta_to_next.toFixed(1);
+        }
+    }
+
+    if (!isRace)
+    {
+        gap = vehicle.delta_to_class_leader.toFixed(1);
+        if (gap < 0) gap = "-";
+    }
+
+    if (vehicle.status == "DQ" || vehicle.status == "DNF")
+    {
+        gap = vehicle.status;
+    }
+
+    return gap;
+}
+
+function GetVehicleFuelVe(vehicle)
+{
+    let result = { style: "", text: "" };
+    let amount = 0;
+
+    if (vehicle.ve < 0)
+    {
+        amount = vehicle.telemetry.fuel;
+        result.text = vehicle.telemetry.fuel.toFixed(0) + "L";
+    }
+    else
+    {
+        amount = vehicle.ve;
+        result.text = vehicle.ve.toFixed(0) + "%";
+    }
+
+    if (amount < 10)
+    {
+        result.style = 'style="color: rgb(249, 87, 56)"';
+    }
+    else if (amount < 30)
+    {
+        result.style = 'style="color: rgb(244, 211, 94)"';
+    }
+
+    return result;
+}
+
+function CSSClassFromVehicleClass(className)
+{
+    switch (className.toLowerCase())
+    {
+        case "gt3":
+        {
+            return "GT3";
+        }
+        case "gte":
+        {
+            return "GTE";
+        }
+        case "lmp2":
+        {
+            return "LMP2";
+        }
+        case "lmp3":
+        {
+            return "LMP3";
+        }
+        case "hyper":
+        {
+            return "Hyper";
+        }
+        case "lmp2_elms":
+        {
+            return "LMP2_ELMS";
+        }
+        default:
+        {
+            return "generic_class";
+        }
+    }
+}

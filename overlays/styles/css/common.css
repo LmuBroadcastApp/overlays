@@ -1,0 +1,55 @@
+
+body
+{
+    font-family: 'Titillium Web', 'sans-serif';
+    margin: 0; padding: 0;
+}
+
+img
+{
+    vertical-align: middle;
+}
+
+/** Apply to all elements (padding is taken from the inner bounds) */
+* { box-sizing: border-box; }
+
+/**********************************************************************************************************************/
+
+.penalty-tooltip
+{
+    position: absolute;
+}
+
+.penalty-tooltip .penalty-style
+{
+    background-color: red;
+    color: white;
+
+    padding-right: 2px;
+    padding-left: 2px;
+    margin-left: 2px;
+}
+
+.colored-row-1
+{
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.colored-row-2
+{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.color-selected
+{
+    background-color: rgba(250, 129, 18, 1.0);
+    text-align: center;
+}
+
+.color-best-lap
+{
+    background-color: rgba(177, 83, 215, 1.0);
+    text-align: center;
+}
+
+/**********************************************************************************************************************/

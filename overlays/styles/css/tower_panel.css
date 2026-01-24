@@ -1,0 +1,153 @@
+
+#tower-panel
+{
+    width: 400px;
+    height: 100dvh;
+
+    padding-top: 1em;
+    padding-left: 1em;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0));
+}
+
+/**********************************************************************************************************************/
+
+#tower-panel #tower-panel-session
+{
+    height: 6em;
+    width: 100%;
+
+    color: white;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+#tower-panel-session .session-container
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+#tower-panel-session .session-time
+{
+    font-size: 1.5em;
+}
+
+#tower-panel-session .session-container .session-flag
+{
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+    color: yellow;
+}
+
+/**********************************************************************************************************************/
+
+#tower-panel #tower-panel-standings table
+{
+    width: 100%;
+    color: white;
+
+    margin-bottom: 5px;
+    border-spacing: 0 1px;
+    border-collapse: separate;
+}
+
+#tower-panel #tower-panel-standings table td
+{
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#tower-panel-standings .generic_class
+{
+    background-color: rgba(79, 93, 117, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .GT3
+{
+    background-color: rgba(0, 143, 55, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .GTE
+{
+    background-color: rgba(240, 140, 0, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .LMP2
+{
+    background-color: rgba(6, 75, 145, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .LMP3
+{
+    background-color: rgba(58, 25, 74, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .Hyper
+{
+    background-color: rgba(171, 24, 20, 1.0);
+    color: white;
+}
+
+#tower-panel-standings .LMP2_ELMS
+{
+    background-color: rgba(190, 74, 9, 1.0);
+    color: white;
+}
+
+/**********************************************************************************************************************/
+
+#tower-panel-standings .vehicle-position
+{
+    background-color: rgba(79, 93, 117, 1.0);
+    text-align: center;
+    color: white;
+    width: 10%;
+}
+
+#tower-panel-standings .vehicle-driver
+{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#tower-panel-standings .vehicle-logo
+{
+    text-align: center;
+    width: 10%;
+}
+
+#tower-panel-standings .vehicle-number
+{
+    text-align: center;
+    width: 12%;
+}
+
+#tower-panel-standings .vehicle-gap
+{
+    text-align: center;
+    width: 12%;
+}
+
+#tower-panel-standings .vehicle-ve
+{
+    border-left: 2px solid rgba(200, 200, 200, 0.3);
+    text-align: center;
+    width: 12%;
+}
+
+#tower-panel-standings .vehicle-time
+{
+    border-left: 2px solid rgba(200, 200, 200, 0.3);
+    text-align: center;
+    width: 21%;
+}
+
+/**********************************************************************************************************************/

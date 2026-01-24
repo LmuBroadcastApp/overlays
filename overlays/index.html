@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>LMU TV Overlay</title>
+
+        <meta name="viewport" content="width=100%, height=100%, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"  rel="stylesheet">
+
+        <link rel="stylesheet" href="styles/css/common.css"/>
+        <link rel="stylesheet" href="styles/css/tower_panel.css"/>
+        <link rel="stylesheet" href="styles/css/driver_panel.css"/>
+        <link rel="stylesheet" href="styles/css/weather_panel.css"/>
+
+        <script src="styles/js/utils/jquery.js"></script>
+        <script src="styles/js/utils/network.js"></script>
+        <script src="styles/js/utils/standings.js"></script>
+        <script src="styles/js/utils/auto_shrink_text.js"></script>
+
+        <script src="styles/js/game/session.js"></script>
+        <script src="styles/js/game/controls.js"></script>
+        <script src="styles/js/game/standings.js"></script>
+
+        <script src="styles/js/panels/session.js"></script>
+        <script src="styles/js/panels/weather.js"></script>
+        <script src="styles/js/panels/driver.js"></script>
+        <script src="styles/js/panels/tower.js"></script>
+    </head>
+
+    <body>
+        <script>
+            setInterval(() => {
+                tower_panel.setControls(overlays_controls.get());
+                tower_panel.updateByClass(game_standings.getByClasses(), game_session.get());
+
+                driver_panel.update(game_standings.getFocus())
+                session_panel.update(game_session.get());
+                weather_panel.update(game_session.get());
+            }, 500);
+        </script>
+
+        <div id="tower-panel">
+            <div id="tower-panel-session">
+                <div class="session-container">
+                    <div class="session-time"></div>
+                    <div class="session-flag"></div>
+                </div><hr />
+                <div class="session-container">
+                    <div class="session-track"></div>
+                    <div class="session-name"></div>
+                </div>
+            </div>
+
+            <div id="tower-panel-standings">
+
+                <template id="tower-panel-standings-row-template">
+                    <tr><td>{}</td></tr>
+                </template>
+            </div>
+        </div>
+
+        <div id="driver-panel">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="driver-vehicle-position" rowspan="2" style="width: 20%;"></td>
+                    <td class="driver-panel-name" colspan="3" style="width: 60%;"></td>
+                    <td class="driver-vehicle-numer" rowspan="2" style="width: 20%;"></td>
+                </tr>
+                <tr>
+                    <td class="driver-panel-team" colspan="3" style="width: 60%;"></td>
+                </tr>
+                    <tr>
+                        <td class="driver-vehicle-class" style="width: 20%; text-align: center;"></td>
+
+                        <td style="width: 20%; text-align: center;">Last</td>
+                        <td class="driver-panel-last-lap" style="width: 20%; text-align: center;"></td>
+
+                        <td style="width: 20%; text-align: center;">Best</td>
+                        <td class="driver-panel-best-lap" style="width: 20%; text-align: center;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="weather-panel"></div>
+    </body>
+</html>
