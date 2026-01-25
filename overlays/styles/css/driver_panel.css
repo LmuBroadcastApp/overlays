@@ -39,12 +39,16 @@
 {
     font-weight: bold;
     text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 #driver-panel .driver-panel-team
 {
     font-weight: lighter;
     text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 #driver-panel .driver-vehicle-numer

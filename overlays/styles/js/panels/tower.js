@@ -95,7 +95,7 @@ class TowerPanel
     createRow(vehicle, position, isRace, tableRow, bestLap, rightColumn)
     {
         let name = VehicleGetName(vehicle, this.controls, isRace);
-        let gap = VehicleGetGap(vehicle, this.controls);
+        let gap = VehicleGetGap(vehicle, this.controls, isRace);
         let fuel_ve = GetVehicleFuelVe(vehicle);
 
         let selected_color = "";
@@ -166,6 +166,7 @@ class TowerPanel
     {
         let table = "";
         let table_row = 1;
+        let gap_txt = "GAP";
 
         let isRace = renderInfo.isRace;
         let rightColumn = renderInfo.rightColumn;
@@ -180,6 +181,11 @@ class TowerPanel
         let tag = GetRightColumnName(rightColumn, c);
         let bestLap = GetBestLapTime(v);
 
+        if (this.controls.gap_mode.toLowerCase() == "ahead")
+        {
+            gap_txt = "INT";
+        }
+
         let content = `<thead>
                 <tr>
                     <th>
@@ -188,7 +194,7 @@ class TowerPanel
                         ${c}
                     </th>
                      <th class="colored-row-1">
-                        INT
+                        ${gap_txt}
                      </th>
                     <th class="colored-row-1">${tag}</th>
                 </tr>
