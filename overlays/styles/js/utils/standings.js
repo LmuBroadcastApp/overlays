@@ -35,12 +35,12 @@ function LaptimeToString(laptime)
 
 function VehicleGetName(vehicle, controls)
 {
-    if (controls.nameSource.toLowerCase() == "team")
+    if (controls.name_source.toLowerCase() == "team")
     {
         return vehicle.vehicle_name;
     }
 
-    if (controls.driverName.toLowerCase() == "full") return vehicle.driver;
+    if (controls.driver_name.toLowerCase() == "full") return vehicle.driver;
     let names = vehicle.driver.split(" ");
 
     if (names.length > 1)
@@ -55,7 +55,7 @@ function VehicleGetGap(vehicle, controls, isRace)
 {
     let gap = -1;
 
-    if (controls.gapMode.toLowerCase() == "leader")
+    if (controls.gap_mode.toLowerCase() == "leader")
     {
         if (isRace && vehicle.laps_behind_class_leader > 0)
         {
@@ -218,9 +218,9 @@ function GetRightColumnName(rightColumn, vehicleClass)
             return vehicleClass.toLowerCase() === "gt3" || vehicleClass.toLowerCase() === "hyper" ? "NRG" : "FUEL";
         } break
 
-        case "tyres":
+        case "tires":
         {
-            return "TYRES";
+            return "TIRES";
         } break
 
         case "best":
