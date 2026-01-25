@@ -120,6 +120,60 @@ function GetVehicleFuelVe(vehicle)
     return result;
 }
 
+function GetBestLapTime(standings)
+{
+    let bestLap =
+        {
+            lap: null,
+            id : null
+        };
+
+    for (const vehicle of standings)
+    {
+        if (vehicle.best_lap > 0)
+        {
+            if (bestLap.lap === null || vehicle.best_lap < bestLap.lap)
+            {
+                bestLap.lap = vehicle.best_lap;
+                bestLap.id = vehicle.slot_id;
+            }
+        }
+    }
+
+    return bestLap;
+}
+
+function GetVehicleOfClass(standings, className)
+{
+    let vehicles = [];
+
+    for (const vehicle of standings)
+    {
+        if (vehicle.vehicle_class.toLowerCase() === className.toLowerCase())
+        {
+            vehicles.push(vehicle);
+        }
+    }
+
+    return vehicles;
+}
+
+function GetByClasses(standings)
+{
+    const perCategory = new Map();
+
+    for (const vehicle of standings)
+    {
+        if (!perCategory.has(vehicle.vehicle_class))
+        {
+            perCategory.set(vehicle.vehicle_class, []);
+        }
+        perCategory.get(vehicle.vehicle_class).push(vehicle);
+    }
+
+    return perCategory;
+}
+
 function CSSClassFromVehicleClass(className)
 {
     switch (className.toLowerCase())
@@ -152,5 +206,31 @@ function CSSClassFromVehicleClass(className)
         {
             return "generic_class";
         }
+    }
+}
+
+function GetRightColumnName(rightColumn, vehicleClass)
+{
+    switch (rightColumn.toLowerCase())
+    {
+        case "energy":
+        {
+            return vehicleClass.toLowerCase() === "gt3" || vehicleClass.toLowerCase() === "hyper" ? "NRG" : "FUEL";
+        } break
+
+        case "tyres":
+        {
+            return "TYRES";
+        } break
+
+        case "best":
+        {
+            return "BEST";
+        } break;
+
+        case "lat":
+        {
+            return "LAST";
+        } break;
     }
 }

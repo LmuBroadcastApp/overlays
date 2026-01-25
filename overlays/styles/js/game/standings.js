@@ -16,22 +16,6 @@ class Standings
         this.standings = standings;
     }
 
-    getByClasses()
-    {
-        const perCategory = new Map();
-
-        for (const vehicle of this.standings)
-        {
-            if (!perCategory.has(vehicle.vehicle_class))
-            {
-                perCategory.set(vehicle.vehicle_class, []);
-            }
-            perCategory.get(vehicle.vehicle_class).push(vehicle);
-        }
-
-        return perCategory;
-    }
-
     getFocus()
     {
         for (const vehicle of this.standings)

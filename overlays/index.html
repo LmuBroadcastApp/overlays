@@ -31,12 +31,15 @@
     <body>
         <script>
             setInterval(() => {
+
+                tower_panel.setSession(game_session.get());
+                tower_panel.setStandings(game_standings.get());
                 tower_panel.setControls(overlays_controls.get());
-                tower_panel.updateByClass(game_standings.getByClasses(), game_session.get());
 
                 driver_panel.update(game_standings.getFocus())
                 session_panel.update(game_session.get());
                 weather_panel.update(game_session.get());
+                tower_panel.update();
             }, 500);
         </script>
         <div id="gradient-background"/>
