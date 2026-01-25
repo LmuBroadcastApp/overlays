@@ -1,6 +1,7 @@
 
 #tower-panel
 {
+    font-weight: 500;
     margin-left: 1em;
     margin-top: 1em;
 }
@@ -8,8 +9,8 @@
 #tower-panel table
 {
     color: white;
-    margin-bottom: 5px;
-    border-spacing: 0 1px;
+    border-spacing: 0;
+    margin-bottom: 1em;
     border-collapse: separate;
 }
 
@@ -59,7 +60,7 @@
 
 .vehicle-position
 {
-    background-color: rgba(79, 93, 117, 1.0);
+    /*background-color: rgba(79, 93, 117, 1.0);*/
     text-align: center;
     color: white;
     width: 32px;
@@ -101,7 +102,6 @@
 
 .vehicle-right-column
 {
-    border-left: 2px solid rgba(200, 200, 200, 0.3);
     min-width: 48px;
     text-align: center;
     padding-right: 5px;

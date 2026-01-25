@@ -100,24 +100,26 @@ class TowerPanel
 
         let selected_color = "";
         let penalty_txt = ""; let has_penalty = "";
-        let row_color = tableRow % 2 === 0 ? "colored-row-2" : "colored-row-1";
 
         if (vehicle.focus)
         {
             selected_color = "color-selected";
         }
-        else if (vehicle.slot_id === bestLap.id)
+
+        let bestLapImg = "";
+        if (vehicle.slot_id == bestLap.id)
         {
-            selected_color = "color-best-lap";
+            bestLapImg = "󰔛";
         }
 
         let right_column_content = "";
-        let tr = `<tr>
-                    <td class="vehicle-position ${selected_color}">${position}</td>
-                    <td class="vehicle-driver ${row_color}"><span class="vehicle-driver-truncate-text">${name}</span></td>
-                    <td class="vehicle-logo ${row_color}"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
-                    <td class="vehicle-number ${row_color}">#${vehicle.vehicle_number}</td>
-                    <td class="vehicle-gap ${row_color}">${gap}</td>
+        let tr = `<tr class="${selected_color}">
+                    <td style="width: 16px;">${bestLapImg}</td>
+                    <td class="vehicle-position colored-row-2">${position}</td>
+                    <td class="vehicle-driver colored-row-2"><span class="vehicle-driver-truncate-text">${name}</span></td>
+                    <td class="vehicle-logo colored-row-2"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
+                    <td class="vehicle-number colored-row-2">#${vehicle.vehicle_number}</td>
+                    <td class="vehicle-gap colored-row-1">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->
                     <!-- {RACE_FLAGS} -->
                     <!-- {ADD_PENALTIES} -->
@@ -125,19 +127,19 @@ class TowerPanel
 
         if (rightColumn == "energy")
         {
-            right_column_content = `<td class="vehicle-right-column ${row_color}" ${fuel_ve.style}>${fuel_ve.text}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-1" ${fuel_ve.style}>${fuel_ve.text}</td>`;
         }
         else if (rightColumn == "best")
         {
-            right_column_content = `<td class="vehicle-right-column ${row_color}">${LaptimeToString(vehicle.best_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-1">${LaptimeToString(vehicle.best_lap)}</td>`;
         }
         else if (rightColumn == "last")
         {
-            right_column_content = `<td class="vehicle-right-column ${row_color}">${LaptimeToString(vehicle.last_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-1">${LaptimeToString(vehicle.last_lap)}</td>`;
         }
         else if (rightColumn == "tires")
         {
-            right_column_content = `<td class="vehicle-right-column ${row_color}">N/A</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-1">N/A</td>`;
         }
 
         tr = tr.replace("<!-- {RIGHT_COLUMNS} -->", right_column_content);
@@ -180,16 +182,15 @@ class TowerPanel
 
         let content = `<thead>
                 <tr>
-                    <th class="${CSSClassFromVehicleClass(c)}" colspan="2">
+                    <th>
+                    </th>
+                    <th class="${CSSClassFromVehicleClass(c)}" colspan="4">
                         ${c}
                     </th>
-                    <th class="${CSSClassFromVehicleClass(c)}" colspan="3">
-                        <div style="display: flex; align-items: center; float: right; margin-right: 5px;">
-                            <img alt="fast-lap" height="24px" style="margin-right: 2px;" src="styles/img/others/quick.png" />
-                            <span>${LaptimeToString(bestLap.lap)}</span>
-                        </div>
+                     <th class="colored-row-1">
+                        INT
                      </th>
-                    <th class='generic_class vehicle-right-column'>${tag}</th>
+                    <th class="colored-row-1">${tag}</th>
                 </tr>
             </thead><tbody>`;
 
@@ -222,7 +223,7 @@ class TowerPanel
             content = content.concat(row);
         }
 
-        content = content.concat("<tr style='background-color: rgba(224, 224, 224, 0.6); height: 1px;'><td colspan='6'></td></tr>");
+        content = content.concat("<tr><td></td><td colspan='6' style='background-color: rgba(224, 224, 224, 0.3s); height: 1px;'></td></tr>");
 
         for (let i = opt.start; i < Math.min(v.length, opt.end); i++)
         {

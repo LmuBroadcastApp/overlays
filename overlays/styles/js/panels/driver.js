@@ -16,6 +16,8 @@ class DriverPanel
         $(this.element_id + " .driver-vehicle-class").text(vehicle.vehicle_class);
         $(this.element_id + " .driver-vehicle-numer").text("#" + vehicle.vehicle_number);
         $(this.element_id + " .driver-vehicle-position").text("P" + (isRace ? vehicle.race_position : vehicle.qualy_position));
+
+        $(this.element_id + " .driver-vehicle-numer").css("background-color", ColorFromVehicleClass(vehicle.vehicle_class));
     }
 }
 

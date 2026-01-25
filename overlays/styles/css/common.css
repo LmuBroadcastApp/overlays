@@ -1,7 +1,7 @@
 
 body
 {
-    font-family: 'Titillium Web', 'sans-serif';
+    font-family: 'Titillium Web', 'FiraCode Nerd Font', 'sans-serif';
     margin: 0; padding: 0;
 }
 
@@ -46,24 +46,17 @@ img
 
 .colored-row-1
 {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .colored-row-2
 {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .color-selected
 {
-    background-color: rgba(250, 129, 18, 1.0) !important;
-    text-align: center;
-}
-
-.color-best-lap
-{
-    background-color: rgba(177, 83, 215, 1.0) !important;
-    text-align: center;
+    background-image: linear-gradient(to right, rgba(140, 140, 140, 1.0), rgba(0, 0, 0, 0.0));
 }
 
 /**********************************************************************************************************************/
