@@ -107,7 +107,12 @@ class TowerPanel
         }
 
         let bestLapImg = "";
-        if (vehicle.slot_id == bestLap.id)
+
+        if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
+        {
+            bestLapImg = "";
+        }
+        else if (vehicle.slot_id == bestLap.id)
         {
             bestLapImg = "󰔛";
         }

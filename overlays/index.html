@@ -9,6 +9,7 @@
         <link href="https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@v3.3.0/build/firacode-nerd-font.css" rel="stylesheet">
 
         <link rel="stylesheet" href="styles/css/common.css"/>
+        <link rel="stylesheet" href="styles/css/map_panel.css"/>
         <link rel="stylesheet" href="styles/css/tower_panel.css"/>
         <link rel="stylesheet" href="styles/css/driver_panel.css"/>
         <link rel="stylesheet" href="styles/css/weather_panel.css"/>
@@ -19,14 +20,16 @@
         <script src="styles/js/utils/standings.js"></script>
         <script src="styles/js/utils/auto_shrink_text.js"></script>
 
+        <script src="styles/js/game/map.js"></script>
         <script src="styles/js/game/session.js"></script>
         <script src="styles/js/game/controls.js"></script>
         <script src="styles/js/game/standings.js"></script>
 
-        <script src="styles/js/panels/session.js"></script>
-        <script src="styles/js/panels/weather.js"></script>
-        <script src="styles/js/panels/driver.js"></script>
+        <script src="styles/js/panels/map.js"></script>
         <script src="styles/js/panels/tower.js"></script>
+        <script src="styles/js/panels/driver.js"></script>
+        <script src="styles/js/panels/weather.js"></script>
+        <script src="styles/js/panels/session.js"></script>
     </head>
 
     <body>
@@ -40,6 +43,8 @@
                 driver_panel.update(game_standings.getFocus())
                 session_panel.update(game_session.get());
                 weather_panel.update(game_session.get());
+
+                map_panel.update(game_standings.get(), map_controls.get());
                 tower_panel.update();
             }, 500);
         </script>
@@ -57,8 +62,9 @@
             </div>
         </div>
 
-        <div id="tower-panel">
-        </div>
+        <div id="tower-panel"></div>
+        <div id="weather-panel"></div>
+        <canvas id="track-map-panel"></canvas>
 
         <div id="driver-panel">
             <table>
@@ -83,7 +89,5 @@
                 </tbody>
             </table>
         </div>
-
-        <div id="weather-panel"></div>
     </body>
 </html>
