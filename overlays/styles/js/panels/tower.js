@@ -120,11 +120,11 @@ class TowerPanel
         let right_column_content = "";
         let tr = `<tr class="${selected_color}">
                     <td style="width: 16px;">${bestLapImg}</td>
-                    <td class="vehicle-position colored-row-2">${position}</td>
-                    <td class="vehicle-driver colored-row-2"><span class="vehicle-driver-truncate-text">${name}</span></td>
-                    <td class="vehicle-logo colored-row-2"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
-                    <td class="vehicle-number colored-row-2">#${vehicle.vehicle_number}</td>
-                    <td class="vehicle-gap colored-row-1">${gap}</td>
+                    <td class="vehicle-position colored-row-primary">${position}</td>
+                    <td class="vehicle-driver colored-row-primary"><span class="vehicle-driver-truncate-text">${name}</span></td>
+                    <td class="vehicle-logo colored-row-primary"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
+                    <td class="vehicle-number colored-row-primary">#${vehicle.vehicle_number}</td>
+                    <td class="vehicle-gap colored-row-secondary">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->
                     <!-- {RACE_FLAGS} -->
                     <!-- {ADD_PENALTIES} -->
@@ -132,19 +132,19 @@ class TowerPanel
 
         if (rightColumn == "energy")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-1" ${fuel_ve.style}>${fuel_ve.text}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-secondary" ${fuel_ve.style}>${fuel_ve.text}</td>`;
         }
         else if (rightColumn == "best")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-1">${LaptimeToString(vehicle.best_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${LaptimeToString(vehicle.best_lap)}</td>`;
         }
         else if (rightColumn == "last")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-1">${LaptimeToString(vehicle.last_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${LaptimeToString(vehicle.last_lap)}</td>`;
         }
-        else if (rightColumn == "tires")
+        else if (rightColumn == "pitstops")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-1">N/A</td>`;
+            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${vehicle.pit_stops}</td>`;
         }
 
         tr = tr.replace("<!-- {RIGHT_COLUMNS} -->", right_column_content);
@@ -198,10 +198,10 @@ class TowerPanel
                     <th class="${CSSClassFromVehicleClass(c)}" colspan="4">
                         ${c}
                     </th>
-                     <th class="colored-row-1">
+                     <th class="colored-row-secondary">
                         ${gap_txt}
                      </th>
-                    <th class="colored-row-1">${tag}</th>
+                    <th class="colored-row-secondary">${tag}</th>
                 </tr>
             </thead><tbody>`;
 

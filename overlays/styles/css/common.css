@@ -44,12 +44,12 @@ img
     margin-left: 2px;
 }
 
-.colored-row-1
+.colored-row-secondary
 {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.colored-row-2
+.colored-row-primary
 {
     background-color: rgba(0, 0, 0, 0.6);
 }
