@@ -44,19 +44,4 @@ img
     margin-left: 2px;
 }
 
-.colored-row-secondary
-{
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.colored-row-primary
-{
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.color-selected
-{
-    background-image: linear-gradient(to right, rgba(140, 140, 140, 1.0), rgba(0, 0, 0, 0.0));
-}
-
 /**********************************************************************************************************************/

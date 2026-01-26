@@ -98,33 +98,46 @@ class TowerPanel
         let gap = VehicleGetGap(vehicle, this.controls, isRace);
         let fuel_ve = GetVehicleFuelVe(vehicle);
 
+        let firstColImg = "";
         let selected_color = "";
-        let penalty_txt = ""; let has_penalty = "";
+        let gap_color = "";
+
+        if(this.controls.gap_mode.toLowerCase() == "ahead" && isRace)
+        {
+            if (gap < 2)
+            {
+                gap_color = "gap-less-2";
+            }
+
+            if (gap < 0.5)
+            {
+                gap_color = "gap-less-1";
+            }
+        }
 
         if (vehicle.focus)
         {
             selected_color = "color-selected";
         }
 
-        let bestLapImg = "";
 
         if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
         {
-            bestLapImg = "";
+            firstColImg = "";
         }
         else if (vehicle.slot_id == bestLap.id)
         {
-            bestLapImg = "󰔛";
+            firstColImg = "󰔛";
         }
 
         let right_column_content = "";
         let tr = `<tr class="${selected_color}">
-                    <td style="width: 16px;">${bestLapImg}</td>
+                    <td style="width: 16px;">${firstColImg}</td>
                     <td class="vehicle-position colored-row-primary">${position}</td>
                     <td class="vehicle-driver colored-row-primary"><span class="vehicle-driver-truncate-text">${name}</span></td>
                     <td class="vehicle-logo colored-row-primary"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
                     <td class="vehicle-number colored-row-primary">#${vehicle.vehicle_number}</td>
-                    <td class="vehicle-gap colored-row-secondary">${gap}</td>
+                    <td class="vehicle-gap colored-row-secondary ${gap_color}">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->
                     <!-- {RACE_FLAGS} -->
                     <!-- {ADD_PENALTIES} -->
