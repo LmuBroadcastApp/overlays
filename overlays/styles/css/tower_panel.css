@@ -1,7 +1,7 @@
 
 #tower-panel
 {
-    font-weight: 500;
+    font-weight: 550;
     margin-left: 1em;
     margin-top: 1em;
 }
@@ -83,9 +83,15 @@
 
 /**********************************************************************************************************************/
 
+.vehicle-icons
+{
+    text-align: center;
+    color: white;
+    width: 32px;
+}
+
 .vehicle-position
 {
-    /*background-color: rgba(79, 93, 117, 1.0);*/
     text-align: center;
     color: white;
     width: 32px;

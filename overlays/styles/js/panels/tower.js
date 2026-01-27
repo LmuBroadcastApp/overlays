@@ -98,7 +98,9 @@ class TowerPanel
         let gap = VehicleGetGap(vehicle, this.controls, isRace);
         let fuel_ve = GetVehicleFuelVe(vehicle);
 
+        let firstColBackground = "";
         let firstColImg = "";
+
         let selected_color = "";
         let gap_color = "";
 
@@ -120,19 +122,20 @@ class TowerPanel
             selected_color = "color-selected";
         }
 
-
         if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
         {
-            firstColImg = "";
+            firstColBackground = "style='background-color: rgb(249, 199, 79)'";
+            firstColImg = "<div style='color: #1a1a1a;'></div>";
         }
         else if (vehicle.slot_id == bestLap.id)
         {
-            firstColImg = "󰔛";
+            firstColBackground = "style='background-color: #0076D7;'";
+            firstColImg = "<div style=''>󰔛</div>";
         }
 
         let right_column_content = "";
         let tr = `<tr class="${selected_color}">
-                    <td style="width: 16px;">${firstColImg}</td>
+                    <td class="vehicle-icons" ${firstColBackground}">${firstColImg}</td>
                     <td class="vehicle-position colored-row-primary">${position}</td>
                     <td class="vehicle-driver colored-row-primary"><span class="vehicle-driver-truncate-text">${name}</span></td>
                     <td class="vehicle-logo colored-row-primary"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
