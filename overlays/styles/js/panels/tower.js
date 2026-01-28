@@ -155,6 +155,10 @@ class TowerPanel
         {
             right_column_content = `<td class="vehicle-right-column colored-row-secondary" ${fuel_ve.style}>${fuel_ve.text}</td>`;
         }
+        else if(rightColumn == "damage")
+        {
+            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${vehicle.telemetry.damage.toFixed(1)}%</td>`;
+        }
         else if (rightColumn == "best")
         {
             right_column_content = `<td class="vehicle-right-column colored-row-secondary">${LaptimeToString(vehicle.best_lap)}</td>`;

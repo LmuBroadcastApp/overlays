@@ -268,6 +268,11 @@ function GetRightColumnName(rightColumn, vehicleClass)
             return "LAST";
         } break;
 
+        case "damage":
+        {
+            return "DMG";
+        } break;
+
         case "pitstops":
         {
             return "#PITS";
