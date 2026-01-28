@@ -104,7 +104,7 @@ class TowerPanel
         let selected_color = "";
         let gap_color = "";
 
-        if(this.controls.gap_mode.toLowerCase() == "ahead" && isRace)
+        if(this.controls.gap_mode.toLowerCase() == "ahead" && isRace && position > 1)
         {
             if (gap < 2)
             {
@@ -117,6 +117,11 @@ class TowerPanel
             }
         }
 
+        if (position == 1)
+        {
+            gap = "-";
+        }
+
         if (vehicle.focus)
         {
             selected_color = "color-selected";
@@ -125,12 +130,12 @@ class TowerPanel
         if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
         {
             firstColBackground = "style='background-color: rgb(249, 199, 79)'";
-            firstColImg = "<div style='color: #1a1a1a;'></div>";
+            firstColImg = "<div class='icon-container' style='color: #1a1a1a;'></div>";
         }
         else if (vehicle.slot_id == bestLap.id)
         {
             firstColBackground = "style='background-color: #0076D7;'";
-            firstColImg = "<div style=''>󰔛</div>";
+            firstColImg = "<div class='icon-container'>󰔛</div>";
         }
 
         let right_column_content = "";
