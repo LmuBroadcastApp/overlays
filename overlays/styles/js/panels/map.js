@@ -5,6 +5,52 @@ class TrackMapPanel
         this.element_id = id;
     }
 
+    clear()
+    {
+        let canvas = document.getElementById(this.element_id);
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    drawCircle(ctx, x, y, radius, color)
+    {
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = color;
+        ctx.lineWidth = 0.5;
+
+        ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    drawTriangle(ctx, cx, cy, sideLength, color, boderSize = 0.5, rotationDeg = 180)
+    {
+        ctx.strokeStyle = "black";
+        ctx.fillStyle = color;
+        ctx.lineWidth = 0.5;
+
+        const h = (Math.sqrt(3) / 2) * sideLength;
+        const rot = rotationDeg * Math.PI / 180;
+
+        const verts = [
+            { x: 0,               y: -2 * h / 3 }, // top vertex
+            { x: -sideLength / 2, y:      h / 3 }, // bottom‑left
+            { x:  sideLength / 2, y:      h / 3 }  // bottom‑right
+        ];
+
+        verts.forEach((v, i) =>
+        {
+            const xr = v.x * Math.cos(rot) - v.y * Math.sin(rot);
+            const yr = v.x * Math.sin(rot) + v.y * Math.cos(rot);
+            const px = cx + xr;
+            const py = cy + yr;
+            i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+        });
+
+        ctx.fill();
+        ctx.stroke();
+    }
+
     drawTrackMap(ctx, map)
     {
         ctx.beginPath();
@@ -26,8 +72,10 @@ class TrackMapPanel
 
     drawVehicles(ctx, vehicles)
     {
-        for (let v of vehicles)
+        for (let idx in vehicles)
         {
+            let v = vehicles[idx];
+
             let x = v.world_pos.x;
             let y = v.world_pos.y;
 
@@ -46,14 +94,19 @@ class TrackMapPanel
             let text_start_x = x - textWidth / 2;
             let text_start_y = y - textHeight;
 
+            if (v.focus)
+            {
+                c = "rgba(100, 100, 100, 1.0)";
+                point_size += 3;
+            }
+
             ctx.beginPath();
 
             {
-                ctx.fillStyle = c;
-                ctx.lineWidth = 0.5;
-                ctx.strokeStyle = "black";
-                ctx.arc(v.world_pos.x, v.world_pos.y, point_size, 0, 2 * Math.PI, false);
-                ctx.stroke(); ctx.fill();
+                if(idx < vehicles.length - 1)
+                    this.drawCircle(ctx, v.world_pos.x, v.world_pos.y, point_size, c);
+                else
+                    this.drawTriangle(ctx, v.world_pos.x, v.world_pos.y, point_size * 2, c);
             }
             {
                 ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
@@ -77,15 +130,22 @@ class TrackMapPanel
         let canvas = document.getElementById(this.element_id);
         let ctx = canvas.getContext('2d');
 
-        const dpr = window.devicePixelRatio || 1;
-        canvas.height = map.size.height * dpr;
-        canvas.width = map.size.width * dpr;
-
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const dpr = window.devicePixelRatio || 1;
+
+        if (canvas.width !== map.size.width * dpr || canvas.height !== map.size.height * dpr)
+        {
+            canvas.height = map.size.height * dpr;
+            canvas.width = map.size.width * dpr;
+        }
+
         this.drawTrackMap(ctx, map);
 
-        let std = Array.from(standings).reverse();
-        this.drawVehicles(ctx, std);
+        for (const [key, value] of GetByClasses(Array.from(standings).reverse()))
+        {
+            this.drawVehicles(ctx, value);
+        }
+
     }
 }
 
