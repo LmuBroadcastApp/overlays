@@ -7,6 +7,11 @@ class DriverPanel
 
     update(vehicle, isRace)
     {
+        if (vehicle == null)
+        {
+            return;
+        }
+
         $(this.element_id + " .driver-panel-name").text(vehicle.driver);
         $(this.element_id + " .driver-panel-team").text(vehicle.vehicle_name);
 
