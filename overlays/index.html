@@ -35,24 +35,26 @@
     <body>
         <script>
             setInterval(() => {
+                if(game_session.get().trackName != "")
+                {
+                    tower_panel.setControls(overlays_controls.get());
+                    tower_panel.setStandings(game_standings.get());
+                    tower_panel.setSession(game_session.get());
 
-                tower_panel.setControls(overlays_controls.get());
-                tower_panel.setStandings(game_standings.get());
-                tower_panel.setSession(game_session.get());
+                    driver_panel.update(game_standings.getFocus())
+                    session_panel.update(game_session.get());
+                    weather_panel.update(game_session.get());
 
-                session_panel.update(game_session.get());
-                weather_panel.update(game_session.get());
-                driver_panel.update(game_standings.getFocus())
-
-                if(game_session.get().trackName == "") {
-                    map_controls.clear();
-                    map_panel.clear();
-                    return;
+                    map_panel.update(game_standings.get(), map_controls.get());
+                    tower_panel.update();
                 }
-
-                map_panel.update(game_standings.get(), map_controls.get());
-                tower_panel.update();
-            }, 500);
+                else
+                {
+                    map_controls.clear();
+                    tower_panel.clear();
+                    map_panel.clear();
+                }
+            }, 33);
         </script>
         <div id="gradient-background"/>
 

@@ -19,11 +19,14 @@ class NetworkRequest
         {
             if (xhr.readyState == 4 && xhr.status == 200)
             {
-                cb(xhr.response);
+                if (cb != null)
+                {
+                    cb(xhr.response);
+                }
             }
             else
             {
-                console.log(status);
+                console.log(xhr.status);
             }
         };
 

@@ -8,7 +8,7 @@ class Standings
         this.fetch = new NetworkRequest(this.url, 'json', this.fetchStandings.bind(this));
         this.fetch.Get();
 
-        setInterval(() => { this.fetch.Get() }, 33);
+        setInterval(() => { this.fetch.Get() }, 64);
     }
 
     fetchStandings(standings)
