@@ -13,6 +13,11 @@ class TowerPanel
             update_rate: 3,
             static_entries: 5,
             dynamic_entries: 5,
+            gap_mode: "leader",
+            name_source: "driver",
+            driver_name: "short",
+            right_column: "energy",
+            vehicle_class: "multiclass"
         };
     }
 

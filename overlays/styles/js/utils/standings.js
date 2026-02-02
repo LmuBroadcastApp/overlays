@@ -279,3 +279,16 @@ function GetRightColumnName(rightColumn, vehicleClass)
         } break
     }
 }
+
+function StandingsGetFocus(standings)
+{
+    for (const vehicle of standings)
+    {
+        if (vehicle.focus)
+        {
+            return vehicle;
+        }
+    }
+
+    return null;
+}

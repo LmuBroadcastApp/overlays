@@ -18,12 +18,8 @@
         <script src="styles/js/utils/jquery.js"></script>
         <script src="styles/js/utils/network.js"></script>
         <script src="styles/js/utils/standings.js"></script>
+        <script src="styles/js/utils/websocket.js"></script>
         <script src="styles/js/utils/auto_shrink_text.js"></script>
-
-        <script src="styles/js/game/map.js"></script>
-        <script src="styles/js/game/session.js"></script>
-        <script src="styles/js/game/controls.js"></script>
-        <script src="styles/js/game/standings.js"></script>
 
         <script src="styles/js/panels/map.js"></script>
         <script src="styles/js/panels/tower.js"></script>
@@ -34,24 +30,75 @@
 
     <body>
         <script>
-            setInterval(() => {
-                if(game_session.get().trackName != "")
+            let overlays_controls = {};
+            let game_standings = [];
+            let game_session = {};
+            let track_map = null;
+
+            let callBacks =
+            {
+                onStandingsUpdate : function(data)
                 {
-                    tower_panel.setControls(overlays_controls.get());
-                    tower_panel.setStandings(game_standings.get());
-                    tower_panel.setSession(game_session.get());
+                    game_standings = data;
+                },
+                onSessionUpdate : function(data)
+                {
+                    game_session = data;
+                },
+                onControlsUpdate : function(data)
+                {
+                    overlays_controls = data;
+                },
+                onTrackMapUpdate : function(data)
+                {
+                    track_map = data;
+                },
+                onOverlayUpdate : function(data)
+                {
+                    overlays_controls = data;
+                }
+            };
 
-                    driver_panel.update(game_standings.getFocus())
-                    session_panel.update(game_session.get());
-                    weather_panel.update(game_session.get());
+            let webSocketWrapper = new WebSocketWrapper("ws://localhost:6433");
+            webSocketWrapper.SetCallback(callBacks);
+            webSocketWrapper.Connect();
 
-                    map_panel.update(game_standings.get(), map_controls.get());
+            setInterval(() => {
+                if(game_session.trackName != "")
+                {
+                    if (!isEmptyObject(overlays_controls))
+                    {
+                        tower_panel.setControls(overlays_controls);
+                    }
+
+                    if (!isEmptyObject(game_standings))
+                    {
+                        tower_panel.setStandings(game_standings);
+                        driver_panel.update(StandingsGetFocus(game_standings));
+                    }
+
+                    if (!isEmptyObject(game_session))
+                    {
+                        tower_panel.setSession(game_session);
+                    }
+
+                    if (!isEmptyObject(game_session))
+                    {
+                        session_panel.update(game_session);
+                        weather_panel.update(game_session);
+                    }
+
+                    if (!isEmptyObject(track_map) && !isEmptyObject(game_standings))
+                    {
+                        map_panel.update(game_standings, track_map);
+                    }
+
                     tower_panel.update();
                 }
                 else
                 {
-                    map_controls.clear();
                     tower_panel.clear();
+                    map_panel.clear();
                     map_panel.clear();
                 }
             }, 33);
