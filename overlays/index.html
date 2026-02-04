@@ -30,9 +30,9 @@
 
     <body>
         <script>
-            let overlays_controls = {};
-            let game_standings = [];
-            let game_session = {};
+            let overlays_controls = null;
+            let game_standings = null;
+            let game_session = null;
             let track_map = null;
 
             let callBacks =
@@ -64,44 +64,35 @@
             webSocketWrapper.Connect();
 
             setInterval(() => {
-                if(game_session.trackName != "")
+                if (game_session != null && game_session.trackName != "")
                 {
-                    if (!isEmptyObject(overlays_controls))
+                    tower_panel.setSession(game_session);
+                    session_panel.update(game_session);
+                    weather_panel.update(game_session);
+
+                    if (overlays_controls != null)
                     {
                         tower_panel.setControls(overlays_controls);
                     }
 
-                    if (!isEmptyObject(game_standings))
+                    if (game_standings != null)
                     {
                         tower_panel.setStandings(game_standings);
                         driver_panel.update(StandingsGetFocus(game_standings));
                     }
 
-                    if (!isEmptyObject(game_session))
-                    {
-                        tower_panel.setSession(game_session);
-                    }
-
-                    if (!isEmptyObject(game_session))
-                    {
-                        session_panel.update(game_session);
-                        weather_panel.update(game_session);
-                    }
-
-                    if (!isEmptyObject(track_map) && !isEmptyObject(game_standings))
+                    if (track_map != null && game_standings != null)
                     {
                         map_panel.update(game_standings, track_map);
+                        tower_panel.update();
                     }
-
-                    tower_panel.update();
                 }
                 else
                 {
                     tower_panel.clear();
                     map_panel.clear();
-                    map_panel.clear();
                 }
-            }, 33);
+            }, 1000 / 30);
         </script>
         <div id="gradient-background"/>
 
