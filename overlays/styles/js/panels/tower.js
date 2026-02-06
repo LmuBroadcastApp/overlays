@@ -226,7 +226,10 @@ class TowerPanel
                     <th>
                     </th>
                     <th class="${CSSClassFromVehicleClass(c)}" colspan="4">
-                        ${c}
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="margin: 0 5px auto;">󰶓  &nbsp; ${v.length}</span>
+                            <span style="margin: 0 auto;">${c}</span>
+                        </div>
                     </th>
                      <th class="colored-row-secondary">
                         ${gap_txt}
