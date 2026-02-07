@@ -1,9 +1,10 @@
 
 #tower-panel
 {
+    margin-left: var(--standings-panel-position-left);
+    margin-top: var(--standings-panel-position-top);
+
     font-weight: var(--standings-panel-font-weight);
-    margin-left: 1em;
-    margin-top: 1em;
     color: white;
 }
 
