@@ -176,6 +176,23 @@ class TowerPanel
         {
             right_column_content = `<td class="vehicle-right-column colored-row-secondary">${vehicle.pit_stops}</td>`;
         }
+        else if (rightColumn == "tires")
+        {
+            if (HasOneTireCompound(vehicle))
+            {
+                right_column_content = `<td class="vehicle-right-column colored-row-secondary" style="color: ${TireCompoundColor(vehicle.tire_compound[0])}">󱢖</td>`;
+            }
+            else
+            {
+                right_column_content = `<td class="vehicle-right-column colored-row-secondary" style="font-size: 0.5em;">
+                        <span style="color: ${TireCompoundColor(vehicle.tire_compound[0])}"><span>
+                        <span style="margin-left: 5px; color: ${TireCompoundColor(vehicle.tire_compound[1])}"><span>
+                            <br/>
+                        <span style="color: ${TireCompoundColor(vehicle.tire_compound[2])}"><span>
+                        <span style="margin-left: 5px; color: ${TireCompoundColor(vehicle.tire_compound[3])}"><span>
+                    </td>`;
+            }
+        }
 
         tr = tr.replace("<!-- {RIGHT_COLUMNS} -->", right_column_content);
         tr = tr.replace("<!-- {RACE_FLAGS} -->", this.getRaceFlags(vehicle));

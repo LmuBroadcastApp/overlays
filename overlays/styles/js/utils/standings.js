@@ -292,3 +292,48 @@ function StandingsGetFocus(standings)
 
     return null;
 }
+
+function HasOneTireCompound(vehicle)
+{
+    if (vehicle.tire_compound == null)
+    {
+        return false;
+    }
+
+    let result = vehicle.tire_compound[0] == vehicle.tire_compound[1] &&
+                 vehicle.tire_compound[0] == vehicle.tire_compound[2] &&
+                 vehicle.tire_compound[0] == vehicle.tire_compound[3];
+
+    return result;
+}
+
+function TireCompoundColor(compound)
+{
+    switch (compound.toLowerCase())
+    {
+        case "soft":
+        {
+            return "rgba(255, 0, 0, 1.0)";
+        }
+
+        case "medium":
+        {
+            return "rgba(255, 255, 0, 1.0)";
+        }
+
+        case "hard":
+        {
+            return "rgba(255, 255, 255, 1.0)";
+        }
+
+        case "wet":
+        {
+            return "rgba(0, 0, 255, 1.0)";
+        }
+
+        default:
+        {
+            return "rgba(79, 93, 117, 1.0)";
+        }
+    }
+}
