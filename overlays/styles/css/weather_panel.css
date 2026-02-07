@@ -9,11 +9,11 @@
 
 .weather-item
 {
+    width: var(--weather-panel-item-width);
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     margin-left: 2px;
-    width: 48px;
 }
 
 .weather-time
@@ -32,7 +32,7 @@
 
 .weather-icon img
 {
-    height: 48px;
+    height: var(--weather-panel-item-width);
 }
 
 .weather-temp

@@ -1,4 +1,39 @@
 
+:root
+{
+    /** Session panel variables */
+    --session-panel-width: 400px;
+
+    /** Standings panel variables */
+    --standings-panel-font-weight: 550;
+
+    --standings-panel-primary-color: rgba(0, 0, 0, 0.6);
+    --standings-panel-secondary-color: rgba(0, 0, 0, 0.4);
+
+    --standings-panel-gap-less-1-color: rgb(242, 92, 84);
+    --standings-panel-gap-less-2-color: rgb(247, 178, 103);
+
+    --standings-panel-row-01-width:  32px; /** Fast lap and exclamation icons */
+    --standings-panel-row-02-width:  32px; /** Vehicle position */
+    --standings-panel-row-03-width: 160px; /** Driver/Team name */
+    --standings-panel-row-04-width:  48px; /** Vehicle icon */
+    --standings-panel-row-05-width:  48px; /** Vehicle number */
+    --standings-panel-row-06-width:  48px; /** Vehicle gap */
+    --standings-panel-row-07-width:  48px; /** Min width of the "right column" */
+
+    /** Driver panel */
+    --driver-panel-width: 400px;
+    --driver-panel-background-color: rgba(0, 0, 0, 0.7);
+    --driver-panel-vehicle-number-background-color: rgba(255, 255, 255, 0.6); /** This will be overridden by the vehicle class color */
+    --driver-panel-vehicle-position-background-color: rgba(255, 255, 255, 0.6);
+
+    /** Weather forecast panel */
+    --weather-panel-item-width: 48px;
+}
+
+/**********************************************************************************************************************/
+
+
 body
 {
     font-family: 'Titillium Web', 'FiraCode Nerd Font', 'sans-serif';

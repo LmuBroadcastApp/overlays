@@ -1,8 +1,9 @@
 
 #driver-panel
 {
+    width: var(--driver-panel-width);
     position: fixed;
-    width: 400px;
+    color: white;
 
     bottom: 1em;
     right: 3em;
@@ -17,22 +18,20 @@
 
 #driver-panel table td
 {
-    max-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
 }
 
 #driver-panel thead
 {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    background-color: var(--driver-panel-background-color);
 }
 
 #driver-panel tbody
 {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    background-color: var(--driver-panel-background-color);
 }
 
 #driver-panel .driver-panel-name
@@ -53,7 +52,7 @@
 
 #driver-panel .driver-vehicle-numer
 {
-    background-color: rgba(255,255, 255, 0.6);
+    background-color: var(--driver-panel-vehicle-number-background-color);
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;
@@ -62,7 +61,7 @@
 
 #driver-panel .driver-vehicle-position
 {
-    background-color: rgba(255,255, 255, 0.6);
+    background-color: var(--driver-panel-vehicle-position-background-color);
     text-align: center;
     font-size: 1.3em;
     font-weight: bold;

@@ -1,37 +1,37 @@
 
 #tower-panel
 {
-    font-weight: 550;
+    font-weight: var(--standings-panel-font-weight);
     margin-left: 1em;
     margin-top: 1em;
+    color: white;
 }
 
 #tower-panel table
 {
-    color: white;
     border-spacing: 0;
     margin-bottom: 1em;
     border-collapse: separate;
 }
 
-.colored-row-secondary
-{
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
 .colored-row-primary
 {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--standings-panel-primary-color);
 }
 
-.gap-less-2
+.colored-row-secondary
 {
-    color: rgb(247, 178, 103);
+    background-color: var(--standings-panel-secondary-color);
 }
 
 .gap-less-1
 {
-    color: rgb(242, 92, 84);
+    color: var(--standings-panel-gap-less-1-color);
+}
+
+.gap-less-2
+{
+    color: var(--standings-panel-gap-less-2-color);
 }
 
 .color-selected
@@ -42,98 +42,89 @@
 .generic_class
 {
     background-color: rgba(79, 93, 117, 1.0);
-    color: white;
 }
 
 .GT3
 {
     background-color: rgba(0, 143, 55, 1.0);
-    color: white;
 }
 
 .GTE
 {
     background-color: rgba(240, 140, 0, 1.0);
-    color: white;
 }
 
 .LMP2
 {
     background-color: rgba(6, 75, 145, 1.0);
-    color: white;
 }
 
 .LMP3
 {
     background-color: rgba(58, 25, 74, 1.0);
-    color: white;
 }
 
 .Hyper
 {
     background-color: rgba(171, 24, 20, 1.0);
-    color: white;
 }
 
 .LMP2_ELMS
 {
     background-color: rgba(190, 74, 9, 1.0);
-    color: white;
 }
 
 /**********************************************************************************************************************/
 
 .vehicle-icons
 {
+    width: var(--standings-panel-row-01-width);
     text-align: center;
-    color: white;
-    width: 32px;
 }
 
 .vehicle-position
 {
+    width: var(--standings-panel-row-02-width);
     text-align: center;
-    color: white;
-    width: 32px;
 }
 
 .vehicle-driver
 {
+    width: var(--standings-panel-row-03-width);
     padding-right: 5px;
     padding-left: 5px;
-    width: 160px;
 }
 
 .vehicle-driver-truncate-text
 {
-    width: 160px;
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
+    width: var(--standings-panel-row-03-width);
     text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
 }
 
 .vehicle-logo
 {
     text-align: center;
-    width: 48px;
+    width: var(--standings-panel-row-04-width);
 }
 
 .vehicle-number
 {
     text-align: center;
-    width: 48px;
+    width: var(--standings-panel-row-05-width);
 }
 
 .vehicle-gap
 {
     text-align: center;
-    width: 48px;
+    width: var(--standings-panel-row-06-width);
 }
 
 .vehicle-right-column
 {
-    min-width: 48px;
+    min-width: var(--standings-panel-row-07-width);
     text-align: center;
     padding-right: 5px;
     padding-left: 5px;
