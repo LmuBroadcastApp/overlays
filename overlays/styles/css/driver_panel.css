@@ -5,8 +5,8 @@
     position: fixed;
     color: white;
 
-    bottom: 1em;
-    right: 3em;
+    bottom: var(--driver-panel-position-bottom);
+    right: var(--driver-panel-position-right);
 }
 
 #driver-panel table

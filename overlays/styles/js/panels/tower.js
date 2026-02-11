@@ -135,22 +135,22 @@ class TowerPanel
         if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
         {
             firstColBackground = "style='background-color: rgb(249, 199, 79)'";
-            firstColImg = "<div class='icon-container' style='color: #1a1a1a;'></div>";
+            firstColImg = "<span class='icon-container' style='color: #1a1a1a;'></span>";
         }
         else if (vehicle.slot_id == bestLap.id)
         {
             firstColBackground = "style='background-color: #0076D7;'";
-            firstColImg = "<div class='icon-container'>󰔛</div>";
+            firstColImg = "<span class='icon-container'>󰔛</span>";
         }
 
         let right_column_content = "";
         let tr = `<tr class="${selected_color}">
                     <td class="vehicle-icons" ${firstColBackground}">${firstColImg}</td>
-                    <td class="vehicle-position colored-row-primary">${position}</td>
-                    <td class="vehicle-driver colored-row-primary"><span class="vehicle-driver-truncate-text">${name}</span></td>
-                    <td class="vehicle-logo colored-row-primary"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
-                    <td class="vehicle-number colored-row-primary">#${vehicle.vehicle_number}</td>
-                    <td class="vehicle-gap colored-row-secondary ${gap_color}">${gap}</td>
+                    <td class="vehicle-position standings-primary-color">${position}</td>
+                    <td class="vehicle-driver standings-primary-color"><span class="vehicle-driver-truncate-text">${name}</span></td>
+                    <td class="vehicle-logo standings-primary-color"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
+                    <td class="vehicle-number standings-primary-color">#${vehicle.vehicle_number}</td>
+                    <td class="vehicle-gap standings-secondary-color ${gap_color}">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->
                     <!-- {RACE_FLAGS} -->
                     <!-- {ADD_PENALTIES} -->
@@ -158,33 +158,33 @@ class TowerPanel
 
         if (rightColumn == "energy")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-secondary" ${fuel_ve.style}>${fuel_ve.text}</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color" ${fuel_ve.style}>${fuel_ve.text}</td>`;
         }
         else if(rightColumn == "damage")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${vehicle.telemetry.damage.toFixed(1)}%</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.telemetry.damage.toFixed(1)}%</td>`;
         }
         else if (rightColumn == "best")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${LaptimeToString(vehicle.best_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${LaptimeToString(vehicle.best_lap)}</td>`;
         }
         else if (rightColumn == "last")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${LaptimeToString(vehicle.last_lap)}</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${LaptimeToString(vehicle.last_lap)}</td>`;
         }
         else if (rightColumn == "pitstops")
         {
-            right_column_content = `<td class="vehicle-right-column colored-row-secondary">${vehicle.pit_stops}</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.pit_stops}</td>`;
         }
         else if (rightColumn == "tires")
         {
             if (HasOneTireCompound(vehicle))
             {
-                right_column_content = `<td class="vehicle-right-column colored-row-secondary" style="color: ${TireCompoundColor(vehicle.tire_compound[0])}">󱢖</td>`;
+                right_column_content = `<td class="vehicle-right-column standings-secondary-color" style="color: ${TireCompoundColor(vehicle.tire_compound[0])}">󱢖</td>`;
             }
             else
             {
-                right_column_content = `<td class="vehicle-right-column colored-row-secondary" style="font-size: 0.5em;">
+                right_column_content = `<td class="vehicle-right-column standings-secondary-color" style="font-size: 0.5em;">
                         <span style="color: ${TireCompoundColor(vehicle.tire_compound[0])}"><span>
                         <span style="margin-left: 5px; color: ${TireCompoundColor(vehicle.tire_compound[1])}"><span>
                             <br/>
@@ -248,10 +248,10 @@ class TowerPanel
                             <span style="margin: 0 auto;">${c}</span>
                         </div>
                     </th>
-                     <th class="colored-row-secondary">
+                     <th class="standings-secondary-color">
                         ${gap_txt}
                      </th>
-                    <th class="colored-row-secondary">${tag}</th>
+                    <th class="standings-secondary-color">${tag}</th>
                 </tr>
             </thead><tbody>`;
 
