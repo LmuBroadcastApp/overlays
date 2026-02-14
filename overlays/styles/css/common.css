@@ -4,7 +4,9 @@
     /** Standings panel variables */
     --standings-panel-position-left: 1.0em;                 /** Position from the left of the screen */
     --standings-panel-position-top: 1.0em;                  /** Position from the top of the screen */
+
     --standings-panel-font-weight: 550;                     /** How bold the font will be seen */
+    --standings-panel-font-size: 1em;                       /** General font size of the panel */
 
     --standings-panel-primary-color: rgba(0, 0, 0, 0.6);    /** Vehicle position, driver/team, number, icon */
     --standings-panel-secondary-color: rgba(0, 0, 0, 0.4);  /** Vehicle gap and right column */
@@ -24,9 +26,11 @@
     --session-panel-width: calc(var(--standings-panel-col-02-width) + var(--standings-panel-col-03-width) + var(--standings-panel-col-04-width) + var(--standings-panel-col-05-width) + var(--standings-panel-col-06-width));
     --session-panel-position-left: calc(var(--standings-panel-position-left) + var(--standings-panel-col-01-width));
     --session-panel-position-top: 1.0em; /** Position from the top of the screen */
+    --session-panel-font-size: 1em; /** General font size of the panel */
 
     /** Driver panel */
     --driver-panel-width: 400px;
+    --driver-panel-font-size: 1em;                                                  /** General font size of the panel */
     --driver-panel-position-right: 3.0em;                                           /** Position from the right of the screen */
     --driver-panel-position-bottom: 1.0em;                                          /** Position from the bottom of the screen */
     --driver-panel-background-color: rgba(0, 0, 0, 0.7);                            /** Panel general background */
@@ -34,7 +38,10 @@
     --driver-panel-vehicle-position-background-color: rgba(255, 255, 255, 0.6);     /** Vehicle position background */
 
     /** Weather forecast panel */
-    --weather-panel-item-width: 48px;
+    --weather-panel-position-right: 3.0em;      /** Position from the right of the screen */
+    --weather-panel-position-top: 1.0em;        /** Position from the top of the screen */
+    --weather-panel-item-width: 48px;           /** Width of each item (icon, time, temperature) */
+    --weather-panel-font-size: 1em;             /** General font size of the panel */
 
     /** Map panel */
     --map-panel-position-right: 3em;    /** Position from the right of the screen */

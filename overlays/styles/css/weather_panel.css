@@ -1,10 +1,11 @@
 #weather-panel
 {
+    right: var(--weather-panel-position-right);
+    top: var(--weather-panel-position-top);
+    font-size: var(--weather-panel-font-size);
     align-items: center;
     position: fixed;
     display: flex;
-    right: 3em;
-    top: 1em;
 }
 
 .weather-item

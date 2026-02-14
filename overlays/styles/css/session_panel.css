@@ -3,7 +3,9 @@
     margin-left: var(--session-panel-position-left);
     margin-top: var(--session-panel-position-top);
 
+    font-size: var(--session-panel-font-size);
     width: var(--session-panel-width);
+
     font-weight: bold;
     color: white;
 }
@@ -16,7 +18,7 @@
 
 #session-panel .session-time
 {
-    font-size: 1.5em;
+    font-size: calc(var(--session-panel-font-size) + 0.5em);
 }
 
 #session-panel .session-flag

@@ -5,14 +5,16 @@
     margin-top: var(--standings-panel-position-top);
 
     font-weight: var(--standings-panel-font-weight);
+    font-size: var(--standings-panel-font-size);
+
     color: white;
 }
 
 #tower-panel table
 {
-    border-spacing: 0;
-    margin-bottom: 0.5em;
     border-collapse: separate;
+    margin-bottom: 0.5em;
+    border-spacing: 0;
 }
 
 .standings-primary-color
