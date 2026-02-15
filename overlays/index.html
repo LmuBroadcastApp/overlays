@@ -77,8 +77,15 @@
 
                     if (game_standings != null)
                     {
+                        let isRace = false;
+
+                        if (game_session != null)
+                        {
+                            isRace = game_session.name.toLowerCase().includes("race");
+                        }
+
                         tower_panel.setStandings(game_standings);
-                        driver_panel.update(StandingsGetFocus(game_standings));
+                        driver_panel.update(StandingsGetFocus(game_standings), isRace);
                     }
 
                     if (track_map != null && game_standings != null)
