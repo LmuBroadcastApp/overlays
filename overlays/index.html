@@ -59,7 +59,7 @@
                 }
             };
 
-            let webSocketWrapper = new WebSocketWrapper("ws://localhost:6433");
+            let webSocketWrapper = new WebSocketWrapper("ws://" + window.location.hostname + ":6433");
             webSocketWrapper.SetCallback(callBacks);
             webSocketWrapper.Connect();
 
