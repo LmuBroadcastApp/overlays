@@ -115,65 +115,83 @@ class TrackMapPanel
         ctx.stroke();
     }
 
+    drawVehicle(ctx, vehicles)
+    {
+        let v = vehicles;
+
+        let x = v.world_pos.x;
+        let y = v.world_pos.y;
+
+        let metrics = ctx.measureText(v.vehicle_number);
+        let c = ColorFromVehicleClass(v.vehicle_class);
+
+        let rect_extra = 5;
+        let point_size = 7;
+
+        let textWidth = metrics.width + rect_extra;
+        let textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent + rect_extra;
+
+        let rect_start_x = x - textWidth / 2 - rect_extra * 0.5;
+        let rect_start_y = y - textHeight * 2 + rect_extra * 0.5;
+
+        let text_start_x = x - textWidth / 2;
+        let text_start_y = y - textHeight;
+
+        if (v.focus)
+        {
+            c = "rgb(240, 240, 240)";
+            point_size += 3;
+        }
+
+        if (v.in_pits)
+        {
+            point_size *= 0.6;
+            let rgb = c.replace(/[^\d,]/g, "").split(",");
+            c = `rgba(${rgb[0] - 50}, ${rgb[1] - 50}, ${rgb[2] - 50}, 0.8)`;
+        }
+
+        ctx.beginPath();
+
+        if (v.race_position > 1)
+        {
+            this.drawCircle(ctx, v.world_pos.x, v.world_pos.y, point_size, c);
+        }
+        else
+        {
+            this.drawTriangle(ctx, v.world_pos.x, v.world_pos.y, point_size * 2, c,);
+        }
+
+        if (!v.in_pits)
+        {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+            ctx.fillRect(rect_start_x, rect_start_y, textWidth, textHeight);
+
+            ctx.font = "bold";
+            ctx.fillStyle = "rgb(255, 255, 255)";
+            ctx.fillText(v.vehicle_number, text_start_x, text_start_y);
+        }
+    }
+
     drawVehicles(ctx, vehicles)
     {
         vehicles.sort((a, b) => (b.in_pits - a.in_pits));
+        let focus = null;
 
         for (let idx in vehicles)
         {
-            let v = vehicles[idx];
-
-            let x = v.world_pos.x;
-            let y = v.world_pos.y;
-
-            let metrics = ctx.measureText(v.vehicle_number);
-            let c = ColorFromVehicleClass(v.vehicle_class);
-
-            let rect_extra = 5;
-            let point_size = 7;
-
-            let textWidth = metrics.width + rect_extra;
-            let textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent + rect_extra;
-
-            let rect_start_x = x - textWidth / 2 - rect_extra * 0.5;
-            let rect_start_y = y - textHeight * 2 + rect_extra * 0.5;
-
-            let text_start_x = x - textWidth / 2;
-            let text_start_y = y - textHeight;
-
-            if (v.focus)
+            if (vehicles[idx].focus)
             {
-                c = "rgb(240, 240, 240)";
-                point_size += 3;
-            }
-
-            if (v.in_pits)
-            {
-                point_size *= 0.6;
-                let rgb = c.replace(/[^\d,]/g, "").split(",");
-                c = `rgb(${rgb[0] - 50}, ${rgb[1] - 50}, ${rgb[2] - 50}, 0.8)`;
-            }
-
-            ctx.beginPath();
-
-            if (idx < vehicles.length - 1)
-            {
-                this.drawCircle(ctx, v.world_pos.x, v.world_pos.y, point_size, c);
+                focus = vehicles[idx];
             }
             else
             {
-                this.drawTriangle(ctx, v.world_pos.x, v.world_pos.y, point_size * 2, c,);
+                this.drawVehicle(ctx, vehicles[idx]);
             }
+        }
 
-            if (!v.in_pits)
-            {
-                ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-                ctx.fillRect(rect_start_x, rect_start_y, textWidth, textHeight);
-
-                ctx.font = "bold";
-                ctx.fillStyle = "rgb(255, 255, 255)";
-                ctx.fillText(v.vehicle_number, text_start_x, text_start_y);
-            }
+        if (focus)
+        {
+            this.drawVehicle(ctx, focus);
         }
     }
 
@@ -196,8 +214,8 @@ class TrackMapPanel
             canvas.width = this.map.size.width * dpr;
         }
 
-      this.drawTrackMap(ctx, this.map);
-      //this.drawStartLine(ctx, map);
+        this.drawTrackMap(ctx, this.map);
+        //this.drawStartLine(ctx, map);
 
         for (const [key, value] of GetByClasses(Array.from(this.standings).reverse()))
         {
