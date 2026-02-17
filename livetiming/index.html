@@ -1,171 +1,146 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8"/>
-    <title>LMU TV livetiming</title>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>LMU TV livetiming</title>
 
-    <meta name="viewport" content="width=100%, height=100%, initial-scale=1.0"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=100%, height=100%, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <script src="styles/js/utils/jquery.js"></script>
-    <script src="styles/js/utils/websocket.js"></script>
+        <link rel="stylesheet" href="styles/css/main.css"/>
 
-    <style>
-        body
-        {
-            font-family: "Roboto", sans-serif;
-            background-color: rgb(43, 42, 51);
-            color: rgb(224, 224, 224);
-        }
+        <script src="styles/js/jquery.js"></script>
+        <script src="styles/js/websocket.js"></script>
 
-        table
-        {
-            border-collapse: collapse;
-            width: 100%;
-        }
+        <script src="styles/js/map.js"></script>
+        <script src="styles/js/session.js"></script>
+        <script src="styles/js/standings.js"></script>
+    </head>
+    <body>
+        <script>
+            window.addEventListener('resize', (event) => {
+                let canvas = document.getElementById("live-timing-map");
+                canvas.height = canvas.clientHeight;
+                canvas.width = canvas.clientWidth;
+            });
 
-        table thead
-        {
-            border-bottom: 1px solid rgb(150, 150, 150);
-        }
+            window.addEventListener('load', (event) => {
+                let canvas = document.getElementById("live-timing-map");
+                canvas.height = canvas.clientHeight;
+                canvas.width = canvas.clientWidth;
+            });
 
-        table td
-        {
-            text-align: center;
-        }
+            let content = "";
 
-        .raw-color-1
-        {
-            background-color: rgb(43, 42, 51);
-        }
-
-        .raw-color-2
-        {
-            background-color: rgb(33, 32, 41);
-        }
-    </style>
-</head>
-<body>
-    <script>
-        let content = "";
-
-        function float2int (value)
-        {
-            return value | 0;
-        }
-
-        function LaptimeToString(laptime)
-        {
-            if (laptime == null || laptime <= 0.1)
+            function CreateTableRow(value, index, array)
             {
-                return "--:--:---";
+                let ve = value.ve.toFixed(1) + "%";
+                let int = value.delta_to_next.toFixed(1);
+                let gap = value.delta_to_class_leader.toFixed(1)
+
+                if (value.laps_behind_class_leader > 0)
+                {
+                    gap = value.laps_behind_class_leader + "L";
+                }
+
+                if (value.ve < 0.0)
+                {
+                    ve = value.telemetry.fuel.toFixed(1) + "L";
+                }
+
+                content += `<tr class="standings-row-color-${index % 2 + 1}">
+                    <td>${value.race_position_class}</td>
+                    <td>${value.vehicle_number}</td>
+                    <td style="color: ${getColorDefault(value.vehicle_class, "rgb(224, 224, 224)")}">${value.vehicle_class}</td>
+                    <td><img alt="${value.manufacturer}" width="24" src="styles/img/brandlogo/${value.manufacturer}.png"</td>
+                    <td>${value.driver}</td>
+                    <td>${value.vehicle_name}</td>
+                    <td>${value.status}</td>
+                    <td>${LaptimeToString(value.current_lap)}</td>
+                    <td>${LaptimeToString(value.last_lap)}</td>
+                    <td>${LaptimeToString(value.best_lap)}</td>
+                    <td>${int}</td>
+                    <td>${gap}</td>
+                    <td>${ve}</td>
+                    <td>${GetPenalties(value)}</td>
+                </tr>`;
             }
 
-            let m = 0; let s = 0;
-            let ms = laptime * 1000.0;
-
-            if (ms >= 1000)
+            let callBacks =
             {
-                s = ms / 1000;  // seconds
-                ms %= 1000;     // remaining milliseconds
+                onStandingsUpdate : function(data)
+                {
+                    content = "";
+                    data.forEach(CreateTableRow);
 
-                m = s / 60;     // minutes
-                s %= 60;        // remaining seconds
-            }
+                    let table = document.getElementById("live-timing-table");
+                    table.innerHTML = content;
 
-            m  = float2int(m);
-            s  = float2int(s);
-            ms = float2int(ms);
+                    let canvas = document.getElementById("live-timing-map");
+                    DrawLineMap(data, canvas);
+                },
+                onSessionUpdate : function(data)
+                {
+                    document.getElementById("session-name").innerHTML = data.name;
+                    document.getElementById("session-time").innerHTML = SessionTimeString(data);
 
-            const formattedM  =  m.toString().padStart(2, '0');
-            const formattedS  =  s.toString().padStart(2, '0');
-            const formattedMs = ms.toString().padStart(3, '0');
+                    document.getElementById("track-name").innerHTML = data.trackName;
+                    document.getElementById("track-status").innerHTML = SessionTrackStatusString(data);
 
-            return `${formattedM}:${formattedS}:${formattedMs}`;
-        }
+                    document.getElementById("weather-value").innerHTML = SessionTemperatureString(data);
+                },
+                onControlsUpdate : function(data)
+                {
+                },
+                onTrackMapUpdate : function(data)
+                {
+                },
+                onOverlayUpdate : function(data)
+                {
+                }
+            };
 
-        function CreateTableRow(value, index, array)
-        {
-            let ve = value.ve.toFixed(1) + "%";
-            let int = value.delta_to_next.toFixed(1);
-            let gap = value.delta_to_class_leader.toFixed(1)
-
-            if (value.laps_behind_class_leader > 0)
-            {
-                gap = value.laps_behind_class_leader + "L";
-            }
-
-            if (value.ve < 0.0)
-            {
-                ve = value.telemetry.fuel.toFixed(1) + "L";
-            }
-
-            content += `<tr class="raw-color-${index % 2 + 1}">
-                <td>${value.race_position_class}</td>
-                <td>${value.vehicle_number}</td>
-                <td>${value.vehicle_class}</td>
-                <td><img alt="${value.manufacturer}" width="24" src="styles/img/brandlogo/${value.manufacturer}.png"</td>
-                <td>${value.driver}</td>
-                <td>${value.vehicle_name}</td>
-                <td>${value.status}</td>
-                <td>${LaptimeToString(value.current_lap)}</td>
-                <td>${LaptimeToString(value.last_lap)}</td>
-                <td>${LaptimeToString(value.best_lap)}</td>
-                <td>${int}</td>
-                <td>${gap}</td>
-                <td>${ve}</td>
-            </tr>`;
-        }
-
-        let callBacks =
-        {
-            onStandingsUpdate : function(data)
-            {
-                content = "";
-                data.forEach(CreateTableRow);
-
-                let table = document.getElementById("livetiming_table");
-                table.innerHTML = content;
-            },
-            onSessionUpdate : function(data)
-            {
-            },
-            onControlsUpdate : function(data)
-            {
-            },
-            onTrackMapUpdate : function(data)
-            {
-            },
-            onOverlayUpdate : function(data)
-            {
-            }
-        };
-
-        let webSocketWrapper = new WebSocketWrapper("ws://" + window.location.hostname + ":6433");
-        webSocketWrapper.SetCallback(callBacks);
-        webSocketWrapper.Connect();
-    </script>
-
-    <table>
-        <thead>
-        <tr>
-            <th>#Pos</th>
-            <th>#Vehicle</th>
-            <th>Class</th>
-            <th>Logo</th>
-            <th>Driver</th>
-            <th>Team</th>
-            <th>Status</th>
-            <th>Current Time</th>
-            <th>Last Time</th>
-            <th>Best Time</th>
-            <th>INT</th>
-            <th>GAP</th>
-            <th>VE/FUEL</th>
-        </tr>
-        </thead>
-        <tbody id="livetiming_table">
-        </tbody>
-    </table>
-</body>
+            let webSocketWrapper = new WebSocketWrapper("ws://" + window.location.hostname + ":6433");
+            webSocketWrapper.SetCallback(callBacks);
+            webSocketWrapper.Connect();
+        </script>
+        <table id="session-info">
+            <thead>
+                <tr>
+                    <th id="track-name"></th>
+                    <th id="session-name"></th>
+                    <th id="">Weather</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><pre id="track-status"></pre></td>
+                    <td><pre id="session-time"></pre></td>
+                    <td><pre id="weather-value"></pre></td>
+                </tr>
+            </tbody>
+        </table>
+        <canvas id="live-timing-map">
+        </canvas>
+        <table id="live-timing-standings">
+            <thead>
+                <tr class="standings-row-color-2">
+                    <th>#Pos</th>
+                    <th>#Vehicle</th>
+                    <th>Class</th>
+                    <th>Logo</th>
+                    <th>Driver</th>
+                    <th>Team</th>
+                    <th>Status</th>
+                    <th>Current Time</th>
+                    <th>Last Time</th>
+                    <th>Best Time</th>
+                    <th>INT</th>
+                    <th>GAP</th>
+                    <th>VE/FUEL</th>
+                </tr>
+            </thead>
+            <tbody id="live-timing-table">
+        </table>
+    </body>
 </html>
