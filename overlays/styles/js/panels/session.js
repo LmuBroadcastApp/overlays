@@ -3,19 +3,26 @@ class SessionPanel
     constructor(id)
     {
         this.element_id = id;
+        this.session = null;
     }
 
-    update(session)
+    setSession(session)
     {
+        this.session = session;
+    }
+
+    update()
+    {
+        if (this.session === null) return;
         let sector = "";
 
-        $(this.element_id + " .session-time").text(this.getSessionTimeString(session));
-        $(this.element_id + " .session-track").text(session.trackName);
-        $(this.element_id + " .session-name").text(session.name);
+        $(this.element_id + " .session-time").text(this.getSessionTimeString(this.session));
+        $(this.element_id + " .session-track").text(this.session.trackName);
+        $(this.element_id + " .session-name").text(this.session.name);
 
-        for (var i = 0; i < session.sectorFlags.length; i++)
+        for (var i = 0; i < this.session.sectorFlags.length; i++)
         {
-            if (session.sectorFlags[i])
+            if (this.session.sectorFlags[i])
             {
                 if (sector !== "") sector = sector + " - ";
                 sector = sector + (i + 1);

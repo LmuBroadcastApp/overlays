@@ -5,8 +5,8 @@ class TowerPanel
         this.element_id = id;
         this.vehicle_control = new Map();
 
-        this.session = {};
-        this.standings = [];
+        this.session = null;
+        this.standings = null;
 
         this.controls =
         {
@@ -31,6 +31,11 @@ class TowerPanel
         this.session = session;
     }
 
+    setStandings(standings)
+    {
+        this.standings = standings;
+    }
+
     setControls(controls)
     {
         if (controls.vehicleClass != this.controls.vehicleClass)
@@ -40,9 +45,23 @@ class TowerPanel
         this.controls = controls;
     }
 
-    setStandings(standings)
+    update()
     {
-        this.standings = standings;
+        this.clear();
+
+        if (this.standings == null || this.session == null)
+        {
+            return
+        }
+
+        if (this.controls.vehicle_class.toLowerCase() == "multiclass")
+        {
+            this.showMultiClass();
+        }
+        else
+        {
+            this.showOneClass();
+        }
     }
 
     hasPenalty(vehicle)
@@ -200,20 +219,6 @@ class TowerPanel
         return tr;
     }
 
-    update()
-    {
-        this.clear();
-
-        if (this.controls.vehicle_class.toLowerCase() == "multiclass")
-        {
-            this.showMultiClass();
-        }
-        else
-        {
-            this.showOneClass();
-        }
-    }
-
     renderOneStandingsClass(renderInfo)
     {
         let table = "";
@@ -329,6 +334,11 @@ class TowerPanel
     {
         for (const [c, s] of GetByClasses(this.standings))
         {
+            if (this.session.name == undefined)
+            {
+                continue;
+            }
+
             let renderInfo =
             {
                 rightColumn: this.controls.right_column.toLowerCase(),

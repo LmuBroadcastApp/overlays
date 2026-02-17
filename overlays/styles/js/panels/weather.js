@@ -3,20 +3,28 @@ class WeatherPanel
     constructor(id)
     {
         this.element_id = id;
+        this.session = null;
     }
 
-    update(session)
+    setSession(session)
     {
+        this.session = session;
+    }
+
+    update()
+    {
+        if (this.session === null) return;
+
         let skyType = 0; let skyName = "Unknown";
         let ambientTemp = 0; let when = "Now";
 
-        let idx = session.weatherForecast.length; let content = "";
-        let perc = session.currentEventTime / session.endEventTime;
+        let idx = this.session.weatherForecast.length; let content = "";
+        let perc = this.session.currentEventTime / this.session.endEventTime;
 
-        for (let i = 0; i < session.weatherForecast.length - 1; ++i)
+        for (let i = 0; i < this.session.weatherForecast.length - 1; ++i)
         {
-            let p0 = session.weatherForecast[i + 0].idx;
-            let p1 = session.weatherForecast[i + 1].idx;
+            let p0 = this.session.weatherForecast[i + 0].idx;
+            let p1 = this.session.weatherForecast[i + 1].idx;
 
             if (p0 < perc && perc < p1)
             {
@@ -24,12 +32,12 @@ class WeatherPanel
             }
         }
 
-        for (let i = idx; i < session.weatherForecast.length - 1; i++)
+        for (let i = idx; i < this.session.weatherForecast.length - 1; i++)
         {
             if (i > idx)
             {
-                let timeSlot = session.weatherForecast[i].idx * session.endEventTime;
-                let remainingTime = timeSlot - session.currentEventTime;
+                let timeSlot = this.session.weatherForecast[i].idx * this.session.endEventTime;
+                let remainingTime = timeSlot - this.session.currentEventTime;
 
                 let div = 1.0 / 60.0;
                 let result = Math.floor(remainingTime * div);
@@ -46,15 +54,15 @@ class WeatherPanel
                     when = `${result}m`;
                 }
 
-                skyType = session.weatherForecast[i].sky;
-                skyName = session.weatherForecast[i].sky_name;
-                ambientTemp = session.weatherForecast[i].temperature;
+                skyType = this.session.weatherForecast[i].sky;
+                skyName = this.session.weatherForecast[i].sky_name;
+                ambientTemp = this.session.weatherForecast[i].temperature;
             }
             else
             {
-                skyType = this.ForecastSkyType(session.weatherForecast[i].sky, session.raining);
+                skyType = this.ForecastSkyType(this.session.weatherForecast[i].sky, this.session.raining);
                 skyName = this.ForcastSkyTypeToString(skyType);
-                ambientTemp = session.ambientTemp.toFixed(0);
+                ambientTemp = this.session.ambientTemp.toFixed(0);
                 when = "Now";
             }
 

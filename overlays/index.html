@@ -30,32 +30,30 @@
 
     <body>
         <script>
-            let overlays_controls = null;
-            let game_standings = null;
-            let game_session = null;
-            let track_map = null;
 
             let callBacks =
             {
                 onStandingsUpdate : function(data)
                 {
-                    game_standings = data;
+                    map_panel.setStandings(data);
+                    tower_panel.setStandings(data);
+                    driver_panel.setVehicle(StandingsGetFocus(data));
                 },
                 onSessionUpdate : function(data)
                 {
-                    game_session = data;
-                },
-                onControlsUpdate : function(data)
-                {
-                    overlays_controls = data;
+                    let session = data.trackName != "" ? data : null;
+                    tower_panel.setSession(session);
+
+                    session_panel.setSession(session);
+                    weather_panel.setSession(session);
                 },
                 onTrackMapUpdate : function(data)
                 {
-                    track_map = data;
+                    map_panel.setMap(data);
                 },
                 onOverlayUpdate : function(data)
                 {
-                    overlays_controls = data;
+                    tower_panel.setControls(data);
                 }
             };
 
@@ -64,41 +62,13 @@
             webSocketWrapper.Connect();
 
             setInterval(() => {
-                if (game_session != null && game_session.trackName != "")
-                {
-                    tower_panel.setSession(game_session);
-                    session_panel.update(game_session);
-                    weather_panel.update(game_session);
+                driver_panel.update();
+                tower_panel.update();
 
-                    if (overlays_controls != null)
-                    {
-                        tower_panel.setControls(overlays_controls);
-                    }
+                session_panel.update();
+                weather_panel.update();
 
-                    if (game_standings != null)
-                    {
-                        let isRace = false;
-
-                        if (game_session != null)
-                        {
-                            isRace = game_session.name.toLowerCase().includes("race");
-                        }
-
-                        tower_panel.setStandings(game_standings);
-                        driver_panel.update(StandingsGetFocus(game_standings), isRace);
-                    }
-
-                    if (track_map != null && game_standings != null)
-                    {
-                        map_panel.update(game_standings, track_map);
-                        tower_panel.update();
-                    }
-                }
-                else
-                {
-                    tower_panel.clear();
-                    map_panel.clear();
-                }
+                map_panel.update();
             }, 1000 / 30);
         </script>
         <div id="gradient-background"/>

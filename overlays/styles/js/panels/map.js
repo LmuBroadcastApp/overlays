@@ -3,6 +3,18 @@ class TrackMapPanel
     constructor(id)
     {
         this.element_id = id;
+        this.standings = null;
+        this.map = null;
+    }
+
+    setStandings(standings)
+    {
+        this.standings = standings;
+    }
+
+    setMap(map)
+    {
+        this.map = map;
     }
 
     clear()
@@ -165,7 +177,7 @@ class TrackMapPanel
         }
     }
 
-    update(standings, map)
+    update()
     {
         let canvas = document.getElementById(this.element_id);
         let ctx = canvas.getContext("2d");
@@ -173,21 +185,21 @@ class TrackMapPanel
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const dpr = window.devicePixelRatio || 1;
 
-        if (map == null)
+        if (this.map == null || this.standings == null)
         {
             return;
         }
 
-        if (canvas.width !== map.size.width * dpr || canvas.height !== map.size.height * dpr)
+        if (canvas.width !== this.map.size.width * dpr || canvas.height !== this.map.size.height * dpr)
         {
-            canvas.height = map.size.height * dpr;
-            canvas.width = map.size.width * dpr;
+            canvas.height = this.map.size.height * dpr;
+            canvas.width = this.map.size.width * dpr;
         }
 
-      this.drawTrackMap(ctx, map);
+      this.drawTrackMap(ctx, this.map);
       //this.drawStartLine(ctx, map);
 
-        for (const [key, value] of GetByClasses(Array.from(standings).reverse()))
+        for (const [key, value] of GetByClasses(Array.from(this.standings).reverse()))
         {
             this.drawVehicles(ctx, value);
         }
