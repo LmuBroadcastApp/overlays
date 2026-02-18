@@ -30,9 +30,7 @@
                 canvas.width = canvas.clientWidth;
             });
 
-            let content = "";
-
-            function CreateTableRow(value, index, array)
+            function CreateTableRow(value, index)
             {
                 let ve = value.ve.toFixed(1) + "%";
                 let int = value.delta_to_next.toFixed(1);
@@ -48,14 +46,28 @@
                     ve = value.telemetry.fuel.toFixed(1) + "L";
                 }
 
-                content += `<tr class="standings-row-color-${index % 2 + 1}">
+                let speed_under_50kmh = "";
+                let in_pits_background = "";
+
+                if (value.telemetry.speed < 50.0 && !value.in_pits)
+                {
+                    speed_under_50kmh = "class='speed-under-50-kmh'";
+                }
+
+                if (value.in_pits)
+                {
+                    in_pits_background = "class='vehicle-in-pits'";
+                }
+
+                return `<tr class="standings-row-color-${index % 2 + 1}">
+                    <td>${value.race_position}</td>
                     <td>${value.race_position_class}</td>
                     <td>${value.vehicle_number}</td>
                     <td style="color: ${getColorDefault(value.vehicle_class, "rgb(224, 224, 224)")}">${value.vehicle_class}</td>
                     <td><img alt="${value.manufacturer}" width="24" src="styles/img/brandlogo/${value.manufacturer}.png"</td>
-                    <td>${value.driver}</td>
+                    <td ${speed_under_50kmh}>${value.driver}</td>
                     <td>${value.vehicle_name}</td>
-                    <td>${value.status}</td>
+                    <td ${in_pits_background}>${value.status}</td>
                     <td>${LaptimeToString(value.current_lap)}</td>
                     <td>${LaptimeToString(value.last_lap)}</td>
                     <td>${LaptimeToString(value.best_lap)}</td>
@@ -71,7 +83,20 @@
                 onStandingsUpdate : function(data)
                 {
                     content = "";
-                    data.forEach(CreateTableRow);
+                    let style_idx = 0;
+                    for (let i = 0; i < data.length; i++)
+                    {
+                        content += CreateTableRow(data[i], style_idx++);
+                    }
+
+                    //let per_class = GetByClasses(data);
+                    //for (const [key, value] of per_class)
+                    //{
+                    //    for (let i = 0; i < value.length; i++)
+                    //    {
+                    //        content += CreateTableRow(value[i], style_idx++);
+                    //    }
+                    //}
 
                     let table = document.getElementById("live-timing-table");
                     table.innerHTML = content;
@@ -125,7 +150,8 @@
         <table id="live-timing-standings">
             <thead>
                 <tr class="standings-row-color-2">
-                    <th>#Pos</th>
+                    <th>#P</th>
+                    <th>#P class</th>
                     <th>#Vehicle</th>
                     <th>Class</th>
                     <th>Logo</th>

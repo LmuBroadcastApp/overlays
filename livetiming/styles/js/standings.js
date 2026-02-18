@@ -54,3 +54,19 @@ function GetPenalties(vehicle)
 
     return result;
 }
+
+function GetByClasses(standings)
+{
+    const perCategory = new Map();
+
+    for (const vehicle of standings)
+    {
+        if (!perCategory.has(vehicle.vehicle_class))
+        {
+            perCategory.set(vehicle.vehicle_class, []);
+        }
+        perCategory.get(vehicle.vehicle_class).push(vehicle);
+    }
+
+    return perCategory;
+}

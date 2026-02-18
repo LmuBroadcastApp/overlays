@@ -28,6 +28,16 @@ table
     color: white;
 }
 
+.speed-under-50-kmh
+{
+    color: rgb(255, 202, 58);
+}
+
+.vehicle-in-pits
+{
+    color: yellow;
+}
+
 #session-info
 {
     table-layout: fixed;
@@ -48,6 +58,7 @@ table
 #live-timing-standings thead
 {
     border-bottom: 1px solid rgb(150, 150, 150);
+    height: 2.0em;
 }
 
 #live-timing-standings .standings-row-color-1
