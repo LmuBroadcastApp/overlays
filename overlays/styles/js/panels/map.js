@@ -215,12 +215,14 @@ class TrackMapPanel
         }
 
         this.drawTrackMap(ctx, this.map);
+        this.drawVehicles(ctx, Array.from(this.standings).reverse());
+
         //this.drawStartLine(ctx, map);
 
-        for (const [key, value] of GetByClasses(Array.from(this.standings).reverse()))
-        {
-            this.drawVehicles(ctx, value);
-        }
+        //for (const [key, value] of GetByClasses(Array.from(this.standings).reverse()))
+        //{
+        //    this.drawVehicles(ctx, value);
+        //}
     }
 }
 
