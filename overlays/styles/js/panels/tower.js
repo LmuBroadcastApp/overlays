@@ -122,6 +122,7 @@ class TowerPanel
         let gap = VehicleGetGap(vehicle, this.controls, isRace);
         let fuel_ve = GetVehicleFuelVe(vehicle);
 
+        let manufacturer = vehicle.manufacturer;
         let firstColBackground = "";
         let firstColImg = "";
 
@@ -151,6 +152,11 @@ class TowerPanel
             selected_color = "color-selected";
         }
 
+        if (manufacturer.trim().length == 0)
+        {
+            manufacturer = "Default";
+        }
+
         if (!vehicle.in_pits && vehicle.telemetry.speed < 50)
         {
             firstColBackground = "style='background-color: rgb(249, 199, 79)'";
@@ -167,7 +173,7 @@ class TowerPanel
                     <td class="vehicle-icons" ${firstColBackground}">${firstColImg}</td>
                     <td class="vehicle-position standings-primary-color">${position}</td>
                     <td class="vehicle-driver standings-primary-color"><span class="vehicle-driver-truncate-text">${name}</span></td>
-                    <td class="vehicle-logo standings-primary-color"><img height="23px" alt="" src="styles/img/brandlogo/${vehicle.manufacturer}.png" /></td>
+                    <td class="vehicle-logo standings-primary-color"><img height="23px" alt="" src="styles/img/brandlogo/${manufacturer}.png" /></td>
                     <td class="vehicle-number standings-primary-color">#${vehicle.vehicle_number}</td>
                     <td class="vehicle-gap standings-secondary-color ${gap_color}">${gap}</td>
                     <!-- {RIGHT_COLUMNS} -->

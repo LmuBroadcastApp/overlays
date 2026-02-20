@@ -33,6 +33,8 @@
             function CreateTableRow(value, index)
             {
                 let ve = value.ve.toFixed(1) + "%";
+                let manufacturer = value.manufacturer;
+
                 let int = value.delta_to_next.toFixed(1);
                 let gap = value.delta_to_class_leader.toFixed(1)
 
@@ -44,6 +46,11 @@
                 if (value.ve < 0.0)
                 {
                     ve = value.telemetry.fuel.toFixed(1) + "L";
+                }
+
+                if (manufacturer.trim().length == 0)
+                {
+                    manufacturer = "Default";
                 }
 
                 let speed_under_50kmh = "";
@@ -64,7 +71,7 @@
                     <td>${value.race_position_class}</td>
                     <td>${value.vehicle_number}</td>
                     <td style="color: ${getColorDefault(value.vehicle_class, "rgb(224, 224, 224)")}">${value.vehicle_class}</td>
-                    <td><img alt="${value.manufacturer}" width="24" src="styles/img/brandlogo/${value.manufacturer}.png"</td>
+                    <td><img alt="" width="24" src="styles/img/brandlogo/${manufacturer}.png"</td>
                     <td ${speed_under_50kmh}>${value.driver}</td>
                     <td>${value.vehicle_name}</td>
                     <td ${in_pits_background}>${value.status}</td>
