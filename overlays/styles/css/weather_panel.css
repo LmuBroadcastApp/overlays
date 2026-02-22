@@ -19,7 +19,7 @@
 
 .weather-time
 {
-    background-color: rgba(248, 249, 250, 0.9);
+    background-color: var(--weather-panel-time-background-color);
     text-align: center;
     font-weight: bold;
     color: black;
@@ -27,7 +27,7 @@
 
 .weather-icon
 {
-    background-color: rgba(33, 37, 41, 0.9);
+    background-color: var(----weather-panel-img-background-color);
     height: 50%;
 }
 
@@ -38,7 +38,7 @@
 
 .weather-temp
 {
-    background-color: rgba(248, 249, 250, 0.9);
+    background-color: var(--weather-panel-temp-background-color);
     text-align: center;
     font-weight: bold;
     color: black;
