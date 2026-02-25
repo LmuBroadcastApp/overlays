@@ -27,13 +27,13 @@
 
 .weather-icon
 {
-    background-color: var(----weather-panel-img-background-color);
+    background-color: var(--weather-panel-img-background-color);
     height: 50%;
 }
 
 .weather-icon img
 {
-    height: var(--weather-panel-item-width);
+    width: var(--weather-panel-item-width);
 }
 
 .weather-temp
