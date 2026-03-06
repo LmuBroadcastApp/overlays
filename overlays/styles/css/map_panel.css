@@ -1,0 +1,6 @@
+#track-map-panel
+{
+    right: var(--map-panel-position-right);
+    top: var(--map-panel-position-top);
+    position: fixed;
+}

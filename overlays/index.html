@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>LMU TV Overlay</title>
+
+        <meta name="viewport" content="width=100%, height=100%, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"  rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@v3.3.0/build/firacode-nerd-font.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="styles/css/common.css"/>
+        <link rel="stylesheet" href="styles/css/map_panel.css"/>
+        <link rel="stylesheet" href="styles/css/tower_panel.css"/>
+        <link rel="stylesheet" href="styles/css/driver_panel.css"/>
+        <link rel="stylesheet" href="styles/css/weather_panel.css"/>
+        <link rel="stylesheet" href="styles/css/session_panel.css"/>
+
+        <script src="styles/js/utils/jquery.js"></script>
+        <script src="styles/js/utils/network.js"></script>
+        <script src="styles/js/utils/standings.js"></script>
+        <script src="styles/js/utils/websocket.js"></script>
+        <script src="styles/js/utils/auto_shrink_text.js"></script>
+
+        <script src="styles/js/panels/map.js"></script>
+        <script src="styles/js/panels/tower.js"></script>
+        <script src="styles/js/panels/driver.js"></script>
+        <script src="styles/js/panels/weather.js"></script>
+        <script src="styles/js/panels/session.js"></script>
+    </head>
+
+    <body>
+        <script>
+
+            let callBacks =
+            {
+                onStandingsUpdate : function(data)
+                {
+                    map_panel.setStandings(data);
+                    tower_panel.setStandings(data);
+                    driver_panel.setVehicle(StandingsGetFocus(data));
+                },
+                onSessionUpdate : function(data)
+                {
+                    let session = data.trackName != "" ? data : null;
+                    tower_panel.setSession(session);
+
+                    session_panel.setSession(session);
+                    weather_panel.setSession(session);
+                },
+                onTrackMapUpdate : function(data)
+                {
+                    map_panel.setMap(data);
+                },
+                onOverlayUpdate : function(data)
+                {
+                    tower_panel.setControls(data);
+                }
+            };
+
+            let webSocketWrapper = new WebSocketWrapper("ws://" + window.location.hostname + ":6433");
+            webSocketWrapper.SetCallback(callBacks);
+            webSocketWrapper.Connect();
+
+            setInterval(() => {
+                driver_panel.update();
+                tower_panel.update();
+
+                session_panel.update();
+                weather_panel.update();
+
+                map_panel.update();
+            }, 1000 / 30);
+        </script>
+        <div id="gradient-background"/>
+
+        <div id="session-panel">
+            <div class="session-container">
+                <div class="session-time"></div>
+                <div class="session-flag"></div>
+            </div>
+            <hr />
+            <div class="session-container">
+                <div class="session-track"></div>
+                <div class="session-name"></div>
+            </div>
+        </div>
+
+        <div id="tower-panel"></div>
+        <div id="weather-panel"></div>
+        <canvas id="track-map-panel"></canvas>
+
+        <div id="driver-panel">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="driver-vehicle-position" rowspan="2" style="width: 20%;"></td>
+                    <td class="driver-panel-name" colspan="3" style="width: 60%;"></td>
+                    <td class="driver-vehicle-numer" rowspan="2" style="width: 20%;"></td>
+                </tr>
+                <tr>
+                    <td class="driver-panel-team" colspan="3" style="width: 60%;"></td>
+                </tr>
+                    <tr>
+                        <td class="driver-vehicle-class" style="width: 20%; text-align: center;"></td>
+
+                        <td style="width: 20%; text-align: center;">Last</td>
+                        <td class="driver-panel-last-lap" style="width: 20%; text-align: center;"></td>
+
+                        <td style="width: 20%; text-align: center;">Best</td>
+                        <td class="driver-panel-best-lap" style="width: 20%; text-align: center;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

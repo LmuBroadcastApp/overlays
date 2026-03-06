@@ -1,0 +1,136 @@
+
+#tower-panel
+{
+    margin-left: var(--standings-panel-position-left);
+    margin-top: var(--standings-panel-position-top);
+
+    font-weight: var(--standings-panel-font-weight);
+    font-size: var(--standings-panel-font-size);
+
+    color: white;
+}
+
+#tower-panel table
+{
+    border-collapse: separate;
+    margin-bottom: 0.5em;
+    border-spacing: 0;
+}
+
+.standings-primary-color
+{
+    background-color: var(--standings-panel-primary-color);
+}
+
+.standings-secondary-color
+{
+    background-color: var(--standings-panel-secondary-color);
+}
+
+.gap-less-1
+{
+    color: var(--standings-panel-gap-less-1-color);
+}
+
+.gap-less-2
+{
+    color: var(--standings-panel-gap-less-2-color);
+}
+
+.color-selected
+{
+    background-image: linear-gradient(to right, rgba(140, 140, 140, 1.0), rgba(0, 0, 0, 0.0));
+}
+
+.generic_class
+{
+    background-color: rgba(79, 93, 117, 1.0);
+}
+
+.GT3
+{
+    background-color: rgba(0, 143, 55, 1.0);
+}
+
+.GTE
+{
+    background-color: rgba(240, 140, 0, 1.0);
+}
+
+.LMP2
+{
+    background-color: rgba(6, 75, 145, 1.0);
+}
+
+.LMP3
+{
+    background-color: rgba(58, 25, 74, 1.0);
+}
+
+.Hyper
+{
+    background-color: rgba(171, 24, 20, 1.0);
+}
+
+.LMP2_ELMS
+{
+    background-color: rgba(190, 74, 9, 1.0);
+}
+
+/**********************************************************************************************************************/
+
+.vehicle-icons
+{
+    width: var(--standings-panel-col-01-width);
+    text-align: center;
+}
+
+.vehicle-position
+{
+    width: var(--standings-panel-col-02-width);
+    text-align: center;
+}
+
+.vehicle-driver
+{
+    width: var(--standings-panel-col-03-width);
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.vehicle-driver-truncate-text
+{
+    width: var(--standings-panel-col-03-width);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+
+.vehicle-logo
+{
+    text-align: center;
+    width: var(--standings-panel-col-04-width);
+}
+
+.vehicle-number
+{
+    text-align: center;
+    width: var(--standings-panel-col-05-width);
+}
+
+.vehicle-gap
+{
+    text-align: center;
+    width: var(--standings-panel-col-06-width);
+}
+
+.vehicle-right-column
+{
+    min-width: var(--standings-panel-col-07-width);
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+/**********************************************************************************************************************/

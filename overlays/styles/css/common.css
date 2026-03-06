@@ -1,0 +1,106 @@
+
+:root
+{
+    /** Standings panel variables */
+    --standings-panel-position-left: 1.0em;                 /** Position from the left of the screen */
+    --standings-panel-position-top: 1.0em;                  /** Position from the top of the screen */
+
+    --standings-panel-font-weight: 550;                     /** How bold the font will be seen */
+    --standings-panel-font-size: 1em;                       /** General font size of the panel */
+
+    --standings-panel-primary-color: rgba(0, 0, 0, 0.6);    /** Vehicle position, driver/team, number, icon */
+    --standings-panel-secondary-color: rgba(0, 0, 0, 0.4);  /** Vehicle gap and right column */
+
+    --standings-panel-gap-less-1-color: rgb(242, 92, 84);   /** Interval GAP less than 0.5 seconds */
+    --standings-panel-gap-less-2-color: rgb(247, 178, 103); /** Interval GAP less than   2 seconds */
+
+    --standings-panel-col-01-width:  24px;                  /** Fast lap and exclamation icons */
+    --standings-panel-col-02-width:  32px;                  /** Vehicle position */
+    --standings-panel-col-03-width: 160px;                  /** Driver/Team name */
+    --standings-panel-col-04-width:  48px;                  /** Vehicle icon */
+    --standings-panel-col-05-width:  48px;                  /** Vehicle number */
+    --standings-panel-col-06-width:  48px;                  /** Vehicle gap */
+    --standings-panel-col-07-width:  48px;                  /** Min width of the "right column" */
+
+    /** Session panel variables */
+    --session-panel-width: calc(var(--standings-panel-col-02-width) + var(--standings-panel-col-03-width) + var(--standings-panel-col-04-width) + var(--standings-panel-col-05-width) + var(--standings-panel-col-06-width));
+    --session-panel-position-left: calc(var(--standings-panel-position-left) + var(--standings-panel-col-01-width));
+    --session-panel-position-top: 1.0em; /** Position from the top of the screen */
+    --session-panel-font-size: 1em; /** General font size of the panel */
+
+    /** Driver panel */
+    --driver-panel-width: 400px;
+    --driver-panel-font-size: 1em;                                                  /** General font size of the panel */
+    --driver-panel-position-right: 3.0em;                                           /** Position from the right of the screen */
+    --driver-panel-position-bottom: 1.0em;                                          /** Position from the bottom of the screen */
+    --driver-panel-background-color: rgba(0, 0, 0, 0.7);                            /** Panel general background */
+    --driver-panel-vehicle-number-background-color: rgba(255, 255, 255, 0.6);       /** This will be overridden by the vehicle class color */
+    --driver-panel-vehicle-position-background-color: rgba(255, 255, 255, 0.6);     /** Vehicle position background */
+
+    /** Weather forecast panel */
+    --weather-panel-time-background-color: rgba(248, 249, 250, 0.9);    /** Background color of the time item */
+    --weather-panel-temp-background-color: rgba(248, 249, 250, 0.9);    /** Background color of the temperature item */
+    --weather-panel-img-background-color: rgba(33, 37, 41, 0.9);        /** Background color of the weather icons */
+    --weather-panel-position-right: 3.0em;                              /** Position from the right of the screen */
+    --weather-panel-position-top: 1.0em;                                /** Position from the top of the screen */
+    --weather-panel-item-width: 48px;                                   /** Width of each item (icon, time, temperature) */
+    --weather-panel-font-size: 1em;                                     /** General font size of the panel */
+
+    /** Map panel */
+    --map-panel-position-right: 3em;    /** Position from the right of the screen */
+    --map-panel-position-top: 30%;      /** Position from the top of the screen */
+}
+
+/**********************************************************************************************************************/
+
+body
+{
+    font-family: 'Titillium Web', 'FiraCode Nerd Font', 'sans-serif';
+    margin: 0; padding: 0;
+    font-size: 1.0em;
+}
+
+img
+{
+    vertical-align: middle;
+}
+
+#gradient-background
+{
+    width: 40%;
+    height: 100%;
+
+    position: absolute;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0));
+}
+
+/** Apply to all elements (padding is taken from the inner bounds) */
+* { box-sizing: border-box; }
+
+/**********************************************************************************************************************/
+
+.penalty-style
+{
+    background-color: red;
+    color: white;
+
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-left: 2px;
+}
+
+.vehicle-in-pits
+{
+    background-color: orange;
+    color: black;
+
+    padding-right: 3px;
+    padding-left: 3px;
+    margin-left: 2px;
+}
+
+.icon-container
+{
+}
+
+/**********************************************************************************************************************/

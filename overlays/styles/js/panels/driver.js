@@ -1,0 +1,35 @@
+class DriverPanel
+{
+    constructor(id)
+    {
+        this.element_id = id;
+        this.vehicle = null;
+    }
+
+    setVehicle(vehicle)
+    {
+        this.vehicle = vehicle;
+    }
+
+    update()
+    {
+        if (this.vehicle == null)
+        {
+            return;
+        }
+
+        $(this.element_id + " .driver-panel-name").text(this.vehicle.driver);
+        $(this.element_id + " .driver-panel-team").text(this.vehicle.vehicle_name);
+
+        $(this.element_id + " .driver-panel-last-lap").text(LaptimeToString(this.vehicle.last_lap));
+        $(this.element_id + " .driver-panel-best-lap").text(LaptimeToString(this.vehicle.best_lap));
+
+        $(this.element_id + " .driver-vehicle-class").text(this.vehicle.vehicle_class);
+        $(this.element_id + " .driver-vehicle-numer").text("#" + this.vehicle.vehicle_number);
+        $(this.element_id + " .driver-vehicle-position").text("P" + this.vehicle.race_position_class);
+
+        $(this.element_id + " .driver-vehicle-numer").css("background-color", ColorFromVehicleClass(this.vehicle.vehicle_class));
+    }
+}
+
+var driver_panel = new DriverPanel("#driver-panel");

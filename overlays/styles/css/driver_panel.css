@@ -1,0 +1,73 @@
+
+#driver-panel
+{
+    font-size: var(--driver-panel-font-size);
+    width: var(--driver-panel-width);
+
+    bottom: var(--driver-panel-position-bottom);
+    right: var(--driver-panel-position-right);
+
+    position: fixed;
+    color: white;
+}
+
+#driver-panel table
+{
+    border-collapse: separate;
+    border-spacing: 1px;
+    width: 100%;
+}
+
+#driver-panel table td
+{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+}
+
+#driver-panel thead
+{
+    background-color: var(--driver-panel-background-color);
+}
+
+#driver-panel tbody
+{
+    background-color: var(--driver-panel-background-color);
+}
+
+#driver-panel .driver-panel-name
+{
+    font-weight: bold;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#driver-panel .driver-panel-team
+{
+    font-weight: lighter;
+    text-align: center;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#driver-panel .driver-vehicle-numer
+{
+    background-color: var(--driver-panel-vehicle-number-background-color);
+    font-size: calc(var(--driver-panel-font-size) + 0.5em);
+
+    text-align: center;
+    font-weight: bold;
+    color: white;
+}
+
+#driver-panel .driver-vehicle-position
+{
+    background-color: var(--driver-panel-vehicle-position-background-color);
+    font-size: calc(var(--driver-panel-font-size) + 0.5em);
+
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}

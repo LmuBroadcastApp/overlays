@@ -1,0 +1,45 @@
+#weather-panel
+{
+    right: var(--weather-panel-position-right);
+    top: var(--weather-panel-position-top);
+    font-size: var(--weather-panel-font-size);
+    align-items: center;
+    position: fixed;
+    display: flex;
+}
+
+.weather-item
+{
+    width: var(--weather-panel-item-width);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 2px;
+}
+
+.weather-time
+{
+    background-color: var(--weather-panel-time-background-color);
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+.weather-icon
+{
+    background-color: var(--weather-panel-img-background-color);
+    height: 50%;
+}
+
+.weather-icon img
+{
+    width: var(--weather-panel-item-width);
+}
+
+.weather-temp
+{
+    background-color: var(--weather-panel-temp-background-color);
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
