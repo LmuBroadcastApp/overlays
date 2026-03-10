@@ -201,6 +201,13 @@ class TowerPanel
         {
             right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.pit_stops}</td>`;
         }
+        else if (rightColumn == "pos g/l")
+        {
+            let diff = vehicle.race_position_class - vehicle.qualy_position_class;
+            let cls = diff < 0 ? "gain-position" : diff > 0 ? "lost-position" : "";
+
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color ${cls}">${diff}</td>`;
+        }
         else if (rightColumn == "tires")
         {
             if (HasOneTireCompound(vehicle))
