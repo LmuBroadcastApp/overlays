@@ -277,6 +277,16 @@ function GetRightColumnName(rightColumn, vehicleClass)
         {
             return "#PITS";
         } break
+
+        case "posgainlost":
+        {
+            return "#P";
+        } break
+
+        default:
+        {
+            return "";
+        }
     }
 }
 
