@@ -18,8 +18,12 @@ class DriverPanel
             return;
         }
 
+        let diff_pos = this.vehicle.race_position_class - this.vehicle.qualy_position_class;
+        let diff_pos_txt = diff_pos > 0 ? "+" + diff_pos : diff_pos;
+
         $(this.element_id + " .driver-panel-name").text(this.vehicle.driver);
         $(this.element_id + " .driver-panel-team").text(this.vehicle.vehicle_name);
+        $(this.element_id + " .driver-panel-pos-diff").text(diff_pos_txt);
 
         $(this.element_id + " .driver-panel-last-lap").text(LaptimeToString(this.vehicle.last_lap));
         $(this.element_id + " .driver-panel-best-lap").text(LaptimeToString(this.vehicle.best_lap));
