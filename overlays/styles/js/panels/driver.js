@@ -19,7 +19,7 @@ class DriverPanel
         }
 
         let diff_pos = this.vehicle.race_position_class - this.vehicle.qualy_position_class;
-        let diff_pos_txt = diff_pos > 0 ? "+" + diff_pos : diff_pos;
+        let diff_pos_txt = diff_pos > 0 ? "↓ " + Math.abs(diff_pos) : "↑ " + Math.abs(diff_pos);
 
         $(this.element_id + " .driver-panel-name").text(this.vehicle.driver);
         $(this.element_id + " .driver-panel-team").text(this.vehicle.vehicle_name);
