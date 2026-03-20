@@ -63,7 +63,7 @@ class TrackMapPanel
         ctx.stroke();
     }
 
-    drawTrackMap(ctx, map)
+    drawTrackMap(ctx, map, size, color)
     {
         ctx.beginPath();
         ctx.moveTo(map.points[0].x, map.points[0].y);
@@ -74,8 +74,8 @@ class TrackMapPanel
         }
         ctx.closePath();
 
-        ctx.strokeStyle = "rgba(240, 240, 240, 1)";
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size;
         ctx.stroke();
 
         //ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
@@ -214,7 +214,8 @@ class TrackMapPanel
             canvas.width = this.map.size.width * dpr;
         }
 
-        this.drawTrackMap(ctx, this.map);
+        this.drawTrackMap(ctx, this.map, 6, "rgba(30, 30, 30, 1)");
+        this.drawTrackMap(ctx, this.map, 3, "rgba(240, 240, 240, 1)");
         this.drawVehicles(ctx, Array.from(this.standings).reverse());
 
         //this.drawStartLine(ctx, map);
