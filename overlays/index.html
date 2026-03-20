@@ -46,6 +46,21 @@
 
                     session_panel.setSession(session);
                     weather_panel.setSession(session);
+
+                    if (data.replayActive)
+                    {
+                        $("#tower-panel").hide(1000);
+                        $("#session-panel").hide(1000);
+                        $("#weather-panel").hide(1000);
+                        $("#track-map-panel").hide(1000);
+                    }
+                    else
+                    {
+                        $("#tower-panel").show(1000);
+                        $("#session-panel").show(1000);
+                        $("#weather-panel").show(1000);
+                        $("#track-map-panel").show(1000);
+                    }
                 },
                 onTrackMapUpdate : function(data)
                 {

@@ -19,7 +19,7 @@ class DriverPanel
         }
 
         let diff_pos = this.vehicle.race_position_class - this.vehicle.qualy_position_class;
-        let diff_pos_txt = "";
+        let diff_pos_txt = "-";
 
         if (this.vehicle.qualy_position_class > 0)
         {
