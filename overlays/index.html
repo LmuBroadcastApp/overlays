@@ -30,7 +30,6 @@
 
     <body>
         <script>
-
             let callBacks =
             {
                 onStandingsUpdate : function(data)
@@ -53,6 +52,8 @@
                         $("#session-panel").hide(1000);
                         $("#weather-panel").hide(1000);
                         $("#track-map-panel").hide(1000);
+
+                        $("#replay-banner").show(1000);
                     }
                     else
                     {
@@ -60,6 +61,8 @@
                         $("#session-panel").show(1000);
                         $("#weather-panel").show(1000);
                         $("#track-map-panel").show(1000);
+
+                        $("#replay-banner").hide(1000);
                     }
                 },
                 onTrackMapUpdate : function(data)
@@ -87,6 +90,10 @@
             }, 1000 / 30);
         </script>
         <div id="gradient-background"/>
+
+        <div id="replay-banner">
+            <img src="styles/img/others/replay.webp">
+        </div>
 
         <div id="session-panel">
             <div class="session-container">

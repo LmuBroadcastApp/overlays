@@ -49,6 +49,10 @@
     /** Map panel */
     --map-panel-position-right: 3em;    /** Position from the right of the screen */
     --map-panel-position-top: 30%;      /** Position from the top of the screen */
+
+    /** Replay banner */
+    --replay-banner-position-left: 3em;
+    --replay-banner-position-top: 1em;
 }
 
 /**********************************************************************************************************************/
@@ -78,6 +82,15 @@ img
 * { box-sizing: border-box; }
 
 /**********************************************************************************************************************/
+
+#replay-banner
+{
+    margin-left: var(--replay-banner-position-left);
+    margin-top: var(--replay-banner-position-top);
+
+    position: absolute;
+    display: none;
+}
 
 .penalty-style
 {
