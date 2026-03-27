@@ -21,7 +21,7 @@ class DriverPanel
         let diff_pos = this.vehicle.race_position_class - this.vehicle.qualy_position_class;
         let diff_pos_txt = "-";
 
-        if (this.vehicle.qualy_position_class > 0)
+        if (this.vehicle.qualy_position_class > 0 && diff_pos != 0)
         {
             diff_pos_txt = diff_pos > 0 ? "⮟ " + Math.abs(diff_pos) : "⮝ " + Math.abs(diff_pos);
             diff_pos_txt += "&nbsp;&nbsp;&nbsp;Q" + this.vehicle.qualy_position_class;
