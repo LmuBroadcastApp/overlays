@@ -32,7 +32,7 @@
 
             function CreateTableRow(value, index)
             {
-                let ve = value.ve.toFixed(1) + "%";
+                let ve = value.telemetry.ve.toFixed(1) + "%";
                 let manufacturer = value.manufacturer;
 
                 let int = value.delta_to_next.toFixed(1);
@@ -43,7 +43,7 @@
                     gap = value.laps_behind_class_leader + "L";
                 }
 
-                if (value.ve < 0.0)
+                if (value.telemetry.ve <= 0.0)
                 {
                     ve = value.telemetry.fuel.toFixed(1) + "L";
                 }
