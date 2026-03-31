@@ -74,7 +74,7 @@ function VehicleGetGap(vehicle, controls, isRace)
         }
         else
         {
-            gap = vehicle.delta_to_next.toFixed(1);
+            gap = Math.abs(vehicle.delta_to_next.toFixed(1));
         }
     }
 
