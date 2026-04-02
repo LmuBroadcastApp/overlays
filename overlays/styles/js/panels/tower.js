@@ -201,6 +201,21 @@ class TowerPanel
         {
             right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.pit_stops}</td>`;
         }
+        else if (rightColumn == "posgainlost")
+        {
+            let diff = vehicle.race_position_class - vehicle.qualy_position_class;
+            let cls = diff < 0 ? "gain-position" : diff > 0 ? "lost-position" : "";
+
+            let num = String(Math.abs(diff)).padStart(2, '0');
+            let diff_pos_txt = "-";
+
+            if (vehicle.qualy_position_class > 0)
+            {
+                diff_pos_txt = diff > 0 ? "⮟ " + num : diff < 0 ? "⮝ " + num : "-";
+            }
+
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color ${cls}">${diff_pos_txt}</td>`;
+        }
         else if (rightColumn == "tires")
         {
             if (HasOneTireCompound(vehicle))

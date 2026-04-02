@@ -63,19 +63,37 @@ class TrackMapPanel
         ctx.stroke();
     }
 
-    drawTrackMap(ctx, map)
+    drawTrackMap(ctx, points, size, color)
     {
         ctx.beginPath();
-        ctx.moveTo(map.points[0].x, map.points[0].y);
+        ctx.moveTo(points[0].x, points[0].y);
 
-        for (let i = 1; i < map.points.length; ++i)
+        for (let i = 1; i < points.length; ++i)
         {
-            ctx.lineTo(map.points[i].x, map.points[i].y);
+            ctx.lineTo(points[i].x, points[i].y);
         }
         ctx.closePath();
 
-        ctx.strokeStyle = "rgba(240, 240, 240, 1)";
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size;
+        ctx.stroke();
+
+        //ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        //ctx.fill();
+    }
+
+    drawPitLane(ctx, points, size, color)
+    {
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+
+        for (let i = 1; i < points.length; ++i)
+        {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size;
         ctx.stroke();
 
         //ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
@@ -214,7 +232,12 @@ class TrackMapPanel
             canvas.width = this.map.size.width * dpr;
         }
 
-        this.drawTrackMap(ctx, this.map);
+        this.drawPitLane(ctx, this.map.pit_lane, 3, "rgba(30, 30, 30, 1)");
+        this.drawPitLane(ctx, this.map.pit_lane, 1, "rgba(240, 240, 240, 1)");
+
+        this.drawTrackMap(ctx, this.map.track_map, 6, "rgba(30, 30, 30, 1)");
+        this.drawTrackMap(ctx, this.map.track_map, 3, "rgba(240, 240, 240, 1)");
+
         this.drawVehicles(ctx, Array.from(this.standings).reverse());
 
         //this.drawStartLine(ctx, map);

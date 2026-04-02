@@ -74,7 +74,7 @@ function VehicleGetGap(vehicle, controls, isRace)
         }
         else
         {
-            gap = vehicle.delta_to_next.toFixed(1);
+            gap = Math.abs(vehicle.delta_to_next.toFixed(1));
         }
     }
 
@@ -97,15 +97,15 @@ function GetVehicleFuelVe(vehicle)
     let result = { style: "", text: "" };
     let amount = 0;
 
-    if (vehicle.ve < 0)
+    if (vehicle.telemetry.ve <= 0)
     {
         amount = vehicle.telemetry.fuel;
         result.text = vehicle.telemetry.fuel.toFixed(0) + "L";
     }
     else
     {
-        amount = vehicle.ve;
-        result.text = vehicle.ve.toFixed(0) + "%";
+        amount = vehicle.telemetry.ve;
+        result.text = vehicle.telemetry.ve.toFixed(0) + "%";
     }
 
     if (amount < 10)
@@ -277,6 +277,16 @@ function GetRightColumnName(rightColumn, vehicleClass)
         {
             return "#PITS";
         } break
+
+        case "posgainlost":
+        {
+            return "#P";
+        } break
+
+        default:
+        {
+            return "";
+        }
     }
 }
 
