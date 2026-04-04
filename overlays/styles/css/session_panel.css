@@ -23,10 +23,23 @@
 
 #session-panel .session-flag
 {
-    text-align: center;
     padding-right: 5px;
     padding-left: 5px;
-    color: yellow;
+
+    justify-content: flex-end;
+    display: flex;
+}
+
+#session-panel .session-flag .sector-flag
+{
+    background-color: rgb(249, 199, 79);
+    color: rgb(20, 20, 20);
+
+    margin-left: 5px;
+    padding: 5px;
+
+    text-align: center;
+    aspect-ratio: 1;
 }
 
 #session-panel .session-track

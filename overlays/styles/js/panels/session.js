@@ -24,20 +24,17 @@ class SessionPanel
         {
             if (this.session.sectorFlags[i])
             {
-                if (sector !== "") sector = sector + " - ";
-                sector = sector + (i + 1);
+                sector += `<div class="sector-flag" ">S${i + 1}</div>`;
             }
         }
 
         if (sector !== "")
         {
-            $(this.element_id + " .session-flag").css('border', '2px solid yellow');
-            $(this.element_id + " .session-flag").text("YELLOW SECTOR " + sector);
+            $(this.element_id + " .session-flag").html(sector);
         }
         else
         {
-            $(this.element_id + " .session-flag").css('border', 'none');
-            $(this.element_id + " .session-flag").text("");
+            $(this.element_id + " .session-flag").html("");
         }
     }
 
