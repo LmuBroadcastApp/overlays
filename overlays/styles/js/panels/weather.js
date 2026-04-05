@@ -1,22 +1,40 @@
 class WeatherPanel
 {
-    constructor(id)
+    constructor(selector, stateManager)
     {
-        this.element_id = id;
+        this.element = document.querySelector(selector);
+        this.stateManager = stateManager;
+
+        if (!this.element)
+        {
+            console.error(`TowerPanel: Element ${selector} not found`);
+            return;
+        }
+
+        this.stateManager.subscribe(this.handleStateChange.bind(this));
         this.session = null;
     }
 
-    setSession(session)
+    handleStateChange(key, value)
     {
-        this.session = session;
+        if (key === 'session')
+        {
+            this.session = value;
+        }
     }
 
     update()
     {
-        if (this.session === null) return;
+        if (this.session === null)
+        {
+            return;
+        }
 
-        let skyType = 0; let skyName = "Unknown";
-        let ambientTemp = 0; let when = "Now";
+        let skyName = "Unknown";
+        let when = "Now";
+
+        let ambientTemp = 0;
+        let skyType = 0;
 
         let idx = this.session.weatherForecast.length; let content = "";
         let perc = this.session.currentEventTime / this.session.endEventTime;
@@ -73,7 +91,7 @@ class WeatherPanel
             content = content + `<div class="weather-item">${time}${icon}${temp}</div>`;
         }
 
-        $(this.element_id).html(content);
+        this.element.innerHTML = content;
     }
 
     ForecastSkyType(sky, raininess)
@@ -129,5 +147,3 @@ class WeatherPanel
         }
     }
 }
-
-var weather_panel = new WeatherPanel("#weather-panel");

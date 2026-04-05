@@ -1,14 +1,26 @@
 class SessionPanel
 {
-    constructor(id)
+    constructor(selector, stateManager)
     {
-        this.element_id = id;
+        this.element = document.querySelector(selector);
+        this.stateManager = stateManager;
+
+        if (!this.element)
+        {
+            console.error(`TowerPanel: Element ${selector} not found`);
+            return;
+        }
+
+        this.stateManager.subscribe(this.handleStateChange.bind(this));
         this.session = null;
     }
 
-    setSession(session)
+    handleStateChange(key, value)
     {
-        this.session = session;
+        if (key === 'session')
+        {
+            this.session = value.trackName !== "" ? value : null;
+        }
     }
 
     update()
@@ -16,9 +28,9 @@ class SessionPanel
         if (this.session === null) return;
         let sector = "";
 
-        $(this.element_id + " .session-time").text(this.getSessionTimeString(this.session));
-        $(this.element_id + " .session-track").text(this.session.trackName);
-        $(this.element_id + " .session-name").text(this.session.name);
+        this.element.querySelector('.session-time').textContent = this.getSessionTimeString(this.session);
+        this.element.querySelector('.session-track').textContent = this.session.trackName;
+        this.element.querySelector('.session-name').textContent = this.session.name;
 
         for (var i = 0; i < this.session.sectorFlags.length; i++)
         {
@@ -28,14 +40,7 @@ class SessionPanel
             }
         }
 
-        if (sector !== "")
-        {
-            $(this.element_id + " .session-flag").html(sector);
-        }
-        else
-        {
-            $(this.element_id + " .session-flag").html("");
-        }
+        this.element.querySelector('.session-flag').innerHTML = sector || "";
     }
 
     getSessionTimeString(session)
@@ -52,5 +57,3 @@ class SessionPanel
         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
 }
-
-var session_panel = new SessionPanel("#session-panel");
