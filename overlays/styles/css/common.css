@@ -31,7 +31,7 @@
     /** Driver panel */
     --driver-panel-width: 400px;
     --driver-panel-font-size: 1em;                                                  /** General font size of the panel */
-    --driver-panel-position-right: 3.0em;                                           /** Position from the right of the screen */
+    --driver-panel-position-right: 1.0em;                                           /** Position from the right of the screen */
     --driver-panel-position-bottom: 1.0em;                                          /** Position from the bottom of the screen */
     --driver-panel-background-color: rgba(0, 0, 0, 0.7);                            /** Panel general background */
     --driver-panel-vehicle-number-background-color: rgba(255, 255, 255, 0.6);       /** This will be overridden by the vehicle class color */
@@ -41,7 +41,7 @@
     --weather-panel-time-background-color: rgba(248, 249, 250, 0.9);    /** Background color of the time item */
     --weather-panel-temp-background-color: rgba(248, 249, 250, 0.9);    /** Background color of the temperature item */
     --weather-panel-img-background-color: rgba(33, 37, 41, 0.9);        /** Background color of the weather icons */
-    --weather-panel-position-right: 3.0em;                              /** Position from the right of the screen */
+    --weather-panel-position-right: 1.0em;                              /** Position from the right of the screen */
     --weather-panel-position-top: 1.0em;                                /** Position from the top of the screen */
     --weather-panel-item-width: 48px;                                   /** Width of each item (icon, time, temperature) */
     --weather-panel-font-size: 1em;                                     /** General font size of the panel */
