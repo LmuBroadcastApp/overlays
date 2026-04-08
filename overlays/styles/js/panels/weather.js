@@ -30,12 +30,7 @@ class WeatherPanel
             return;
         }
 
-        let skyName = "Unknown";
-        let when = "Now";
-
-        let ambientTemp = 0;
-        let skyType = 0;
-
+        let when = "󰔛";
         let idx = this.session.weatherForecast.length; let content = "";
         let perc = this.session.currentEventTime / this.session.endEventTime;
 
@@ -50,6 +45,9 @@ class WeatherPanel
             }
         }
 
+        let header = "";
+        let body = "";
+
         for (let i = idx; i < this.session.weatherForecast.length - 1; i++)
         {
             if (i > idx)
@@ -58,40 +56,61 @@ class WeatherPanel
                 let remainingTime = timeSlot - this.session.currentEventTime;
 
                 let div = 1.0 / 60.0;
-                let result = Math.floor(remainingTime * div);
-                //when = result >= 60 ? `${(result * div).toFixed(1)}h` : `${result}m`;
-
-                if (result >= 60)
-                {
-                    let hours = Math.floor(result * div);
-                    let minutes = Math.floor(result - (hours * 60));
-                    when = `${hours}h.${minutes}m`;
-                }
-                else
-                {
-                    when = `${result}m`;
-                }
-
-                skyType = this.session.weatherForecast[i].sky;
-                skyName = this.session.weatherForecast[i].sky_name;
-                ambientTemp = this.session.weatherForecast[i].temperature;
-            }
-            else
-            {
-                skyType = this.ForecastSkyType(this.session.weatherForecast[i].sky, this.session.raining);
-                skyName = this.ForcastSkyTypeToString(skyType);
-                ambientTemp = this.session.ambientTemp.toFixed(0);
-                when = "Now";
+                when = Math.floor(remainingTime * div) + "'";
             }
 
-            let icon = `<div class="weather-icon"><img src="styles/img/weather/${skyType}.png" alt="${skyName}"/></div>`;
-            let temp = `<div class="weather-temp">${ambientTemp} ºC</div>`;
-            let time = `<div class="weather-time">${when}</div>`;
+            let icon = `<img src="styles/img/weather/${this.session.weatherForecast[i].sky}.png" alt="" style="width: var(--weather-panel-img-width);"/>`;
+            let time = `${when}`;
 
-            content = content + `<div class="weather-item">${time}${icon}${temp}</div>`;
+            header += `<th>${time}</th>`;
+            body += `<td>${icon}</td>`;
         }
 
-        this.element.innerHTML = content;
+        this.element.querySelector('.weather-panel-track-body').textContent = this.GripLevel2String(this.session.gripLevel, this.session.averagePathWetness);
+        this.element.querySelector('.weather-panel-temp-body').innerHTML = `&nbsp;&nbsp;${this.session.trackTemp.toFixed(1)}ºC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${this.session.ambientTemp.toFixed(1)}ºC`;
+        this.element.querySelector('.weather-panel-wind-body').innerHTML = `${this.session.windSpeed.toFixed(1)}&nbsp;KM/H`;
+
+        this.element.querySelector('.weather-panel-forecast-header').innerHTML = header;
+        this.element.querySelector('.weather-panel-forecast-body').innerHTML = body;
+    }
+
+    GripLevel2String(gripLevel, pathWetness)
+    {
+        if (pathWetness >= 0.9)
+        {
+            return "Extreme wet";
+        }
+
+        if (pathWetness >= 0.6)
+        {
+            return "Very wet";
+        }
+
+        if (pathWetness >= 0.4)
+        {
+            return "Wet";
+        }
+
+        if (pathWetness >= 0.125)
+        {
+            return "Slightly wet";
+        }
+
+        if (pathWetness >= 0.05)
+        {
+            return "Damp";
+        }
+
+        switch (gripLevel)
+        {
+            case 0: return "Green";
+            case 1: return "Low";
+            case 2: return "Medium";
+            case 3: return "Heigh";
+            case 4: return "Saturated";
+
+            default: return gripLevel;
+        }
     }
 
     ForecastSkyType(sky, raininess)
