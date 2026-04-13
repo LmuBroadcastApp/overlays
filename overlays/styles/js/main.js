@@ -12,6 +12,7 @@ function ToggleOverlayByReplay(stateManager)
         $("#session-panel").hide(speed);
         $("#weather-panel").hide(speed);
         $("#track-map-panel").hide(speed);
+        $("#telemetry-panel").hide(speed);
 
         $("#replay-banner").show(speed);
     }
@@ -21,6 +22,7 @@ function ToggleOverlayByReplay(stateManager)
         $("#session-panel").show(speed);
         $("#weather-panel").show(speed);
         $("#track-map-panel").show(speed);
+        $("#telemetry-panel").show(speed);
 
         $("#replay-banner").hide(speed);
     }
@@ -53,17 +55,17 @@ const webSocketWrapper = new WebSocketWrapper(`ws://${window.location.hostname}:
 webSocketWrapper.SetCallback(callBacks);
 
 // Register panels
+panelRegistry.register('tower', TowerPanel, '#tower-panel');
 panelRegistry.register('driver', DriverPanel, '#driver-panel');
 panelRegistry.register('map', TrackMapPanel, '#track-map-panel');
 panelRegistry.register('session', SessionPanel, '#session-panel');
-panelRegistry.register('tower', TowerPanel, '#tower-panel');
 panelRegistry.register('weather', WeatherPanel, '#weather-panel');
+panelRegistry.register('telemetry', TelemetryPanel, '#telemetry-panel');
 
 setInterval(() =>
 {
     panelRegistry.updateAll();
 }, 1000 / 30); // 30 FPS
-
 
 window.addEventListener('beforeunload', () =>
 {

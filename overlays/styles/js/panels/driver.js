@@ -13,6 +13,12 @@ class DriverPanel
 
         this.stateManager.subscribe(this.handleStateChange.bind(this));
         this.vehicle = null;
+
+
+        const speedValue = document.getElementById('speedValue');
+        const gearLabel = document.getElementById('gearLabel');
+        const throttleFill = document.getElementById('throttleFill');
+        const brakeFill = document.getElementById('brakeFill');
     }
 
     handleStateChange(key, value)

@@ -53,6 +53,11 @@
     /** Replay banner */
     --replay-banner-position-left: 3em;
     --replay-banner-position-top: 1em;
+
+    /** Telemetry */
+    --telemetry-gauge-size: 60px;
+    --telemetry-text-scale: calc(var(--telemetry-gauge-size) * 0.35);
+    --telemetry-unit-scale: calc(var(--telemetry-gauge-size) * 0.15);
 }
 
 /**********************************************************************************************************************/

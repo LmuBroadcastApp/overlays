@@ -27,6 +27,12 @@
     grid-template-columns: repeat(3, auto);
 }
 
+#session-panel .in-game-time
+{
+    display: flex;
+    align-items: center;
+}
+
 #session-panel .sector-flag {
     border: 1px solid yellow;
     place-items: center;
@@ -42,7 +48,6 @@
 
     background: rgba(255, 250, 0, 0.08);
     color: yellow;
-
 }
 
 #session-panel .session-track

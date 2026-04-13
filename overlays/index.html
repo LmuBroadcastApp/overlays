@@ -13,16 +13,19 @@
         <link rel="stylesheet" href="styles/css/driver_panel.css"/>
         <link rel="stylesheet" href="styles/css/tower_panel.css"/>
         <link rel="stylesheet" href="styles/css/map_panel.css"/>
+        <link rel="stylesheet" href="styles/css/telemetry.css"/>
         <link rel="stylesheet" href="styles/css/common.css"/>
 
         <script src="styles/js/utils/standings.js"></script>
         <script src="styles/js/utils/websocket.js"></script>
         <script src="styles/js/utils/network.js"></script>
         <script src="styles/js/utils/jquery.js"></script>
+        <script src="styles/js/utils/chart.js"></script>
 
         <script src="styles/js/utils/registry.js"></script>
         <script src="styles/js/utils/state.js"></script>
 
+        <script src="styles/js/panels/telemetry.js"></script>
         <script src="styles/js/panels/session.js"></script>
         <script src="styles/js/panels/weather.js"></script>
         <script src="styles/js/panels/driver.js"></script>
@@ -42,6 +45,7 @@
             <div class="session-container">
                 <div class="session-time"></div>
                 <div class="session-flag"></div>
+                <div class="in-game-time"></div>
             </div>
             <hr />
             <div class="session-container">
@@ -75,6 +79,27 @@
         </div>
 
         <div id="driver-panel">
+            <div id="telemetry-panel">
+                <div id="gauges">
+                    <div class="gauge">
+                        <canvas id="speedChart"></canvas>
+
+                        <div class="speed-label">
+                            <div id="speedValue">0</div>
+                            <div id="speedUnit">km/h</div>
+                        </div>
+                    </div>
+                    <div class="gauge">
+                        <canvas id="rpmChart"></CANVAS>
+                        <div class="rpm-label" id="gearLabel">N</div>
+                        <div class="rpm-bottom" id="rpmNumber">0</div>
+                    </div>
+                </div>
+                <div id="inputs">
+                    <div class="bar"><div id="throttleFill" class="fill"></div></div>
+                    <div class="bar"><div id="brakeFill" class="fill"></div></div>
+                </div>
+            </div>
             <table>
                 <tbody>
                 <tr>
