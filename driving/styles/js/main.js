@@ -1,5 +1,3 @@
-
-
 const callBacks =
 {
     onPitStopEstimation: (data) =>
@@ -21,17 +19,37 @@ webSocketWrapper.SetCallback(callBacks);
 panelRegistry.register('PitStopEstimation', PitStopEstimation, '#telemetry-pit-stop-estimation');
 panelRegistry.register('TelemetryChart', TelemetryChart, '#telemetry-input-chart');
 
-setInterval(() =>
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const fps = 60;
+const frameDuration = 1000 / fps;
+
+let lastTime = 0;
+let animationId = null;
+
+function fnc_main_loop(timestamp)
 {
-    panelRegistry.updateAll();
-}, 1000 / 30); // 30 FPS
+    const deltaTime = timestamp - lastTime;
+
+    if (deltaTime >= frameDuration)
+    {
+        panelRegistry.updateAll();
+        lastTime = timestamp;
+    }
+
+    animationId = requestAnimationFrame(fnc_main_loop);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 window.addEventListener('beforeunload', () =>
 {
+    cancelAnimationFrame(animationId);
 });
 
 window.addEventListener('load', () =>
 {
+    animationId = requestAnimationFrame(fnc_main_loop);
     panelRegistry.createAll(stateManager);
     webSocketWrapper.Connect();
 });

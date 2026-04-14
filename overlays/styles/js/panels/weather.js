@@ -7,7 +7,7 @@ class WeatherPanel
 
         if (!this.element)
         {
-            console.error(`TowerPanel: Element ${selector} not found`);
+            console.error(`WeatherPanel: Element ${selector} not found`);
             return;
         }
 
@@ -106,63 +106,10 @@ class WeatherPanel
             case 0: return "Green";
             case 1: return "Low";
             case 2: return "Medium";
-            case 3: return "Heigh";
+            case 3: return "High";
             case 4: return "Saturated";
 
             default: return gripLevel;
-        }
-    }
-
-    ForecastSkyType(sky, raininess)
-    {
-        if (raininess <= 0)
-        {
-            return (sky > 4) ? 4 : 0;
-        }
-        if (0 < raininess && raininess <= 10)
-        {
-            return 5;
-        }
-        if (10 < raininess && raininess <= 15)
-        {
-            return 6;
-        }
-        if (15 < raininess && raininess <= 20)
-        {
-            return 7;
-        }
-        if (20 < raininess && raininess <= 40)
-        {
-            return 8;
-        }
-        if (40 < raininess && raininess <= 60)
-        {
-            return 9;
-        }
-        if (60 < raininess)
-        {
-            return 10;
-        }
-
-        return sky;
-    }
-
-    ForcastSkyTypeToString(sky)
-    {
-        switch (sky)
-        {
-            case 0: return "Clear";
-            case 1: return "Light Clouds";
-            case 2: return "Partially Cloudy";
-            case 3: return "Mostly Cloudy";
-            case 4: return "Overcast";
-            case 5: return "Cloudy & Drizzle";
-            case 6: return "Cloudy & Light Rain";
-            case 7: return "Overcast & Light Rain";
-            case 8: return "Overcast & Rain";
-            case 9: return "Overcast & Heavy Rain";
-            case 10: return "Overcast & Storm";
-            default: return "Unknown";
         }
     }
 }

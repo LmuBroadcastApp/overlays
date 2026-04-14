@@ -52,7 +52,7 @@ const callBacks =
 
 // Create websocket instance
 const webSocketWrapper = new WebSocketWrapper(`ws://${window.location.hostname}:6433`);
-webSocketWrapper.SetCallback(callBacks);
+webSocketWrapper.setCallback(callBacks);
 
 // Register panels
 panelRegistry.register('tower', TowerPanel, '#tower-panel');
@@ -62,17 +62,43 @@ panelRegistry.register('session', SessionPanel, '#session-panel');
 panelRegistry.register('weather', WeatherPanel, '#weather-panel');
 panelRegistry.register('telemetry', TelemetryPanel, '#telemetry-panel');
 
-setInterval(() =>
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const fps = 60;
+const frameDuration = 1000 / fps;
+
+let lastTime = 0;
+let animationId = null;
+
+function fnc_main_loop(timestamp)
 {
-    panelRegistry.updateAll();
-}, 1000 / 30); // 30 FPS
+    const deltaTime = timestamp - lastTime;
+
+    if (deltaTime >= frameDuration)
+    {
+        panelRegistry.updateAll();
+        lastTime = timestamp;
+    }
+
+    animationId = requestAnimationFrame(fnc_main_loop);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 window.addEventListener('beforeunload', () =>
 {
+    cancelAnimationFrame(animationId);
+    webSocketWrapper.disconnect();
+});
+
+window.addEventListener('beforeunload', () =>
+{
+    panelRegistry.destroyAll();
 });
 
 window.addEventListener('load', () =>
 {
     panelRegistry.createAll(stateManager);
-    webSocketWrapper.Connect();
+    webSocketWrapper.connect();
+    animationId = requestAnimationFrame(fnc_main_loop);
 });

@@ -222,7 +222,8 @@ class TowerPanel
         {
             if (HasOneTireCompound(vehicle))
             {
-                right_column_content = `<td class="vehicle-right-column standings-secondary-color" style="color: ${TireCompoundColor(vehicle.tire_compound[0])}">󱢖</td>`;
+                let tire = "(" + vehicle.tire_compound[0][0] + ")";
+                right_column_content = `<td class="vehicle-right-column standings-secondary-color" style="color: ${TireCompoundColor(vehicle.tire_compound[0])};">${tire}</td>`;
             }
             else
             {

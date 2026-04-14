@@ -7,7 +7,7 @@ class DriverPanel
 
         if (!this.element)
         {
-            console.error(`TowerPanel: Element ${selector} not found`);
+            console.error(`DriverPanel: Element ${selector} not found`);
             return;
         }
 
@@ -53,9 +53,9 @@ class DriverPanel
         this.element.querySelector('.driver-panel-best-lap').textContent = LaptimeToString(this.vehicle.best_lap);
 
         this.element.querySelector('.driver-vehicle-class').textContent = this.vehicle.vehicle_class;
-        this.element.querySelector('.driver-vehicle-numer').textContent = "#" + this.vehicle.vehicle_number;
+        this.element.querySelector('.driver-vehicle-number').textContent = "#" + this.vehicle.vehicle_number;
 
         this.element.querySelector('.driver-vehicle-position').textContent = "P" + this.vehicle.race_position_class;
-        this.element.querySelector('.driver-vehicle-numer').style.backgroundColor = ColorFromVehicleClass(this.vehicle.vehicle_class);
+        this.element.querySelector('.driver-vehicle-number').style.backgroundColor = ColorFromVehicleClass(this.vehicle.vehicle_class);
     }
 }

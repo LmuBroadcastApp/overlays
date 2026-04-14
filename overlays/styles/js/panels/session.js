@@ -7,7 +7,7 @@ class SessionPanel
 
         if (!this.element)
         {
-            console.error(`TowerPanel: Element ${selector} not found`);
+            console.error(`SessionPanel: Element ${selector} not found`);
             return;
         }
 

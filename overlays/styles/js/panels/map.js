@@ -7,7 +7,7 @@ class TrackMapPanel
 
         if (!this.element)
         {
-            console.error(`TowerPanel: Element ${selector} not found`);
+            console.error(`TrackMapPanel: Element ${selector} not found`);
             return;
         }
 

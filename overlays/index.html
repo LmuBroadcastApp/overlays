@@ -36,92 +36,89 @@
     </head>
     <body>
         <div id="gradient-background"/>
+        <main aria-label="LMU TV Overlay panels">
+            <section id="replay-banner" aria-hidden="true">
+                <img src="styles/img/others/replay.webp" alt="replay">
+            </section>
+            <section id="session-panel" aria-label="Current session info">
+                <div class="session-container">
+                    <div class="session-time"></div>
+                    <div class="session-flag"></div>
+                    <div class="in-game-time"></div>
+                </div>
+                <hr />
+                <div class="session-container">
+                    <div class="session-track"></div>
+                    <div class="session-name"></div>
+                </div>
+            </section>
+            <section id="tower-panel" aria-label="Standings"></section>
+            <canvas id="track-map-panel" aria-label="Track map"></canvas>
+            <section id="weather-panel" aria-label="Weather forecast">
+                <table class="weather-panel-forecast">
+                    <tr class="weather-panel-forecast-header">
+                    </tr>
+                    <tr class="weather-panel-forecast-body">
+                    </tr>
+                </table>
+                <table class="weather-panel-conditions">
+                    <tr>
+                        <th class="weather-panel-track-header">TRACK</th>
+                        <th class="weather-panel-temp-header">TEMPERATURE</th>
+                        <th class="weather-panel-wind-header">WIND</th>
+                    </tr>
+                    <tr>
+                        <td class="weather-panel-track-body"></td>
+                        <td class="weather-panel-temp-body"></td>
+                        <td class="weather-panel-wind-body"></td>
+                    </tr>
+                </table>
+            </section>
+            <section id="driver-panel" aria-label="Focused driver">
+                <div id="telemetry-panel">
+                    <div id="gauges">
+                        <div class="gauge">
+                            <canvas id="speedChart"></canvas>
 
-        <div id="replay-banner">
-            <img src="styles/img/others/replay.webp">
-        </div>
-
-        <div id="session-panel">
-            <div class="session-container">
-                <div class="session-time"></div>
-                <div class="session-flag"></div>
-                <div class="in-game-time"></div>
-            </div>
-            <hr />
-            <div class="session-container">
-                <div class="session-track"></div>
-                <div class="session-name"></div>
-            </div>
-        </div>
-
-        <div id="tower-panel"></div>
-        <canvas id="track-map-panel"></canvas>
-
-        <div id="weather-panel">
-            <table class="weather-panel-forecast">
-                <tr class="weather-panel-forecast-header">
-                </tr>
-                <tr class="weather-panel-forecast-body">
-                </tr>
-            </table>
-            <table class="weather-panel-conditions">
-                <tr>
-                    <th class="weather-panel-track-header">TRACK</th>
-                    <th class="weather-panel-temp-header">TEMPERATURE</th>
-                    <th class="weather-panel-wind-header">WIND</th>
-                </tr>
-                <tr>
-                    <td class="weather-panel-track-body"></td>
-                    <td class="weather-panel-temp-body"></td>
-                    <td class="weather-panel-wind-body"></td>
-                </tr>
-            </table>
-        </div>
-
-        <div id="driver-panel">
-            <div id="telemetry-panel">
-                <div id="gauges">
-                    <div class="gauge">
-                        <canvas id="speedChart"></canvas>
-
-                        <div class="speed-label">
-                            <div id="speedValue">0</div>
-                            <div id="speedUnit">km/h</div>
+                            <div class="speed-label">
+                                <div id="speedValue">0</div>
+                                <div id="speedUnit">km/h</div>
+                            </div>
+                        </div>
+                        <div class="gauge">
+                            <canvas id="rpmChart"></canvas>
+                            <div class="rpm-label" id="gearLabel">N</div>
+                            <div class="rpm-bottom" id="rpmNumber">0</div>
                         </div>
                     </div>
-                    <div class="gauge">
-                        <canvas id="rpmChart"></CANVAS>
-                        <div class="rpm-label" id="gearLabel">N</div>
-                        <div class="rpm-bottom" id="rpmNumber">0</div>
+                    <div id="inputs">
+                        <div class="bar"><div id="throttleFill" class="fill"></div></div>
+                        <div class="bar"><div id="brakeFill" class="fill"></div></div>
                     </div>
                 </div>
-                <div id="inputs">
-                    <div class="bar"><div id="throttleFill" class="fill"></div></div>
-                    <div class="bar"><div id="brakeFill" class="fill"></div></div>
-                </div>
-            </div>
-            <table>
-                <tbody>
-                <tr>
-                    <td class="driver-vehicle-position" rowspan="2" style="width: 20%;"></td>
-                    <td class="driver-panel-pos-diff" style="width: 20%; text-align: center;">></td>
-                    <td class="driver-panel-name" colspan="2" style="width: 40%;"></td>
-                    <td class="driver-vehicle-numer" rowspan="2" style="width: 20%;"></td>
-                </tr>
-                <tr>
-                    <td class="driver-panel-team" colspan="3" style="width: 60%;"></td>
-                </tr>
+                <table>
+                    <tbody>
                     <tr>
-                        <td class="driver-vehicle-class" style="width: 20%; text-align: center;"></td>
-
-                        <td style="width: 20%; text-align: center;">Last</td>
-                        <td class="driver-panel-last-lap" style="width: 20%; text-align: center;"></td>
-
-                        <td style="width: 20%; text-align: center;">Best</td>
-                        <td class="driver-panel-best-lap" style="width: 20%; text-align: center;"></td>
+                        <td class="driver-vehicle-position" rowspan="2" style="width: 20%;"></td>
+                        <td class="driver-panel-pos-diff" style="width: 20%; text-align: center;">></td>
+                        <td class="driver-panel-name" colspan="2" style="width: 40%;"></td>
+                        <td class="driver-vehicle-number" rowspan="2" style="width: 20%;"></td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
+                    <tr>
+                        <td class="driver-panel-team" colspan="3" style="width: 60%;"></td>
+                    </tr>
+                        <tr>
+                            <td class="driver-vehicle-class" style="width: 20%; text-align: center;"></td>
+
+                            <td style="width: 20%; text-align: center;">Last</td>
+                            <td class="driver-panel-last-lap" style="width: 20%; text-align: center;"></td>
+
+                            <td style="width: 20%; text-align: center;">Best</td>
+                            <td class="driver-panel-best-lap" style="width: 20%; text-align: center;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
     </body>
 </html>

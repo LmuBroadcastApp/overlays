@@ -6,6 +6,11 @@ class PanelRegistry
         this.instances = new Map();
     }
 
+    get(name)
+    {
+        return this.instances.get(name);
+    }
+
     register(name, PanelClass, selector)
     {
         this.panels.set(name, { PanelClass, selector });
@@ -34,16 +39,25 @@ class PanelRegistry
         });
     }
 
-    get(name)
+    destroyAll()
     {
-        return this.instances.get(name);
+        this.instances.forEach(panel =>
+        {
+            if (typeof panel.destroy === 'function')
+            {
+                panel.destroy();
+            }
+        });
+
+        this.instances.clear();
     }
 
     updateAll()
     {
         this.instances.forEach(panel =>
         {
-            if (typeof panel.update === 'function') {
+            if (typeof panel.update === 'function')
+            {
                 panel.update();
             }
         });
