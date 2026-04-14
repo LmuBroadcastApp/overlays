@@ -68,7 +68,7 @@
 #telemetry-panel .rpm-label
 {
     font-size: var(--telemetry-text-scale);
-    transform: translate(-50%, -30%);
+    transform: translate(-50%, -45%);
     font-weight: bold;
 
     position: absolute;
@@ -94,8 +94,8 @@
 #telemetry-panel #inputs
 {
     width: calc(var(--telemetry-gauge-size) * 2 + 20px);
-    display: flex;
     flex-direction: column;
+    display: flex;
     gap: 6px;
 }
 

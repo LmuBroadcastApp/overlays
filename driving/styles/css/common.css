@@ -27,7 +27,7 @@ body
 {
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 5px;
-    position: fixed;
+    position: absolute;
 
     height: 50px;
     width: 530px;
@@ -42,8 +42,8 @@ body
     border-radius: 5px;
     font-size: 1.5em;
 
+    position: absolute;
     color: whitesmoke;
-    position: fixed;
 
     right: var(--telemetry-pit-stop-estimation-right);
     top: var(--telemetry-pit-stop-estimation-top);

@@ -19,16 +19,16 @@ class TelemetryChart
             datasets:
             [
                 {
-                    label: 'Throttle',
+                    label: 'Brake',
                     data: [],
-                    borderColor: 'green',
+                    borderColor: 'red',
                     tension: 0.3,
                     pointRadius: 0
                 },
                 {
-                    label: 'Brake',
+                    label: 'Throttle',
                     data: [],
-                    borderColor: 'red',
+                    borderColor: 'green',
                     tension: 0.3,
                     pointRadius: 0
                 },
@@ -54,7 +54,7 @@ class TelemetryChart
                 {
                     legend:
                     {
-                        display: false // important for small canvas
+                        display: false
                     }
                 },
                 scales:
@@ -86,8 +86,8 @@ class TelemetryChart
         const MAX_POINTS = 64;
 
         this.chart.data.labels.push(now);
-        this.chart.data.datasets[0].data.push(driver.telemetry.throttle);
-        this.chart.data.datasets[1].data.push(driver.telemetry.brake);
+        this.chart.data.datasets[0].data.push(driver.telemetry.brake);
+        this.chart.data.datasets[1].data.push(driver.telemetry.throttle);
         this.chart.data.datasets[2].data.push((driver.telemetry.steering + 1) * 0.5);
 
         if (this.chart.data.labels.length > MAX_POINTS)
