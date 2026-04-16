@@ -47,8 +47,8 @@
     --weather-panel-font-size: 1em;                                 /** General font size of the panel */
 
     /** Map panel */
-    --map-panel-position-right: 3em;    /** Position from the right of the screen */
-    --map-panel-position-top: 30%;      /** Position from the top of the screen */
+    --map-panel-position-right: 1em;    /** Position from the right of the screen */
+    --map-panel-position-top: 30em;     /** Position from the top of the screen */
 
     /** Replay banner */
     --replay-banner-position-left: 3em;

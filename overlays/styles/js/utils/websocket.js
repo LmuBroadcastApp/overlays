@@ -33,6 +33,12 @@ class WebSocketWrapper
             return false
         }
 
+        if (typeof callback.onOverlaySettingsUpdate !== 'function')
+        {
+            console.log('Callback object must implement onOverlaySettingsUpdate method');
+            return false
+        }
+
         this.callback = callback;
         return true;
     }
@@ -78,6 +84,10 @@ class WebSocketWrapper
                 case 'overlay':
                 {
                     cb.onOverlayUpdate(data.payload);
+                } break;
+                case 'overlay_settings':
+                {
+                    cb.onOverlaySettingsUpdate(data.payload);
                 } break;
                 default:
                 {

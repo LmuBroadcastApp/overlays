@@ -28,6 +28,31 @@ function ToggleOverlayByReplay(stateManager)
     }
 }
 
+function UpdateOverlaySettings(settings)
+{
+    const root = document.documentElement;
+    console.log(settings);
+
+    // standings panel
+    root.style.setProperty('--standings-panel-position-left', settings.standings.position_left);
+    root.style.setProperty('--standings-panel-position-top', settings.standings.position_top);
+
+    // session panel
+    root.style.setProperty('--session-panel-position-top', settings.session.position_top);
+
+    // driver panel
+    root.style.setProperty('--driver-panel-position-bottom', settings.driver.position_bottom);
+    root.style.setProperty('--driver-panel-position-right', settings.driver.position_right);
+
+    // weather panel
+    root.style.setProperty('--weather-panel-position-right', settings.weather.position_right);
+    root.style.setProperty('--weather-panel-position-top', settings.weather.position_top);
+
+    // map panel
+    root.style.setProperty('--map-panel-position-right', settings.map.position_right);
+    root.style.setProperty('--map-panel-position-top', settings.map.position_top);
+}
+
 const callBacks =
 {
     onStandingsUpdate: (data) =>
@@ -47,6 +72,10 @@ const callBacks =
     onOverlayUpdate: (data) =>
     {
         stateManager.setState('controls', data);
+    },
+    onOverlaySettingsUpdate: (data) =>
+    {
+        UpdateOverlaySettings(data);
     }
 };
 
