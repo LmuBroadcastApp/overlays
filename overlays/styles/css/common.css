@@ -51,7 +51,7 @@
     --map-panel-position-top: 30em;     /** Position from the top of the screen */
 
     /** Replay banner */
-    --replay-banner-position-left: 3em;
+    --replay-banner-position-left: 1em;
     --replay-banner-position-top: 1em;
 
     /** Telemetry */
