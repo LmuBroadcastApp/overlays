@@ -25,16 +25,11 @@ class CircularQueue
         }
     }
 
-    getLast()
-    {
-        return this.buffer[this.tail - 1];
-    }
-
     toArray()
     {
         const result = [];
 
-        for (let i = 0; i < this.count; i++)
+        for (let i = 0; i < this.count - 1; i++)
         {
             const index = (this.head + i) % this.capacity;
             result.push(this.buffer[index]);
@@ -59,6 +54,7 @@ class TelemetryChart
 
         this.stateManager.subscribe(this.handleStateChange.bind(this));
         this.lineWidth = 2; this.queueCapacity = 128;
+        this.vehicle = null;
 
         this.canvas = document.getElementById(selector.slice(1));
         this.ctx = this.canvas.getContext('2d');
@@ -73,16 +69,12 @@ class TelemetryChart
 
     handleStateChange(key, value)
     {
-        let driver = this.StandingsGetFocus(value);
+        this.vehicle = this.StandingsGetFocus(value);
+        if (this.vehicle == null) return;
 
-        if (driver == null)
-        {
-            return;
-        }
-
-        this.steering.enqueue((driver.telemetry.steering + 1) * 0.5);
-        this.throttle.enqueue(driver.telemetry.throttle);
-        this.brake.enqueue(driver.telemetry.brake);
+        this.steering.enqueue((this.vehicle.telemetry.steering + 1) * 0.5);
+        this.throttle.enqueue(this.vehicle.telemetry.throttle);
+        this.brake.enqueue(this.vehicle.telemetry.brake);
     }
 
     StandingsGetFocus(standings)
@@ -101,6 +93,7 @@ class TelemetryChart
     drawSteering(x, y, radius, value)
     {
         value = value * 2 - 1;
+        this.ctx.font = "24px Arial";
 
         // outer circle
         this.ctx.beginPath();
@@ -112,14 +105,33 @@ class TelemetryChart
         // center point
         const angle = value * Math.PI * 1.5;  // limit to ±90°
 
-        const indicatorX = x + Math.sin(angle) * radius * 0.8;
-        const indicatorY = y - Math.cos(angle) * radius * 0.8;
+        let indicatorX = x + Math.sin(angle) * radius * 0.8;
+        let indicatorY = y - Math.cos(angle) * radius * 0.8;
 
         // indicator dot
         this.ctx.beginPath();
         this.ctx.fillStyle = "cyan";
         this.ctx.arc(indicatorX, indicatorY, 5, 0, Math.PI * 2);
         this.ctx.fill();
+
+        { // Current Km/h
+            const kmh = this.vehicle.telemetry.speed.toFixed(0);
+            const metrics = this.ctx.measureText(kmh);
+            indicatorX = x - metrics.width / 2;
+
+            this.ctx.fillStyle = "whitesmoke";
+            this.ctx.fillText(kmh, indicatorX, y);
+
+            let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+            y += fontHeight;
+        }
+        { // Current gear
+            const gear = this.vehicle.telemetry.gear;
+            const metrics = this.ctx.measureText(gear);
+            indicatorX = x - metrics.width / 2;
+
+            this.ctx.fillText(gear, indicatorX, y);
+        }
     }
 
     drawBar(x, y, w, h, value, color)
@@ -164,7 +176,7 @@ class TelemetryChart
 
             if (i === 0)
             {
-                this.ctx.moveTo(x, y);
+                this.ctx.moveTo(x + 5, y);
             }
             else
             {
@@ -186,22 +198,27 @@ class TelemetryChart
         let { width, height } = this.canvas;
         this.ctx.clearRect(0, 0, width, height);
 
+        if (this.vehicle == null)
+        {
+            return
+        }
+
         {
             let y = height * 0.5 - this.lineWidth;
             let x = width - y;
             let r = y;
 
-            this.drawSteering(x, y, r, this.steering.getLast());
+            this.drawSteering(x, y, r, (this.vehicle.telemetry.steering + 1) * 0.5);
             width -= (height + this.lineWidth);
         }
 
         {
             const barWidth = height * 0.1;
 
-            this.drawBar(width - barWidth, 0, barWidth, height, this.brake.getLast(), "red");
-            this.drawBar(width - barWidth * 2 - barWidth * 0.5, 0, barWidth, height, this.throttle.getLast(), "green");
+            this.drawBar(width - barWidth, 0, barWidth, height, this.vehicle.telemetry.brake, "red");
+            this.drawBar(width - barWidth * 2 - barWidth * 0.5, 0, barWidth, height, this.vehicle.telemetry.throttle, "green");
 
-            width -= barWidth * 4;
+            width -= barWidth * 3;
         }
 
         {
