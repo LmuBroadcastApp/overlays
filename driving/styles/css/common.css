@@ -7,6 +7,9 @@
     --telemetry-input-chart-left: 1.8em;            /** Position from the left of the screen */
     --telemetry-input-chart-top: 51em;              /** Position from the top of the screen */
 
+    --telemetry-input-chart-height: 100px;
+    --telemetry-input-chart-width: 530px;
+
 }
 
 /**********************************************************************************************************************/
@@ -29,8 +32,8 @@ body
     border-radius: 5px;
     position: absolute;
 
-    height: 50px;
-    width: 530px;
+    height: var(--telemetry-input-chart-height);
+    width: var(--telemetry-input-chart-width);
 
     left: var(--telemetry-input-chart-left);
     top: var(--telemetry-input-chart-top);
