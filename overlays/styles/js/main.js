@@ -46,6 +46,14 @@ function UpdateOverlaySettings(settings)
     root.style.setProperty('--standings-panel-gap-less-1-color', settings.standings.gap_less_1_color);
     root.style.setProperty('--standings-panel-gap-less-2-color', settings.standings.gap_less_2_color);
 
+    root.style.setProperty('--standings-panel-col-01-width', settings.standings.col_01_width);
+    root.style.setProperty('--standings-panel-col-02-width', settings.standings.col_02_width);
+    root.style.setProperty('--standings-panel-col-03-width', settings.standings.col_03_width);
+    root.style.setProperty('--standings-panel-col-04-width', settings.standings.col_04_width);
+    root.style.setProperty('--standings-panel-col-05-width', settings.standings.col_05_width);
+    root.style.setProperty('--standings-panel-col-06-width', settings.standings.col_06_width);
+    root.style.setProperty('--standings-panel-col-07-width', settings.standings.col_07_width);
+
     // session panel
     root.style.setProperty('--session-panel-position-top', settings.session.position_top);
     root.style.setProperty('--session-panel-font-size', settings.session.font_size);
@@ -77,6 +85,11 @@ function UpdateOverlaySettings(settings)
     root.style.setProperty('--replay-banner-position-left', settings.replay.position_left);
     root.style.setProperty('--replay-banner-position-top', settings.replay.position_top);
 
+    // notifications
+    root.style.setProperty('--notification-panel-position-left', settings.notifications.position_left);
+    root.style.setProperty('--notification-panel-position-top', settings.notifications.position_top);
+    root.style.setProperty('--notification-panel-font-size', settings.notifications.font_size);
+    root.style.setProperty('--notification-panel-width', settings.notifications.panel_width);
 
     // telemetry
     root.style.setProperty('--telemetry-gauge-size', settings.telemetry.gauge_size);
@@ -142,6 +155,7 @@ function fnc_main_loop(timestamp)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var notifier = null;
 
 window.addEventListener('beforeunload', () =>
 {
@@ -156,7 +170,11 @@ window.addEventListener('beforeunload', () =>
 
 window.addEventListener('load', () =>
 {
-    panelRegistry.createAll(stateManager);
+    notifier = new NotificationSystem('notification-container');
+    panelRegistry.register('notifier', NotificationManager, '<!-- ignore -->');
+
+    panelRegistry.createAll(stateManager, notifier);
     webSocketWrapper.connect();
+
     animationId = requestAnimationFrame(fnc_main_loop);
 });

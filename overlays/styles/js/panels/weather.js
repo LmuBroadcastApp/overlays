@@ -66,7 +66,7 @@ class WeatherPanel
             body += `<td>${icon}</td>`;
         }
 
-        this.element.querySelector('.weather-panel-track-body').textContent = this.GripLevel2String(this.session.gripLevel, this.session.averagePathWetness);
+        this.element.querySelector('.weather-panel-track-body').textContent = this._gripLevel2String(this.session.gripLevel, this.session.averagePathWetness);
         this.element.querySelector('.weather-panel-temp-body').innerHTML = `&nbsp;&nbsp;&nbsp;${this.session.trackTemp.toFixed(1)}ºC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${this.session.ambientTemp.toFixed(1)}ºC`;
         this.element.querySelector('.weather-panel-wind-body').innerHTML = `${this.session.windSpeed.toFixed(1)}&nbsp;KM/H`;
 
@@ -74,7 +74,27 @@ class WeatherPanel
         this.element.querySelector('.weather-panel-forecast-body').innerHTML = body;
     }
 
-    GripLevel2String(gripLevel, pathWetness)
+    _weatherIcon(sky)
+    {
+        switch (sky)
+        {
+            case 0: return '';
+            case 1: return '';
+            case 2: return '';
+            case 3: return '';
+            case 4: return '';
+            case 5: return '';
+            case 6: return '';
+            case 7: return '';
+            case 8: return '';
+            case 9: return '';
+            case 10: return '';
+            case 11: return '';
+            default: return '';
+        }
+    }
+
+    _gripLevel2String(gripLevel, pathWetness)
     {
         if (pathWetness >= 0.9)
         {

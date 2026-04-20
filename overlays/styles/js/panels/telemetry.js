@@ -141,12 +141,12 @@ class TelemetryPanel
             return;
         }
 
-        let speed = this.vehicle.telemetry.speed;
         let throttle = this.vehicle.telemetry.throttle;
+        let max_rpm = this.vehicle.telemetry.max_rpm;
+        let speed = this.vehicle.telemetry.speed;
         let brake = this.vehicle.telemetry.brake;
         let gear = this.vehicle.telemetry.gear;
         let rpm = this.vehicle.telemetry.rpm;
-        let max_rpm = this.vehicle.telemetry.max_rpm;
 
         this.updateHUD(speed, throttle, brake, gear, rpm, max_rpm);
     }

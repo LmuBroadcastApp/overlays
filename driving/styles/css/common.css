@@ -4,8 +4,8 @@
     --telemetry-pit-stop-estimation-right: 13em;    /** Position from the right of the screen */
     --telemetry-pit-stop-estimation-top: 1.0em;     /** Position from the top of the screen */
 
-    --telemetry-input-chart-left: 1.8em;            /** Position from the left of the screen */
-    --telemetry-input-chart-top: 51em;              /** Position from the top of the screen */
+    --telemetry-input-chart-left: 130em;            /** Position from the left of the screen */
+    --telemetry-input-chart-top: 55em;              /** Position from the top of the screen */
 
     --telemetry-input-chart-height: 100px;
     --telemetry-input-chart-width: 530px;
@@ -68,4 +68,11 @@ body
 {
     text-align: right;
     min-width: 100px;
+}
+
+.center
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

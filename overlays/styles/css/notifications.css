@@ -1,0 +1,137 @@
+#notification-container
+{
+    left: var(--notification-panel-position-left);
+    top: var(--notification-panel-position-top);
+
+    font-size: var(--notification-panel-font-size);
+    position: fixed;
+
+    flex-direction: column;
+    display: flex;
+
+    z-index: 9999;
+    gap: 10px;
+}
+
+#notification-container .notification
+{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+
+    min-width: var(--notification-panel-width);
+    opacity: 0;
+}
+
+#notification-container .notification.show
+{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/**********************************************************************************************************************/
+
+#notification-container .padding
+{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#notification-container .message
+{
+    padding-left: 5px;
+}
+
+/**********************************************************************************************************************/
+
+#notification-container .fast-lap
+{
+    color: whitesmoke;
+    width: 100%;
+}
+
+#notification-container .fast-lap .header
+{
+    background: rgba(33, 37, 41, 0.9);
+    font-weight: 550;
+
+    padding-left: 5px;
+    text-align: left;
+}
+
+#notification-container .fast-lap .driver-info
+{
+    display: flex;
+    width: 100%;
+}
+
+#notification-container .fast-lap .class-type
+{
+    min-width: 56px;
+}
+
+#notification-container .fast-lap .vehicle-number
+{
+    background: rgba(240, 240, 240);
+    min-width: 56px; color: black;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#notification-container .fast-lap .lap-info
+{
+    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(154, 52, 142, 1.0));
+    padding-left: 5px; padding-right: 5px;
+
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
+}
+
+/**********************************************************************************************************************/
+
+#notification-container .penalty
+{
+    color: whitesmoke;
+    width: 100%;
+}
+
+#notification-container .penalty .header
+{
+    background: rgba(33, 37, 41, 0.9);
+    padding-left: 5px;
+    text-align: left;
+}
+
+#notification-container .penalty .penalty-info
+{
+    display: flex;
+    width: 100%;
+}
+
+#notification-container .penalty .class-type
+{
+    min-width: 56px;
+}
+
+#notification-container .penalty .vehicle-number
+{
+    background: rgba(240, 240, 240);
+    min-width: 56px; color: black;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#notification-container .penalty .penalty-data
+{
+    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(242, 92, 84, 1.0));
+    padding-left: 5px; padding-right: 5px;
+
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
+}
