@@ -78,19 +78,18 @@ class WeatherPanel
     {
         switch (sky)
         {
-            case 0: return '';
-            case 1: return '';
-            case 2: return '';
-            case 3: return '';
-            case 4: return '';
-            case 5: return '';
-            case 6: return '';
-            case 7: return '';
-            case 8: return '';
-            case 9: return '';
-            case 10: return '';
-            case 11: return '';
-            default: return '';
+            case  0: return ''; // Clear
+            case  1: return ''; // Light Clouds
+            case  2: return ''; // Partially Cloudy
+            case  3: return ''; // Mostly Cloudy
+            case  4: return ''; // Overcast
+            case  5: return ''; // Cloudy & Drizzle
+            case  6: return ''; // Cloudy & Light Rain
+            case  7: return ''; // Overcast & Light Rain
+            case  8: return ''; // Overcast & Rain"
+            case  9: return ''; // Overcast & Heavy Rain
+            case 10: return ''; // Overcast & Storm
+            default: return ''; // Unknown
         }
     }
 
