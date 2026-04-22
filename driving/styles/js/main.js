@@ -1,3 +1,17 @@
+function UpdateOverlaySettings(settings)
+{
+    const root = document.documentElement;
+    console.log(settings);
+
+    // pit stop estimation panel
+    root.style.setProperty('--telemetry-pit-stop-estimation-left', settings.driving_pitstop.position_left);
+    root.style.setProperty('--telemetry-pit-stop-estimation-top', settings.driving_pitstop.position_top);
+
+    // input telemetry panel
+    root.style.setProperty('--telemetry-input-chart-left', settings.driving_telemetry.position_left);
+    root.style.setProperty('--telemetry-input-chart-top', settings.driving_telemetry.position_top);
+}
+
 const callBacks =
 {
     onPitStopEstimation: (data) =>
@@ -9,6 +23,11 @@ const callBacks =
     {
         stateManager.setState('standings', data);
     },
+
+    onOverlaySettingsUpdate: (data) =>
+    {
+        UpdateOverlaySettings(data);
+    }
 };
 
 // Create websocket instance

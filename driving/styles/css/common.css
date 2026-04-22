@@ -1,11 +1,11 @@
 
 :root
 {
-    --telemetry-pit-stop-estimation-right: 13em;    /** Position from the right of the screen */
-    --telemetry-pit-stop-estimation-top: 1.0em;     /** Position from the top of the screen */
+    --telemetry-pit-stop-estimation-left: 1%;    /** Position from the left of the screen */
+    --telemetry-pit-stop-estimation-top: 1%;     /** Position from the top of the screen */
 
-    --telemetry-input-chart-left: 130em;            /** Position from the left of the screen */
-    --telemetry-input-chart-top: 55em;              /** Position from the top of the screen */
+    --telemetry-input-chart-left: 1%;            /** Position from the left of the screen */
+    --telemetry-input-chart-top: 1%;             /** Position from the top of the screen */
 
     --telemetry-input-chart-height: 100px;
     --telemetry-input-chart-width: 530px;
@@ -48,7 +48,7 @@ body
     position: absolute;
     color: whitesmoke;
 
-    right: var(--telemetry-pit-stop-estimation-right);
+    left: var(--telemetry-pit-stop-estimation-left);
     top: var(--telemetry-pit-stop-estimation-top);
 }
 
