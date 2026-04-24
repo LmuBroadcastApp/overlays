@@ -135,7 +135,7 @@ panelRegistry.register('telemetry', TelemetryPanel, '#telemetry-panel');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const fps = 60;
+const fps = 24;
 const frameDuration = 1000 / fps;
 
 let lastTime = 0;
@@ -155,7 +155,6 @@ function fnc_main_loop(timestamp)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-var notifier = null;
 
 window.addEventListener('beforeunload', () =>
 {
@@ -170,8 +169,8 @@ window.addEventListener('beforeunload', () =>
 
 window.addEventListener('load', () =>
 {
-    notifier = new NotificationSystem('notification-container');
-    panelRegistry.register('notifier', NotificationManager, '<!-- ignore -->');
+    let notifier = new NotificationSystem('notification-container');
+    panelRegistry.register('notifier', NotificationController, '<!-- ignore -->');
 
     panelRegistry.createAll(stateManager, notifier);
     webSocketWrapper.connect();

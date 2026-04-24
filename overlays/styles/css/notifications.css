@@ -4,7 +4,7 @@
     top: var(--notification-panel-position-top);
 
     font-size: var(--notification-panel-font-size);
-    position: fixed;
+    position: absolute;
 
     flex-direction: column;
     display: flex;

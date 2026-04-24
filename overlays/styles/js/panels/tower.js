@@ -189,7 +189,7 @@ class TowerPanel
         }
         else if(rightColumn == "damage")
         {
-            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.telemetry.damage.toFixed(1)}%</td>`;
+            right_column_content = `<td class="vehicle-right-column standings-secondary-color">${vehicle.damage.toFixed(1)}%</td>`;
         }
         else if (rightColumn == "best")
         {

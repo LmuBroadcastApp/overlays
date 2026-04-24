@@ -8,14 +8,13 @@
         <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&display=swap"  rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/gh/mshaugh/nerdfont-webfonts@v3.3.0/build/firacode-nerd-font.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="styles/css/notifications.css"/>
         <link rel="stylesheet" href="styles/css/session_panel.css"/>
         <link rel="stylesheet" href="styles/css/weather_panel.css"/>
         <link rel="stylesheet" href="styles/css/driver_panel.css"/>
         <link rel="stylesheet" href="styles/css/tower_panel.css"/>
         <link rel="stylesheet" href="styles/css/map_panel.css"/>
         <link rel="stylesheet" href="styles/css/telemetry.css"/>
-
-        <link rel="stylesheet" href="styles/css/notifications.css"/>
         <link rel="stylesheet" href="styles/css/common.css"/>
 
         <script src="styles/js/network/websocket.js"></script>
@@ -24,8 +23,8 @@
         <script src="styles/js/libs/jquery.js"></script>
         <script src="styles/js/libs/chart.js"></script>
 
-        <script src="styles/js/notifications/notification_manager.js"></script>
-        <script src="styles/js/notifications/notifications.js"></script>
+        <script src="styles/js/notifications/controller.js"></script>
+        <script src="styles/js/notifications/system.js"></script>
 
         <script src="styles/js/utils/standings.js"></script>
         <script src="styles/js/utils/registry.js"></script>
@@ -41,10 +40,10 @@
         <script src="styles/js/main.js"></script>
     </head>
     <body>
-        <div id="gradient-background"/>
-        <div id="notification-container"></div>
-
         <main aria-label="LMU TV Overlay panels">
+            <section id="gradient-background"></section>
+            <section id="notification-container"></section>
+
             <section id="replay-banner" aria-hidden="true">
                 <img src="styles/img/others/replay.webp" alt="replay">
             </section>
