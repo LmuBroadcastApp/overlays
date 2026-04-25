@@ -60,6 +60,8 @@ class NotificationController
         let penalties = this.notifications?.penalties ?? true;
         let incidents = this.notifications?.incidents ?? false;
         let track_limits = this.notifications?.track_limits ?? false;
+
+        let impact_threshold = this.notifications?.impact_threshold ?? 500;
         let duration = this.notifications?.duration_sec * 1000 ?? 5000;
 
         if (fast_lap && this.standings_curr)
@@ -120,6 +122,19 @@ class NotificationController
                         penalty: new_vehicle.penalties.time_penalty + 's'
                     };
                     this.notifier.show({ type: 'penalty', message: msg, duration: duration });
+                }
+
+                if (incidents && new_vehicle.impact.et > old_vehicle.impact.et && new_vehicle.impact.points > impact_threshold)
+                {
+                    let msg =
+                    {
+                        vehicle_number: new_vehicle.vehicle_number,
+                        vehicle_class: new_vehicle.vehicle_class,
+                        driver: new_vehicle.driver,
+                        type: 'Impact',
+                        impact: new_vehicle.impact.points.toFixed(0) + ' points'
+                    };
+                    this.notifier.show({ type: 'impact', message: msg, duration: duration });
                 }
 
                 if (track_limits && new_vehicle.cut_points > old_vehicle.cut_points)

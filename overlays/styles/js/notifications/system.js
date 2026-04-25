@@ -120,6 +120,34 @@ class NotificationSystem
         </div>`;
     }
 
+    _impact(message)
+    {
+        let VEHICLE_NUMBER = message.vehicle_number;
+        let CLASS = message.vehicle_class;
+        let IMPACT = message.impact;
+        let TYPE = message.type;
+        let DRIVER = message.driver;
+
+        return `<div class='notification-entry'>
+            <div class='header'>
+                <span class='padding'>Incident</span>
+                <span class='padding'>${TYPE}</span>
+            </div>
+            <div class='info'>
+                <div class='${CLASS} class-type padding overflow'>
+                    ${CLASS}
+                </div>
+                <div class='vehicle-number padding'>
+                    #${VEHICLE_NUMBER}
+                </div>
+                <div class='vehicle-data track-limits'>
+                    <span class='name overflow padding'>${DRIVER}</span>
+                    <span class='padding'>${IMPACT}</span>
+                </div>
+            </div>
+        </div>`;
+    }
+
     _message(message)
     {
         return `<div class='message'>${message}</div>`;
@@ -144,6 +172,10 @@ class NotificationSystem
         if (type == 'track-limits')
         {
             notification.innerHTML = this._trackLimits(next.message);
+        }
+        else if (type == 'impact')
+        {
+            notification.innerHTML = this._impact(next.message);
         }
         else if (type == 'fast-lap')
         {
