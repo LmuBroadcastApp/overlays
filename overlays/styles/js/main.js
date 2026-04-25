@@ -118,6 +118,7 @@ const callBacks =
     onOverlaySettingsUpdate: (data) =>
     {
         UpdateOverlaySettings(data);
+        stateManager.setState('overlay', data);
     }
 };
 

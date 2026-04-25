@@ -1,11 +1,12 @@
 #notification-container
 {
+    font-size: var(--notification-panel-font-size);
+
     left: var(--notification-panel-position-left);
     top: var(--notification-panel-position-top);
 
-    font-size: var(--notification-panel-font-size);
+    width: var(--notification-panel-width);
     position: absolute;
-    min-width: 350px;
 
     flex-direction: column;
     display: flex;

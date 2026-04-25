@@ -8,7 +8,9 @@ class NotificationController
         this.fast_lap = new Map();
         this.stateManager.subscribe(this.handleStateChange.bind(this));
 
+        this.notifications = null;
         this.session = null;
+
         this.standings_prev = null;
         this.standings_curr = null;
     }
@@ -39,6 +41,11 @@ class NotificationController
             }
         }
 
+        if (key === 'overlay')
+        {
+            this.notifications = value.notifications;
+        }
+
         this._update();
     }
 
@@ -49,7 +56,13 @@ class NotificationController
 
     _update()
     {
-        if (this.standings_curr)
+        let fast_lap = this.notifications?.fast_lap ?? true;
+        let penalties = this.notifications?.penalties ?? true;
+        let incidents = this.notifications?.incidents ?? false;
+        let track_limits = this.notifications?.track_limits ?? false;
+        let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+
+        if (fast_lap && this.standings_curr)
         {
             let list = this.standings_curr.filter((vehicle) => vehicle.best_lap > 0);
             const compareBestLaps = (a, b) => a.best_lap - b.best_lap;
@@ -71,7 +84,7 @@ class NotificationController
                     break
                 }
 
-                if (new_vehicle.penalties.drive_through > old_vehicle.penalties.drive_through)
+                if (penalties && new_vehicle.penalties.drive_through > old_vehicle.penalties.drive_through)
                 {
                     let msg =
                     {
@@ -80,10 +93,10 @@ class NotificationController
                         driver: new_vehicle.driver,
                         penalty: 'Drive through'
                     };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: 5000 });
+                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
                 }
 
-                if (new_vehicle.penalties.stop_and_go > old_vehicle.penalties.stop_and_go)
+                if (penalties && new_vehicle.penalties.stop_and_go > old_vehicle.penalties.stop_and_go)
                 {
                     let msg =
                     {
@@ -93,10 +106,10 @@ class NotificationController
                         type: 'Stop & Go',
                         penalty: ''
                     };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: 5000 });
+                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
                 }
 
-                if (new_vehicle.penalties.time_penalty > old_vehicle.penalties.time_penalty)
+                if (penalties && new_vehicle.penalties.time_penalty > old_vehicle.penalties.time_penalty)
                 {
                     let msg =
                     {
@@ -106,10 +119,10 @@ class NotificationController
                         type: 'Time',
                         penalty: new_vehicle.penalties.time_penalty + 's'
                     };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: 5000 });
+                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
                 }
 
-                if (new_vehicle.cut_points > old_vehicle.cut_points)
+                if (track_limits && new_vehicle.cut_points > old_vehicle.cut_points)
                 {
                     let p = new_vehicle.cut_points - old_vehicle.cut_points;
                     p = p.toFixed(2)
@@ -122,7 +135,7 @@ class NotificationController
                         type: 'Track limits',
                         penalty: new_vehicle.cut_points + "/" + this.session.max_cut_points
                     };
-                    this.notifier.show({ type: 'track-limits', message: msg, duration: 10000 });
+                    this.notifier.show({ type: 'track-limits', message: msg, duration: duration });
                 }
             }
         }
