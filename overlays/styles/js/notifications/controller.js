@@ -90,7 +90,8 @@ class NotificationController
                         vehicle_number: new_vehicle.vehicle_number,
                         vehicle_class: new_vehicle.vehicle_class,
                         driver: new_vehicle.driver,
-                        penalty: 'Stop & Go '
+                        type: 'Stop & Go',
+                        penalty: ''
                     };
                     this.notifier.show({ type: 'penalty', message: msg, duration: 5000 });
                 }
@@ -102,25 +103,27 @@ class NotificationController
                         vehicle_number: new_vehicle.vehicle_number,
                         vehicle_class: new_vehicle.vehicle_class,
                         driver: new_vehicle.driver,
-                        penalty: 'Time penalty: ' + new_vehicle.penalties.time_penalty + 's'
+                        type: 'Time',
+                        penalty: new_vehicle.penalties.time_penalty + 's'
                     };
                     this.notifier.show({ type: 'penalty', message: msg, duration: 5000 });
                 }
 
-                //if (new_vehicle.cut_points > old_vehicle.cut_points)
-                //{
-                //    let p = new_vehicle.cut_points - old_vehicle.cut_points;
-                //    p = p.toFixed(2)
-                //
-                //    let msg =
-                //    {
-                //        vehicle_number: new_vehicle.vehicle_number,
-                //        vehicle_class: new_vehicle.vehicle_class,
-                //        driver: new_vehicle.driver,
-                //        penalty: 'Track limit: ' + p + ' point(s)'
-                //    };
-                //    this.notifier.show({ type: 'penalty', message: msg, duration: 10000 });
-                //}
+                if (new_vehicle.cut_points > old_vehicle.cut_points)
+                {
+                    let p = new_vehicle.cut_points - old_vehicle.cut_points;
+                    p = p.toFixed(2)
+
+                    let msg =
+                    {
+                        vehicle_number: new_vehicle.vehicle_number,
+                        vehicle_class: new_vehicle.vehicle_class,
+                        driver: new_vehicle.driver,
+                        type: 'Track limits',
+                        penalty: new_vehicle.cut_points + "/" + this.session.max_cut_points
+                    };
+                    this.notifier.show({ type: 'track-limits', message: msg, duration: 10000 });
+                }
             }
         }
     }

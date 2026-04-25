@@ -5,6 +5,7 @@
 
     font-size: var(--notification-panel-font-size);
     position: absolute;
+    min-width: 350px;
 
     flex-direction: column;
     display: flex;
@@ -13,23 +14,43 @@
     gap: 10px;
 }
 
-#notification-container .notification
+#notification-container .track-limits
 {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
+    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(255, 165, 0, 1.0));
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 
-    min-width: var(--notification-panel-width);
-    opacity: 0;
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
 }
 
-#notification-container .notification.show
+#notification-container .fast-lap
 {
-    transform: translateY(0);
-    opacity: 1;
+    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(154, 52, 142, 1.0));
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
+}
+
+#notification-container .penalty
+{
+    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(242, 92, 84, 1.0));
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
 }
 
 /**********************************************************************************************************************/
+#notification-container .overflow
+{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 #notification-container .padding
 {
@@ -37,101 +58,45 @@
     padding-left: 5px;
 }
 
-#notification-container .message
-{
-    padding-left: 5px;
-}
-
-/**********************************************************************************************************************/
-
-#notification-container .fast-lap
+#notification-container .notification-entry
 {
     color: whitesmoke;
     width: 100%;
 }
 
-#notification-container .fast-lap .header
+#notification-container .header
 {
     background: rgba(33, 37, 41, 0.9);
     font-weight: 550;
 
-    padding-left: 5px;
-    text-align: left;
-}
-
-#notification-container .fast-lap .driver-info
-{
-    display: flex;
-    width: 100%;
-}
-
-#notification-container .fast-lap .class-type
-{
-    min-width: 56px;
-}
-
-#notification-container .fast-lap .vehicle-number
-{
-    background: rgba(240, 240, 240);
-    min-width: 56px; color: black;
-
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-#notification-container .fast-lap .lap-info
-{
-    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(154, 52, 142, 1.0));
-    padding-left: 5px; padding-right: 5px;
-
     justify-content: space-between;
     display: flex;
-    flex: 1;
 }
 
-/**********************************************************************************************************************/
-
-#notification-container .penalty
-{
-    color: whitesmoke;
-    width: 100%;
-}
-
-#notification-container .penalty .header
+#notification-container .info
 {
     background: rgba(33, 37, 41, 0.9);
-    padding-left: 5px;
-    text-align: left;
-}
+    font-weight: 550;
 
-#notification-container .penalty .penalty-info
-{
-    display: flex;
-    width: 100%;
-}
-
-#notification-container .penalty .class-type
-{
-    min-width: 56px;
-}
-
-#notification-container .penalty .vehicle-number
-{
-    background: rgba(240, 240, 240);
-    min-width: 56px; color: black;
-
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-#notification-container .penalty .penalty-data
-{
-    background-image: linear-gradient(to right, rgba(33, 37, 41, 0.9), rgba(242, 92, 84, 1.0));
-    padding-left: 5px; padding-right: 5px;
-
-    justify-content: space-between;
     display: flex;
     flex: 1;
+}
+
+#notification-container .class-type
+{
+    width: 56px;
+}
+
+#notification-container .vehicle-number
+{
+    background: rgba(240, 240, 240);
+    width: 56px; color: black;
+
+    justify-content: center;
+    display: flex;
+}
+
+#notification-container .name
+{
+    width: 150px;
 }

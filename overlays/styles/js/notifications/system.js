@@ -47,18 +47,18 @@ class NotificationSystem
         let CLASS = message.vehicle_class;
         let NAME = message.driver;
 
-        return `<div class='fast-lap'>
-            <div class='header'>Fastes lap</div>
-            <div class='driver-info'>
-                <div class='${CLASS} class-type padding'>
+        return `<div class='notification-entry'>
+            <div class='header padding'>Fastes lap</div>
+            <div class='info'>
+                <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number'>
+                <div class='vehicle-number padding'>
                     #${VEHICLE_NUMBER}
                 </div>
-                <div class='lap-info'>
-                    <span>${NAME}</span>
-                    <span>${TIME}</span>
+                <div class='vehicle-data fast-lap'>
+                    <span class='name overflow padding'>${NAME}</span>
+                    <span class='padding'>${TIME}</span>
                 </div>
             </div>
         </div>`;
@@ -69,20 +69,52 @@ class NotificationSystem
         let VEHICLE_NUMBER = message.vehicle_number;
         let CLASS = message.vehicle_class;
         let PENALTY = message.penalty;
-        let NAME = message.driver;
+        let TYPE = message.type;
+        let DRIVER = message.driver;
 
-        return `<div class='penalty'>
-            <div class='header'>Penaty</div>
-            <div class='penalty-info'>
-                <div class='${CLASS} class-type padding'>
+        return `<div class='notification-entry'>
+            <div class='header'>
+                <span class='padding'>Penalty</span>
+                <span class='padding'>${TYPE}</span>
+            </div>
+            <div class='info'>
+                <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number'>
+                <div class='vehicle-number padding'>
                     #${VEHICLE_NUMBER}
                 </div>
-                <div class='penalty-data'>
-                    <span>${NAME}</span>
-                    <span>${PENALTY}</span>
+                <div class='vehicle-data penalty'>
+                    <span class='name overflow padding'>${DRIVER}</span>
+                    <span class='padding'>${PENALTY}</span>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    _trackLimits(message)
+    {
+        let VEHICLE_NUMBER = message.vehicle_number;
+        let CLASS = message.vehicle_class;
+        let PENALTY = message.penalty;
+        let TYPE = message.type;
+        let DRIVER = message.driver;
+
+        return `<div class='notification-entry'>
+            <div class='header'>
+                <span class='padding'>Warning</span>
+                <span class='padding'>${TYPE}</span>
+            </div>
+            <div class='info'>
+                <div class='${CLASS} class-type padding overflow'>
+                    ${CLASS}
+                </div>
+                <div class='vehicle-number padding'>
+                    #${VEHICLE_NUMBER}
+                </div>
+                <div class='vehicle-data track-limits'>
+                    <span class='name overflow padding'>${DRIVER}</span>
+                    <span class='padding'>${PENALTY}</span>
                 </div>
             </div>
         </div>`;
@@ -109,7 +141,11 @@ class NotificationSystem
         const notification = document.createElement('div');
         notification.className = `notification`;
 
-        if (type == 'fast-lap')
+        if (type == 'track-limits')
+        {
+            notification.innerHTML = this._trackLimits(next.message);
+        }
+        else if (type == 'fast-lap')
         {
             notification.innerHTML = this._fastLap(next.message);
         }
