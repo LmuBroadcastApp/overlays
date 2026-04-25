@@ -93,7 +93,8 @@ class NotificationController
                         vehicle_number: new_vehicle.vehicle_number,
                         vehicle_class: new_vehicle.vehicle_class,
                         driver: new_vehicle.driver,
-                        penalty: 'Drive through'
+                        type: 'Drive through',
+                        penalty: '+' + new_vehicle.penalties.drive_through
                     };
                     this.notifier.show({ type: 'penalty', message: msg, duration: duration });
                 }
@@ -106,7 +107,7 @@ class NotificationController
                         vehicle_class: new_vehicle.vehicle_class,
                         driver: new_vehicle.driver,
                         type: 'Stop & Go',
-                        penalty: ''
+                        penalty: '+' + new_vehicle.penalties.stop_and_go
                     };
                     this.notifier.show({ type: 'penalty', message: msg, duration: duration });
                 }
