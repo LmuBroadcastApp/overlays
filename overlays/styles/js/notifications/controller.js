@@ -59,6 +59,7 @@ class NotificationController
         let fast_lap = this.notifications?.fast_lap ?? true;
         let penalties = this.notifications?.penalties ?? true;
         let incidents = this.notifications?.incidents ?? false;
+        let race_winner = this.notifications?.race_winner ?? true;
         let track_limits = this.notifications?.track_limits ?? false;
 
         let impact_threshold = this.notifications?.impact_threshold ?? 500;
@@ -70,7 +71,16 @@ class NotificationController
             const compareBestLaps = (a, b) => a.best_lap - b.best_lap;
 
             list.sort(compareBestLaps);
-            list.forEach((vehicle) => (this._recordLap(vehicle)));
+            list.forEach((vehicle) => (this._bestLap(vehicle)));
+        }
+
+        if (race_winner && this.standings_curr)
+        {
+            let splits = GetByClasses(this.standings_curr);
+            splits.forEach((vehicles, className) =>
+            {
+                this._raceWinner(vehicles);
+            });
         }
 
         if (this.standings_curr && this.standings_prev)
@@ -81,88 +91,13 @@ class NotificationController
                 let old_vehicle = this.standings_prev[i];
                 let new_vehicle = this.standings_curr[i];
 
-                if (old_vehicle.slot_id !== new_vehicle.slot_id)
+                if (old_vehicle.slot_id === new_vehicle.slot_id)
                 {
-                    break
-                }
-
-                if (penalties && new_vehicle.penalties.drive_through > old_vehicle.penalties.drive_through)
-                {
-                    let msg =
-                    {
-                        vehicle_number: new_vehicle.vehicle_number,
-                        vehicle_class: new_vehicle.vehicle_class,
-                        driver: new_vehicle.driver,
-                        type: 'Drive through',
-                        penalty: '+' + new_vehicle.penalties.drive_through
-                    };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
-                }
-
-                if (penalties && new_vehicle.penalties.stop_and_go > old_vehicle.penalties.stop_and_go)
-                {
-                    let msg =
-                    {
-                        vehicle_number: new_vehicle.vehicle_number,
-                        vehicle_class: new_vehicle.vehicle_class,
-                        driver: new_vehicle.driver,
-                        type: 'Stop & Go',
-                        penalty: '+' + new_vehicle.penalties.stop_and_go
-                    };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
-                }
-
-                if (penalties && new_vehicle.penalties.time_penalty > old_vehicle.penalties.time_penalty)
-                {
-                    let msg =
-                    {
-                        vehicle_number: new_vehicle.vehicle_number,
-                        vehicle_class: new_vehicle.vehicle_class,
-                        driver: new_vehicle.driver,
-                        type: 'Time',
-                        penalty: new_vehicle.penalties.time_penalty + 's'
-                    };
-                    this.notifier.show({ type: 'penalty', message: msg, duration: duration });
-                }
-
-                if (incidents && new_vehicle.impact.et > old_vehicle.impact.et && new_vehicle.impact.points > impact_threshold)
-                {
-                    let msg =
-                    {
-                        vehicle_number: new_vehicle.vehicle_number,
-                        vehicle_class: new_vehicle.vehicle_class,
-                        driver: new_vehicle.driver,
-                        type: 'Impact',
-                        impact: new_vehicle.impact.points.toFixed(0) + ' points'
-                    };
-                    this.notifier.show({ type: 'impact', message: msg, duration: duration });
-                }
-
-                if (track_limits && new_vehicle.cut_points > old_vehicle.cut_points)
-                {
-                    let p = new_vehicle.cut_points - old_vehicle.cut_points;
-                    p = p.toFixed(2)
-
-                    let msg =
-                    {
-                        vehicle_number: new_vehicle.vehicle_number,
-                        vehicle_class: new_vehicle.vehicle_class,
-                        driver: new_vehicle.driver,
-                        type: 'Track limits',
-                        penalty: new_vehicle.cut_points + "/" + this.session.max_cut_points
-                    };
-                    this.notifier.show({ type: 'track-limits', message: msg, duration: duration });
+                    if (penalties)    this._penalty(new_vehicle, old_vehicle);
+                    if (incidents)    this._incidents(new_vehicle, old_vehicle);
+                    if (track_limits) this._trackLmits(new_vehicle, old_vehicle);
                 }
             }
-        }
-
-        if (this.standings_curr)
-        {
-            let splits = GetByClasses(this.standings_curr);
-            splits.forEach((vehicles, className) =>
-            {
-                this._raceWinner(vehicles);
-            });
         }
     }
 
@@ -176,7 +111,7 @@ class NotificationController
             vehicle_number: vehicles[0].vehicle_number,
             vehicle_class: vehicles[0].vehicle_class,
             driver: vehicles[0].driver,
-            type: '',
+            type: 'Race Finished',
             gap: gap
         };
 
@@ -184,7 +119,7 @@ class NotificationController
         this.notifier.show({ type: 'winner', subtype: vehicles[0].vehicle_class, message: msg, duration: duration * 5 });
     }
 
-    _recordLap(vehicle)
+    _bestLap(vehicle)
     {
         if (vehicle.best_lap <= 0) return;
         let show_notification = false;
@@ -205,6 +140,93 @@ class NotificationController
         {
             let duration = this.notifications?.duration_sec * 1000 ?? 5000;
             this.notifier.show({ type: 'fast-lap', subtype: vehicle.vehicle_class, message: vehicle, duration: duration });
+        }
+    }
+
+    _penalty(curr, prev)
+    {
+        if (curr.penalties.drive_through > prev.penalties.drive_through)
+        {
+            let msg =
+            {
+                vehicle_number: curr.vehicle_number,
+                vehicle_class: curr.vehicle_class,
+                driver: curr.driver,
+                type: 'Drive Through',
+                penalty: '+' + curr.penalties.drive_through
+            };
+
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'penalty', message: msg, duration: duration });
+        }
+
+        if (curr.penalties.stop_and_go > prev.penalties.stop_and_go)
+        {
+            let msg =
+            {
+                vehicle_number: curr.vehicle_number,
+                vehicle_class: curr.vehicle_class,
+                driver: curr.driver,
+                type: 'Stop & Go',
+                penalty: '+' + curr.penalties.stop_and_go
+            };
+
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'penalty', message: msg, duration: duration });
+        }
+
+        if (curr.penalties.time_penalty > prev.penalties.time_penalty)
+        {
+            let msg =
+            {
+                vehicle_number: curr.vehicle_number,
+                vehicle_class: curr.vehicle_class,
+                driver: curr.driver,
+                type: 'Time',
+                penalty: curr.penalties.time_penalty + 's'
+            };
+
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'penalty', message: msg, duration: duration });
+        }
+    }
+
+    _incidents(curr, prev)
+    {
+        if (curr.impact.et > prev.impact.et && curr.impact.points > impact_threshold)
+        {
+            let msg =
+            {
+                vehicle_number: curr.vehicle_number,
+                vehicle_class: curr.vehicle_class,
+                driver: curr.driver,
+                type: 'Impact',
+                impact: curr.impact.points.toFixed(0) + ' points'
+            };
+
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'impact', message: msg, duration: duration });
+        }
+    }
+
+    _trackLmits(curr, prev)
+    {
+        if (curr.cut_points > prev.cut_points)
+        {
+            let p = curr.cut_points - prev.cut_points;
+            p = p.toFixed(2)
+
+            let msg =
+            {
+                vehicle_number: curr.vehicle_number,
+                vehicle_class: curr.vehicle_class,
+                driver: curr.driver,
+                type: 'Track limits',
+                penalty: curr.cut_points + "/" + this.session.max_cut_points
+            };
+
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'track-limits', message: msg, duration: duration });
         }
     }
 }

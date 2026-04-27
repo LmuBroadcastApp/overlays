@@ -161,7 +161,7 @@ class NotificationSystem
 
         return `<div class='notification-entry winner-entry'>
             <div class='header'>
-                <span class='padding'>🏁 RACE WINNER</span>
+                <span class='padding'>🏁 Winner</span>
                 <span class='padding'>${TYPE}</span>
             </div>
             <div class='info'>
