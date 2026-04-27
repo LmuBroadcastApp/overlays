@@ -48,12 +48,15 @@ class NotificationSystem
         let NAME = message.driver;
 
         return `<div class='notification-entry'>
-            <div class='header padding'>Fastes lap</div>
+            <div class='header'>
+                <span class='padding'>Fastes lap</span>
+                <span class='padding'>New Record</span>
+            </div>
             <div class='info'>
                 <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number padding'>
+                <div class='vehicle-number padding overflow'>
                     #${VEHICLE_NUMBER}
                 </div>
                 <div class='vehicle-data fast-lap'>
@@ -81,7 +84,7 @@ class NotificationSystem
                 <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number padding'>
+                <div class='vehicle-number padding overflow'>
                     #${VEHICLE_NUMBER}
                 </div>
                 <div class='vehicle-data penalty'>
@@ -109,7 +112,7 @@ class NotificationSystem
                 <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number padding'>
+                <div class='vehicle-number padding overflow'>
                     #${VEHICLE_NUMBER}
                 </div>
                 <div class='vehicle-data track-limits'>
@@ -137,12 +140,40 @@ class NotificationSystem
                 <div class='${CLASS} class-type padding overflow'>
                     ${CLASS}
                 </div>
-                <div class='vehicle-number padding'>
+                <div class='vehicle-number padding overflow'>
                     #${VEHICLE_NUMBER}
                 </div>
                 <div class='vehicle-data track-limits'>
                     <span class='name overflow padding'>${DRIVER}</span>
                     <span class='padding'>${IMPACT}</span>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    _raceWinner(message)
+    {
+        let VEHICLE_NUMBER = message.vehicle_number;
+        let CLASS = message.vehicle_class;
+        let DRIVER = message.driver;
+        let TYPE = message.type;
+        let GAP = message.gap;
+
+        return `<div class='notification-entry winner-entry'>
+            <div class='header'>
+                <span class='padding'>🏁 RACE WINNER</span>
+                <span class='padding'>${TYPE}</span>
+            </div>
+            <div class='info'>
+                <div class='${CLASS} class-type padding overflow'>
+                    ${CLASS}
+                </div>
+                <div class='vehicle-number padding overflow'>
+                    #${VEHICLE_NUMBER}
+                </div>
+                <div class='vehicle-data race-winner'>
+                    <span class='name overflow padding'>${DRIVER}</span>
+                    <span class='padding'>+${GAP}s</span> <!-- gap to P2 -->
                 </div>
             </div>
         </div>`;
@@ -184,6 +215,10 @@ class NotificationSystem
         else if (type == 'penalty')
         {
             notification.innerHTML = this._penalty(next.message);
+        }
+        else if (type == 'winner')
+        {
+            notification.innerHTML = this._raceWinner(next.message);
         }
         else
         {

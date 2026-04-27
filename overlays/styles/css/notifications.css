@@ -45,7 +45,30 @@
     flex: 1;
 }
 
+@keyframes winner-shimmer
+{
+    0% { background-position: 200%; }
+    100% { background-position: 0%; }
+}
+
+#notification-container .race-winner
+{
+    background: linear-gradient(120deg, rgba(33,37,41,0.9) 30%, gold 50%, rgba(33,37,41,0.9) 70%);
+    animation: winner-shimmer 5s linear infinite;
+    background-size: 200% 100%;
+
+    justify-content: space-between;
+    display: flex;
+    flex: 1;
+}
+
+#notification-container .winner-entry
+{
+    border: 2px solid gold;
+}
+
 /**********************************************************************************************************************/
+
 #notification-container .overflow
 {
     overflow: hidden;

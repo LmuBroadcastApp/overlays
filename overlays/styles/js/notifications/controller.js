@@ -155,6 +155,33 @@ class NotificationController
                 }
             }
         }
+
+        if (this.standings_curr)
+        {
+            let splits = GetByClasses(this.standings_curr);
+            splits.forEach((vehicles, className) =>
+            {
+                this._raceWinner(vehicles);
+            });
+        }
+    }
+
+    _raceWinner(vehicles)
+    {
+        if (vehicles[0].status != 'Finished' || this.session.name != 'RACE') return;
+        let gap = vehicles.length > 1 ? vehicles[1].delta_to_class_leader.toFixed(1) : '0.0';
+
+        let msg =
+        {
+            vehicle_number: vehicles[0].vehicle_number,
+            vehicle_class: vehicles[0].vehicle_class,
+            driver: vehicles[0].driver,
+            type: '',
+            gap: gap
+        };
+
+        let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+        this.notifier.show({ type: 'winner', subtype: vehicles[0].vehicle_class, message: msg, duration: duration * 5 });
     }
 
     _recordLap(vehicle)
@@ -176,7 +203,8 @@ class NotificationController
 
         if (show_notification)
         {
-            this.notifier.show({ type: 'fast-lap', subtype: vehicle.vehicle_class, message: vehicle, duration: 5000 });
+            let duration = this.notifications?.duration_sec * 1000 ?? 5000;
+            this.notifier.show({ type: 'fast-lap', subtype: vehicle.vehicle_class, message: vehicle, duration: duration });
         }
     }
 }
