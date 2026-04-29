@@ -1,0 +1,97 @@
+#battle-panel
+{
+    bottom: var(--battle-panel-position-bottom);
+    left: var(--battle-panel-position-left);
+
+    font-weight: var(--standings-panel-font-weight);
+    font-size: var(--standings-panel-font-size);
+
+    position: absolute;
+    display: none;
+    color: white;
+}
+
+.battle-header
+{
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 5px 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.battle-table
+{
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.battle-table td
+{
+    padding: 5px 8px;
+    text-align: center;
+}
+
+.battle-position
+{
+    width: var(--standings-panel-col-02-width);
+    background-color: var(--standings-panel-primary-color);
+    font-weight: 700;
+}
+
+.battle-driver
+{
+    width: var(--standings-panel-col-03-width);
+    background-color: var(--standings-panel-primary-color);
+    text-align: left !important;
+    padding-left: 10px !important;
+}
+
+.battle-driver-text
+{
+    width: var(--standings-panel-col-03-width);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+
+.battle-logo
+{
+    width: var(--standings-panel-col-04-width);
+    background-color: var(--standings-panel-primary-color);
+}
+
+.battle-number
+{
+    width: var(--standings-panel-col-05-width);
+    background-color: var(--standings-panel-primary-color);
+    font-weight: 700;
+}
+
+.battle-gap
+{
+    width: var(--standings-panel-col-06-width);
+    background-color: var(--standings-panel-secondary-color);
+    font-weight: 600;
+}
+
+.battle-gap.very-close
+{
+    color: var(--standings-panel-gap-less-1-color);
+}
+
+.battle-gap.close
+{
+    color: var(--standings-panel-gap-less-2-color);
+}
+
+.battle-class
+{
+    width: var(--standings-panel-col-07-width);
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9em;
+}

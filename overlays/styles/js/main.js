@@ -9,6 +9,7 @@ function ToggleOverlayByReplay(stateManager)
     if (active)
     {
         $("#tower-panel").hide(speed);
+        $("#battle-panel").hide(speed);
         $("#session-panel").hide(speed);
         $("#weather-panel").hide(speed);
         $("#track-map-panel").hide(speed);
@@ -19,6 +20,7 @@ function ToggleOverlayByReplay(stateManager)
     else
     {
         $("#tower-panel").show(speed);
+        $("#battle-panel").show(speed);
         $("#session-panel").show(speed);
         $("#weather-panel").show(speed);
         $("#track-map-panel").show(speed);
@@ -85,6 +87,10 @@ function UpdateOverlaySettings(settings)
     root.style.setProperty('--replay-banner-position-left', settings.replay.position_left);
     root.style.setProperty('--replay-banner-position-top', settings.replay.position_top);
 
+    // battle panel
+    //root.style.setProperty('--battle-panel-position-bottom', settings.battle.position_bottom);
+    //root.style.setProperty('--battle-panel-position-left', settings.battle.position_left);
+
     // notifications
     root.style.setProperty('--notification-panel-position-left', settings.notifications.position_left);
     root.style.setProperty('--notification-panel-position-top', settings.notifications.position_top);
@@ -127,6 +133,7 @@ const webSocketWrapper = new WebSocketWrapper(`ws://${window.location.hostname}:
 webSocketWrapper.setCallback(callBacks);
 
 // Register panels
+panelRegistry.register('battle', BattlePanel, '#battle-panel');
 panelRegistry.register('tower', TowerPanel, '#tower-panel');
 panelRegistry.register('driver', DriverPanel, '#driver-panel');
 panelRegistry.register('map', TrackMapPanel, '#track-map-panel');

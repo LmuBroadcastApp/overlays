@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="styles/css/session_panel.css"/>
         <link rel="stylesheet" href="styles/css/weather_panel.css"/>
         <link rel="stylesheet" href="styles/css/driver_panel.css"/>
+        <link rel="stylesheet" href="styles/css/battle_panel.css"/>
         <link rel="stylesheet" href="styles/css/tower_panel.css"/>
         <link rel="stylesheet" href="styles/css/map_panel.css"/>
         <link rel="stylesheet" href="styles/css/telemetry.css"/>
@@ -33,6 +34,7 @@
         <script src="styles/js/panels/telemetry.js"></script>
         <script src="styles/js/panels/session.js"></script>
         <script src="styles/js/panels/weather.js"></script>
+        <script src="styles/js/panels/battle.js"></script>
         <script src="styles/js/panels/driver.js"></script>
         <script src="styles/js/panels/tower.js"></script>
         <script src="styles/js/panels/map.js"></script>
@@ -47,6 +49,7 @@
             <section id="replay-banner" aria-hidden="true">
                 <img src="styles/img/others/replay.webp" alt="replay">
             </section>
+
             <section id="session-panel" aria-label="Current session info">
                 <div class="session-container">
                     <div class="session-time"></div>
@@ -59,8 +62,11 @@
                     <div class="session-name"></div>
                 </div>
             </section>
-            <section id="tower-panel" aria-label="Standings"></section>
+
             <canvas id="track-map-panel" aria-label="Track map"></canvas>
+            <section id="tower-panel" aria-label="Standings"></section>
+            <section id="battle-panel" aria-label="Battle"></section>
+
             <section id="weather-panel" aria-label="Weather forecast">
                 <table class="weather-panel-forecast">
                     <tr class="weather-panel-forecast-header">
@@ -81,6 +87,7 @@
                     </tr>
                 </table>
             </section>
+
             <section id="driver-panel" aria-label="Focused driver">
                 <div id="telemetry-panel">
                     <div id="gauges">

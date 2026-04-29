@@ -303,6 +303,19 @@ function StandingsGetFocus(standings)
     return null;
 }
 
+function StandingsGetFocusIdx(standings)
+{
+    for (const [i, vehicle] of standings.entries())
+    {
+        if (vehicle.focus)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 function HasOneTireCompound(vehicle)
 {
     if (vehicle.tire_compound == null)

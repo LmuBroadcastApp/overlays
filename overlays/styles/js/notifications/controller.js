@@ -62,9 +62,6 @@ class NotificationController
         let race_winner = this.notifications?.race_winner ?? true;
         let track_limits = this.notifications?.track_limits ?? false;
 
-        let impact_threshold = this.notifications?.impact_threshold ?? 500;
-        let duration = this.notifications?.duration_sec * 1000 ?? 5000;
-
         if (fast_lap && this.standings_curr)
         {
             let list = this.standings_curr.filter((vehicle) => vehicle.best_lap > 0);
@@ -193,6 +190,8 @@ class NotificationController
 
     _incidents(curr, prev)
     {
+        let impact_threshold = this.notifications?.impact_threshold ?? 500;
+
         if (curr.impact.et > prev.impact.et && curr.impact.points > impact_threshold)
         {
             let msg =

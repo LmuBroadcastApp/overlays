@@ -54,6 +54,10 @@
     --replay-banner-position-left: 1rem; /** Position from the left of the screen */
     --replay-banner-position-top: 1rem;  /** Position from the top of the screen */
 
+    /** Battle panel */
+    --battle-panel-position-bottom: 1rem;   /** Position from the bottom of the screen */
+    --battle-panel-position-left: 45rem;    /** Position from the left of the screen */
+
     /** Telemetry */
     --telemetry-gauge-size: 60px;
     --telemetry-text-scale: calc(var(--telemetry-gauge-size) * 0.35);
