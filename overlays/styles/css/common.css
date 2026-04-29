@@ -144,4 +144,11 @@ img
     color: rgb(244, 96, 54);
 }
 
+.overflow-hidden
+{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /**********************************************************************************************************************/

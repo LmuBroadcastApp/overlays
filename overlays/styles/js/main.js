@@ -1,7 +1,12 @@
+let g_ReplayActive = false;
+
 function ToggleOverlayByReplay(stateManager)
 {
     let active = stateManager.getState("session")?.replayActive;
     active = active === undefined ? false : active;
+
+    if (g_ReplayActive == active) return;
+    g_ReplayActive = active;
 
     let speed = stateManager.getState("controls")?.overlay_animation_speed;
     speed = isNaN(speed) ? 0 : speed * 1000;
@@ -133,8 +138,8 @@ const webSocketWrapper = new WebSocketWrapper(`ws://${window.location.hostname}:
 webSocketWrapper.setCallback(callBacks);
 
 // Register panels
-panelRegistry.register('battle', BattlePanel, '#battle-panel');
 panelRegistry.register('tower', TowerPanel, '#tower-panel');
+panelRegistry.register('battle', BattlePanel, '#battle-panel');
 panelRegistry.register('driver', DriverPanel, '#driver-panel');
 panelRegistry.register('map', TrackMapPanel, '#track-map-panel');
 panelRegistry.register('session', SessionPanel, '#session-panel');

@@ -11,45 +11,52 @@
     color: white;
 }
 
-.battle-header
+#battle-panel .battle-header
 {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 5px 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+
+    letter-spacing: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
-.battle-table
+#battle-panel .battle-table
 {
+    background-color: rgba(0, 0, 0, 0.6);
     border-collapse: separate;
     border-spacing: 0;
-    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.battle-table td
+#battle-panel .battle-table td
 {
-    padding: 5px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
+
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
-.battle-position
+#battle-panel .battle-position
 {
     width: var(--standings-panel-col-02-width);
-    background-color: var(--standings-panel-primary-color);
+    text-align: left !important;
     font-weight: 700;
 }
 
-.battle-driver
+#battle-panel .battle-driver
 {
     width: var(--standings-panel-col-03-width);
-    background-color: var(--standings-panel-primary-color);
     text-align: left !important;
-    padding-left: 10px !important;
+
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
-.battle-driver-text
+#battle-panel .battle-driver-text
 {
     width: var(--standings-panel-col-03-width);
     text-overflow: ellipsis;
@@ -58,40 +65,27 @@
     display: block;
 }
 
-.battle-logo
+#battle-panel .battle-logo
 {
-    width: var(--standings-panel-col-04-width);
-    background-color: var(--standings-panel-primary-color);
+    width: var(--weather-panel-img-width);
 }
 
-.battle-number
+#battle-panel .battle-number
 {
-    width: var(--standings-panel-col-05-width);
-    background-color: var(--standings-panel-primary-color);
     font-weight: 700;
+    width: 48px;
 }
 
-.battle-gap
+#battle-panel .battle-gap
 {
-    width: var(--standings-panel-col-06-width);
-    background-color: var(--standings-panel-secondary-color);
     font-weight: 600;
+    width: 64px;
 }
 
-.battle-gap.very-close
+#battle-panel .battle-class
 {
-    color: var(--standings-panel-gap-less-1-color);
-}
-
-.battle-gap.close
-{
-    color: var(--standings-panel-gap-less-2-color);
-}
-
-.battle-class
-{
-    width: var(--standings-panel-col-07-width);
     text-align: center;
     font-weight: 600;
-    font-size: 0.9em;
+    display: block;
+    width: 64px;
 }
