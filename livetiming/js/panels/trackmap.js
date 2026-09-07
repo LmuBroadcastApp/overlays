@@ -25,13 +25,15 @@ class WorldMapPanel
         }
 
         this.stateManager.subscribe(this.handleStateChange.bind(this));
-        this.standings = this.stateManager.getState('standings');
-        this.map = this.stateManager.getState('map');
-        this.session = this.stateManager.getState('session');
-        this.splineOffset = null;
-
-        this.visible = true;
         this.checkbox = document.querySelector('#show-track-map');
+
+        this.standings = this.stateManager.getState('standings');
+        this.session = this.stateManager.getState('session');
+        this.map = this.stateManager.getState('map');
+
+        this.splineOffset = null;
+        this.visible = true;
+        this.scale = 1;
 
         if (this.checkbox)
         {
@@ -40,23 +42,17 @@ class WorldMapPanel
             this.applyVisibility(this.checkbox.checked);
         }
 
-        this.scale = 1;
-        this.scaleInput = document.querySelector('#track-map-scale');
-        this.scaleValue = document.querySelector('#track-map-scale-value');
-
-        if (this.scaleInput)
+        window.addEventListener('keydown', (e) =>
         {
-            this.scaleHandler = () =>
+            if (e.key== '+')
             {
-                this.scale = this.scaleInput.valueAsNumber / 100;
-                if (this.scaleValue)
-                {
-                    this.scaleValue.textContent = this.scaleInput.value + '%';
-                }
-            };
-            this.scaleHandler();
-            this.scaleInput.addEventListener('input', this.scaleHandler);
-        }
+                this.scale += 0.1;
+            }
+            else if (e.key== '-')
+            {
+                this.scale = Math.max(1,  this.scale -0.1);
+            }
+        });
     }
 
     /**
@@ -672,11 +668,6 @@ class WorldMapPanel
         if (this.checkbox && this.checkboxHandler)
         {
             this.checkbox.removeEventListener('change', this.checkboxHandler);
-        }
-
-        if (this.scaleInput && this.scaleHandler)
-        {
-            this.scaleInput.removeEventListener('input', this.scaleHandler);
         }
     }
 }
